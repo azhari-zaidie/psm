@@ -1,0 +1,49 @@
+// ignore_for_file: non_constant_identifier_names
+
+class Makro {
+  int? makro_id;
+  String? makro_name;
+  String? makro_desc;
+  String? makro_image;
+  int? family_id;
+  double? makro_mark;
+
+  Makro({
+    this.makro_id,
+    this.makro_name,
+    this.makro_desc,
+    this.makro_image,
+    this.family_id,
+    this.makro_mark,
+  });
+
+  factory Makro.fromJson(Map<String, dynamic> json) => Makro(
+        makro_id: int.parse(json["makro_id"]),
+        makro_name: json["makro_name"],
+        makro_desc: json["makro_desc"],
+        makro_image: json["makro_image"],
+        family_id: int.parse(json["family_id"]),
+        makro_mark: double.parse(json["makro_mark"]),
+      );
+}
+
+class FamilyMakro {
+  int? family_id;
+  String? family_name;
+  String? family_desc;
+  String? family_image;
+
+  FamilyMakro({
+    this.family_id,
+    this.family_name,
+    this.family_desc,
+    this.family_image,
+  });
+
+  factory FamilyMakro.fromJson(Map<String, dynamic> json) => FamilyMakro(
+        family_id: int.parse(json["family_id"]),
+        family_name: json["family_name"],
+        family_desc: json["family_desc"],
+        family_image: json["family_image"],
+      );
+}
