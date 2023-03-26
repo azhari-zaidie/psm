@@ -20,7 +20,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'UjiMakro',
+      title: 'UjiMakro1',
       theme: ThemeData(
         brightness: Brightness.light,
       ),
