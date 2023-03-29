@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:psm_v2/api_connection/api_connection.dart';
+import 'package:psm_v2/api_connection/api_connection_laravel.dart';
+//import 'package:psm_v2/api_connection/api_connection.dart';
 import 'package:psm_v2/user/model/record.dart';
 
 class RecordDetailsScreen extends StatefulWidget {
@@ -87,7 +88,7 @@ class _RecordDetailsScreenState extends State<RecordDetailsScreen> {
           child: ListTile(
             leading: CircleAvatar(
               backgroundImage: NetworkImage(
-                API.hostImageMakro + makroInfo["makro_image"],
+                APILARAVEL.readMakroImage + makroInfo["makro_image"],
               ),
             ),
             title: Text(

@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:psm_v2/api_connection/api_connection.dart';
+//import 'package:psm_v2/api_connection/api_connection.dart';
+import 'package:psm_v2/api_connection/api_connection_laravel.dart';
 import 'package:psm_v2/user/controller/makro_details_controller.dart';
 import 'package:psm_v2/user/model/makro.dart';
 import 'package:http/http.dart' as http;
@@ -29,7 +30,7 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
 
   validateFavorite() async {
     try {
-      var res = await http.post(Uri.parse(API.validateFavorite), body: {
+      var res = await http.post(Uri.parse(APILARAVEL.validateFavorite), body: {
         "user_id": _currentUser.user.user_id.toString(),
         "makro_id": widget.makroInfo!.makro_id.toString(),
       });
@@ -38,8 +39,10 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
         var responseBodyOfValidateFavorite = jsonDecode(res.body);
 
         if (responseBodyOfValidateFavorite["favoriteFound"] == true) {
+          print("ada");
           makroDetailsController.setIsFavorite(true);
         } else {
+          print("tiada");
           makroDetailsController.setIsFavorite(false);
         }
       }
@@ -50,7 +53,7 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
 
   addMakroToFavorite() async {
     try {
-      var res = await http.post(Uri.parse(API.addToFavorite), body: {
+      var res = await http.post(Uri.parse(APILARAVEL.addFavorite), body: {
         "user_id": _currentUser.user.user_id.toString(),
         "makro_id": widget.makroInfo!.makro_id.toString(),
       });
@@ -72,7 +75,7 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
 
   deleteFromFavorite() async {
     try {
-      var res = await http.post(Uri.parse(API.delteToFavorite), body: {
+      var res = await http.post(Uri.parse(APILARAVEL.deleteFavorite), body: {
         "user_id": _currentUser.user.user_id.toString(),
         "makro_id": widget.makroInfo!.makro_id.toString(),
       });
@@ -86,6 +89,8 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
           Fluttertoast.showToast(
               msg: "Error occured: Item not delete from Favorite. Try Again.");
         }
+      } else {
+        print(APILARAVEL.deleteFavorite);
       }
     } catch (e) {
       print("Error :: $e");
@@ -97,10 +102,11 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
 
     try {
       var res = await http.post(
-        Uri.parse(API.readMakroDetails),
-        body: {
-          "makro_id": widget.makroInfo!.makro_id.toString(),
-        },
+        Uri.parse(APILARAVEL.readMakroDetails +
+            widget.makroInfo!.makro_id.toString()),
+        //body: {
+        //"makro_id": widget.makroInfo!.makro_id.toString(),
+        //},
       );
 
       if (res.statusCode == 200) {
@@ -314,7 +320,8 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
                     placeholder: const AssetImage("images/profile_icon.png"),
                     //image: AssetImage("images/place_holder.png"),
                     image: NetworkImage(
-                      API.hostImageMakro + widget.makroInfo!.makro_image!,
+                      APILARAVEL.readMakroImage +
+                          widget.makroInfo!.makro_image!,
                     ),
                     imageErrorBuilder: (context, error, stackTraceError) {
                       return const Center(
@@ -333,6 +340,7 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
             ),
             //details
             Text(
+              //API.hostImageMakro + widget.makroInfo!.makro_image!,
               "About the ${widget.makroInfo!.makro_name!}",
               textAlign: TextAlign.start,
               style: const TextStyle(
@@ -518,7 +526,7 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
                                     const AssetImage("images/profile_icon.png"),
                                 //image: AssetImage("images/place_holder.png"),
                                 image: NetworkImage(
-                                  API.hostImageMakro +
+                                  APILARAVEL.readMakroImage +
                                       eachFamilyFound.makro_image!,
                                 ),
                                 imageErrorBuilder:

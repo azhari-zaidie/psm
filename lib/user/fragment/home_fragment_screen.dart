@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:psm_v2/api_connection/api_connection.dart';
+import 'package:psm_v2/api_connection/api_connection_laravel.dart';
 import 'package:psm_v2/user/model/news.dart';
 import 'package:psm_v2/user/userPreferences/current_user.dart';
 import 'package:http/http.dart' as http;
@@ -22,8 +23,8 @@ class _HomeFragmentScreenState extends State<HomeFragmentScreen> {
   Future<List<News>> getAllNews() async {
     List<News> allNewsList = [];
     try {
-      var res = await http.post(
-        Uri.parse(API.readNews),
+      var res = await http.get(
+        Uri.parse(APILARAVEL.readNews),
       );
 
       if (res.statusCode == 200) {
@@ -213,8 +214,9 @@ class _HomeFragmentScreenState extends State<HomeFragmentScreen> {
                               ),
                               //title and desc
                               Text(
-                                eachNewsRecord.news_desc!,
-                                maxLines: 2,
+                                APILARAVEL.readNewsImage +
+                                    eachNewsRecord.main_image!,
+                                maxLines: 3,
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
                                   fontSize: 15,
@@ -237,7 +239,8 @@ class _HomeFragmentScreenState extends State<HomeFragmentScreen> {
                               const AssetImage("images/profile_icon.png"),
                           //image: AssetImage("images/place_holder.png"),
                           image: NetworkImage(
-                            API.hostImageNews + eachNewsRecord.main_image!,
+                            APILARAVEL.readNewsImage +
+                                eachNewsRecord.main_image!,
                           ),
                           imageErrorBuilder: (context, error, stackTraceError) {
                             return const Center(

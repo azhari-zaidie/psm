@@ -14,9 +14,9 @@ class News {
   });
 
   factory News.fromJson(Map<String, dynamic> json) => News(
-        news_id: int.parse(json["news_id"]),
+        news_id: json["news_id"],
         news_title: json["news_title"],
         news_desc: json["news_desc"],
-        main_image: json["main_image"],
+        main_image: json["news_image"],
       );
 }

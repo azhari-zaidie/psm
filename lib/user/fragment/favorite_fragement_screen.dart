@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:psm_v2/api_connection/api_connection.dart';
+//import 'package:psm_v2/api_connection/api_connection.dart';
+import 'package:psm_v2/api_connection/api_connection_laravel.dart';
 import 'package:psm_v2/user/makro/makro_details_screen.dart';
 import 'package:psm_v2/user/model/favorite.dart';
 import 'package:psm_v2/user/model/makro.dart';
@@ -19,9 +20,11 @@ class FavoriteFragmentScreen extends StatelessWidget {
     List<Favorite> currentUserFavorite = [];
 
     try {
-      var res = await http.post(Uri.parse(API.readFavorite), body: {
-        "user_id": _currentUser.user.user_id.toString(),
-      });
+      var res = await http.get(
+        Uri.parse(
+          APILARAVEL.readFavorite + _currentUser.user.user_id.toString(),
+        ),
+      );
 
       if (res.statusCode == 200) {
         var responseBodyOfReadCurrentUserFavorite = jsonDecode(res.body);
@@ -33,8 +36,12 @@ class FavoriteFragmentScreen extends StatelessWidget {
             currentUserFavorite
                 .add(Favorite.fromJson(eachCurrentUserFavoriteItem));
           });
+        } else {
+          print("sini");
         }
       } else {
+        print(res.body);
+        print(currentUserFavorite);
         Fluttertoast.showToast(msg: "Error :: Status code is not 200");
       }
     } catch (e) {
@@ -205,7 +212,7 @@ class FavoriteFragmentScreen extends StatelessWidget {
                                   const AssetImage("images/profile_icon.png"),
                               //image: AssetImage("images/place_holder.png"),
                               image: NetworkImage(
-                                API.hostImageMakro +
+                                APILARAVEL.readMakroImage +
                                     eachFavoriteFound.makro_image!,
                               ),
                               imageErrorBuilder:

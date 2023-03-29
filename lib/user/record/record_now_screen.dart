@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:psm_v2/api_connection/api_connection.dart';
+//import 'package:psm_v2/api_connection/api_connection.dart';
+import 'package:psm_v2/api_connection/api_connection_laravel.dart';
 import 'package:psm_v2/user/controller/water_test_controller.dart';
 import 'package:psm_v2/user/fragment/dashboard_fragment_screen.dart';
 import 'package:psm_v2/user/fragment/home_fragment_screen.dart';
@@ -33,17 +34,21 @@ class RecordNowScreen extends StatelessWidget {
         .join("||");
 
     Record record = Record(
-      record_id: 1,
       selected_makro: selectedMakroString,
       user_id: currentUser.user.user_id,
-      record_date: DateTime.now(),
       record_average: totalMark,
     );
 
+    Map<String, dynamic> data = {
+      'selected_record': "selectedMakroString",
+      'user_id': 18,
+      'record_average': 4.5,
+    };
+
     try {
       var res = await http.post(
-        Uri.parse(API.addRecord),
-        body: record.toJsonn(),
+        Uri.parse(APILARAVEL.addRecord),
+        body: record.toJson(),
       );
 
       if (res.statusCode == 200) {
@@ -52,7 +57,13 @@ class RecordNowScreen extends StatelessWidget {
         if (responseBodyOfAddNewRecord["success"] == true) {
           Fluttertoast.showToast(msg: "Success");
           Get.to(DasboardFragmentScreen());
+          print(record.toJson());
+        } else {
+          print("Error ::");
         }
+      } else {
+        print(res.body);
+        //print(json.encode(data));
       }
     } catch (e) {
       print("Error :: $e");
@@ -122,7 +133,8 @@ class RecordNowScreen extends StatelessWidget {
                   child: ListTile(
                     leading: CircleAvatar(
                       backgroundImage: NetworkImage(
-                        API.hostImageMakro + eachSelectedMakro["makro_image"],
+                        APILARAVEL.readMakroImage +
+                            eachSelectedMakro["makro_image"],
                       ),
                     ),
                     title: Text(

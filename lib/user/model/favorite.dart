@@ -6,7 +6,7 @@ class Favorite {
   String? makro_desc;
   String? makro_image;
   int? family_id;
-  double? makro_mark;
+  int? makro_mark;
 
   Favorite({
     this.favorite_id,
@@ -20,13 +20,13 @@ class Favorite {
   });
 
   factory Favorite.fromJson(Map<String, dynamic> json) => Favorite(
-        favorite_id: int.parse(json["favorite_id"]),
-        user_id: int.parse(json["user_id"]),
-        makro_id: int.parse(json["makro_id"]),
+        favorite_id: json["favorite_id"],
+        user_id: json["user_id"],
+        makro_id: json["makro_id"],
         makro_name: json["makro_name"],
         makro_desc: json["makro_desc"],
         makro_image: json["makro_image"],
-        family_id: int.parse(json["family_id"]),
-        makro_mark: double.parse(json['makro_mark']),
+        family_id: json["family_id"],
+        makro_mark: json['makro_mark'],
       );
 }

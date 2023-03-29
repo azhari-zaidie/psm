@@ -5,7 +5,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:psm_v2/api_connection/api_connection.dart';
+//import 'package:psm_v2/api_connection/api_connection.dart';
+import 'package:psm_v2/api_connection/api_connection_laravel.dart';
 import 'package:psm_v2/user/makro/family_makro_details_screen.dart';
 import 'package:psm_v2/user/model/makro.dart';
 import 'package:http/http.dart' as http;
@@ -16,14 +17,14 @@ class LearningFragmentScreen extends StatelessWidget {
   Future<List<FamilyMakro>> readFamilyMakro() async {
     List<FamilyMakro> familyMakroList = [];
     try {
-      var res = await http.post(
-        Uri.parse(API.readMakroFamily),
+      var res = await http.get(
+        Uri.parse(APILARAVEL.readFamilyMakro),
       );
 
       if (res.statusCode == 200) {
         var responseOfAllFamilyMakro = jsonDecode(res.body);
         if (responseOfAllFamilyMakro["success"]) {
-          (responseOfAllFamilyMakro["makroData"] as List)
+          (responseOfAllFamilyMakro["familyMakroData"] as List)
               .forEach((eachFamilyMakro) {
             familyMakroList.add(FamilyMakro.fromJson(eachFamilyMakro));
           });
@@ -147,7 +148,7 @@ class LearningFragmentScreen extends StatelessWidget {
                               const AssetImage("images/profile_icon.png"),
                           //image: AssetImage("images/place_holder.png"),
                           image: NetworkImage(
-                            API.hostImageFamilyMakro +
+                            APILARAVEL.readFamilyMakroImage +
                                 eachFamilyFound.family_image!,
                           ),
                           imageErrorBuilder: (context, error, stackTraceError) {

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:psm_v2/api_connection/api_connection.dart';
+import 'package:psm_v2/api_connection/api_connection_laravel.dart';
 import 'package:psm_v2/user/fragment/dashboard_fragment_screen.dart';
 import 'package:psm_v2/user/fragment/home_fragment_screen.dart';
 import 'package:psm_v2/user/fragment/learning_fragment_screen.dart';
@@ -27,9 +28,9 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
     List<Record> currentRecordUser = [];
 
     try {
-      var res = await http.post(Uri.parse(API.readRecord), body: {
-        "user_id": currentUser.user.user_id.toString(),
-      });
+      var res = await http.get(Uri.parse(
+        APILARAVEL.readRecord + "18",
+      ));
 
       if (res.statusCode == 200) {
         var responseBodyOfGetRecord = jsonDecode(res.body);
@@ -39,10 +40,14 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
               .forEach((eachCurrentRecordUser) {
             currentRecordUser.add(Record.fromJson(eachCurrentRecordUser));
           });
+          //print(jsonDecode(res.body));
         }
+      } else {
+        print(res.statusCode);
       }
     } catch (e) {
-      print("Error $e");
+      print("error :: $e");
+      //print(currentRecordUser);
     }
 
     return currentRecordUser;
@@ -214,7 +219,7 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
                             //date
                             Text(
                               DateFormat("dd MMMM, yyyy")
-                                  .format(eachRecordData.record_date!),
+                                  .format(eachRecordData.created_at!),
                               style: const TextStyle(
                                 color: Colors.black,
                               ),
@@ -227,7 +232,7 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
                             //time
                             Text(
                               DateFormat("hh:mm a")
-                                  .format(eachRecordData.record_date!),
+                                  .format(eachRecordData.created_at!),
                               style: const TextStyle(
                                 color: Colors.black,
                               ),

@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:psm_v2/api_connection/api_connection.dart';
+//import 'package:psm_v2/api_connection/api_connection.dart';
+import 'package:psm_v2/api_connection/api_connection_laravel.dart';
 import 'package:psm_v2/user/controller/water_test_controller.dart';
 import 'package:psm_v2/user/makro/makro_details_screen.dart';
 import 'package:psm_v2/user/model/makro.dart';
@@ -24,8 +25,8 @@ class _WaterQualityScreenState extends State<WaterQualityScreen> {
   getAllMakro() async {
     List<Makro> readAllMakro = [];
     try {
-      var res = await http.post(
-        Uri.parse(API.readMakro),
+      var res = await http.get(
+        Uri.parse(APILARAVEL.readMakro),
       );
 
       if (res.statusCode == 200) {
@@ -137,7 +138,7 @@ class _WaterQualityScreenState extends State<WaterQualityScreen> {
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
                                           image: NetworkImage(
-                                              API.hostImageMakro +
+                                              APILARAVEL.readMakroImage +
                                                   makroModel.makro_image!),
                                           fit: BoxFit.fill,
                                         ),
@@ -184,8 +185,9 @@ class _WaterQualityScreenState extends State<WaterQualityScreen> {
                                   height: 100,
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                      image: NetworkImage(API.hostImageMakro +
-                                          makroModel.makro_image!),
+                                      image: NetworkImage(
+                                          APILARAVEL.readMakroImage +
+                                              makroModel.makro_image!),
                                       fit: BoxFit.cover,
                                     ),
                                   ),

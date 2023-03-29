@@ -6,7 +6,7 @@ class Makro {
   String? makro_desc;
   String? makro_image;
   int? family_id;
-  double? makro_mark;
+  int? makro_mark;
 
   Makro({
     this.makro_id,
@@ -18,12 +18,12 @@ class Makro {
   });
 
   factory Makro.fromJson(Map<String, dynamic> json) => Makro(
-        makro_id: int.parse(json["makro_id"]),
+        makro_id: json["makro_id"],
         makro_name: json["makro_name"],
         makro_desc: json["makro_desc"],
         makro_image: json["makro_image"],
-        family_id: int.parse(json["family_id"]),
-        makro_mark: double.parse(json["makro_mark"]),
+        family_id: json["family_id"],
+        makro_mark: json["makro_mark"],
       );
 }
 
@@ -41,7 +41,7 @@ class FamilyMakro {
   });
 
   factory FamilyMakro.fromJson(Map<String, dynamic> json) => FamilyMakro(
-        family_id: int.parse(json["family_id"]),
+        family_id: json["family_id"],
         family_name: json["family_name"],
         family_desc: json["family_desc"],
         family_image: json["family_image"],

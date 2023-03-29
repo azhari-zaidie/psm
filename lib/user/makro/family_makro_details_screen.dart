@@ -4,7 +4,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:psm_v2/api_connection/api_connection.dart';
+//import 'package:psm_v2/api_connection/api_connection.dart';
+import 'package:psm_v2/api_connection/api_connection_laravel.dart';
 import 'package:psm_v2/user/makro/makro_details_screen.dart';
 import 'package:psm_v2/user/model/makro.dart';
 import 'package:http/http.dart' as http;
@@ -26,26 +27,27 @@ class _FamilyMakroDetailsScreenState extends State<FamilyMakroDetailsScreen> {
     List<Makro> detailsFamilyMakro = [];
 
     try {
-      var res = await http.post(
-        Uri.parse(API.readMakroFamilyDetails),
-        body: {
-          "family_id": widget.familyInfo!.family_id.toString(),
-        },
+      var res = await http.get(
+        Uri.parse(
+            APILARAVEL.readMakroList + widget.familyInfo!.family_id.toString()),
+        //body: {
+        //'family_id': widget.familyInfo!.family_id.toString(),
+        //},
       );
 
       if (res.statusCode == 200) {
         var responseOfDetailsFamilyMakro = jsonDecode(res.body);
         if (responseOfDetailsFamilyMakro["success"] == true) {
-          (responseOfDetailsFamilyMakro["makroDetailsData"] as List)
+          (responseOfDetailsFamilyMakro["makroListData"] as List)
               .forEach((eachDetailsMakro) {
             detailsFamilyMakro.add(Makro.fromJson(eachDetailsMakro));
           });
         }
       } else {
-        print("test");
+        print(res.body);
       }
     } catch (e) {
-      print("Error :: $e");
+      print(e);
     }
 
     return detailsFamilyMakro;
@@ -224,7 +226,7 @@ class _FamilyMakroDetailsScreenState extends State<FamilyMakroDetailsScreen> {
                     placeholder: const AssetImage("images/profile_icon.png"),
                     //image: AssetImage("images/place_holder.png"),
                     image: NetworkImage(
-                      API.hostImageFamilyMakro +
+                      APILARAVEL.readFamilyMakroImage +
                           widget.familyInfo!.family_image!,
                     ),
                     imageErrorBuilder: (context, error, stackTraceError) {
@@ -398,7 +400,7 @@ class _FamilyMakroDetailsScreenState extends State<FamilyMakroDetailsScreen> {
                                     const AssetImage("images/profile_icon.png"),
                                 //image: AssetImage("images/place_holder.png"),
                                 image: NetworkImage(
-                                  API.hostImageMakro +
+                                  APILARAVEL.readMakroImage +
                                       eachFamilyFound.makro_image!,
                                 ),
                                 imageErrorBuilder:
