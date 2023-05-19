@@ -29,7 +29,7 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
 
     try {
       var res = await http.get(Uri.parse(
-        APILARAVEL.readRecord + "18",
+        APILARAVEL.readRecord + currentUser.user.user_id.toString(),
       ));
 
       if (res.statusCode == 200) {
