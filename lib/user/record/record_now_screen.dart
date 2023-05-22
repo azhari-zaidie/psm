@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
+//import 'package:geocoding/geocoding.dart';
+// 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 //import 'package:psm_v2/api_connection/api_connection.dart';
 import 'package:psm_v2/api_connection/api_connection_laravel.dart';
@@ -50,11 +50,11 @@ class RecordNowScreen extends StatelessWidget {
       longitude: longitude,
     );
 
-    Map<String, dynamic> data = {
-      'selected_record': "selectedMakroString",
-      'user_id': 18,
-      'record_average': 4.5,
-    };
+    // Map<String, dynamic> data = {
+    //   'selected_record': "selectedMakroString",
+    //   'user_id': 18,
+    //   'record_average': 4.5,
+    // };
 
     try {
       var res = await http.post(
