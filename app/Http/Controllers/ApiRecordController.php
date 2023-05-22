@@ -35,12 +35,18 @@ class ApiRecordController extends Controller
             'selected_makro' => 'required',
             'user_id' => 'required|exists:users,user_id',
             'record_average' => 'required|numeric',
+            'location' => 'required',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
         ]);
 
         $record = Record::create([
             'selected_makro' => $request->selected_makro,
             'user_id' => $request->user_id,
             'record_average' => $request->record_average,
+            'location' => $request->location,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
         ]);
 
         return response()->json([

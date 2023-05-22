@@ -13,12 +13,17 @@ class Record extends Model
     protected $primaryKey = 'record_id';
 
     protected $casts = [
-        'average_mark' => 'double'
+        'average_mark' => 'double',
+        'latitude' => 'double',
+        'longitude' => 'double',
     ];
     protected $fillable = [
         'selected_makro',
         'user_id',
         'record_average',
+        'location',
+        'latitude',
+        'longitude',
     ];
 
     public function user()
