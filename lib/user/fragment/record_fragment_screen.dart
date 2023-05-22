@@ -3,12 +3,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:psm_v2/api_connection/api_connection.dart';
+//import 'package:psm_v2/api_connection/api_connection.dart';
 import 'package:psm_v2/api_connection/api_connection_laravel.dart';
-import 'package:psm_v2/user/fragment/dashboard_fragment_screen.dart';
-import 'package:psm_v2/user/fragment/home_fragment_screen.dart';
-import 'package:psm_v2/user/fragment/learning_fragment_screen.dart';
+//import 'package:psm_v2/user/fragment/dashboard_fragment_screen.dart';
+//import 'package:psm_v2/user/fragment/home_fragment_screen.dart';
+//import 'package:psm_v2/user/fragment/learning_fragment_screen.dart';
 import 'package:psm_v2/user/model/record.dart';
+import 'package:psm_v2/user/quality/water_details_screen.dart';
 import 'package:psm_v2/user/quality/water_quality_screen.dart';
 import 'package:psm_v2/user/record/record_details_screen.dart';
 import 'package:psm_v2/user/userPreferences/current_user.dart';
@@ -60,6 +61,32 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
         centerTitle: true,
+        leading: IconButton(
+          onPressed: () async {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text('Hint'),
+                  content: Text(
+                      'This is record screen that will display all the record that already submitted. Click `+` if want to add new record.'),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('Close'),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+          icon: const Icon(
+            Icons.question_mark_sharp,
+            color: Colors.black,
+          ),
+        ),
         title: const Text(
           "History Record",
           style: TextStyle(
@@ -73,6 +100,15 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
             },
             icon: const Icon(
               Icons.add,
+              color: Colors.black,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              Get.to(() => LocationPage());
+            },
+            icon: const Icon(
+              Icons.telegram,
               color: Colors.black,
             ),
           ),
@@ -122,9 +158,9 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
       future: getCurrentRecordUser(),
       builder: (context, AsyncSnapshot<List<Record>> dataSnapShot) {
         if (dataSnapShot.connectionState == ConnectionState.waiting) {
-          return Column(
+          return const Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
+            children: [
               Center(
                 child: Text(
                   "Connection Waiting...",
@@ -141,12 +177,12 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
         }
 
         if (dataSnapShot.data == null) {
-          return Column(
+          return const Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
+            children: [
               Center(
                 child: Text(
-                  "No record found yet...",
+                  "Finding the record...",
                   style: TextStyle(
                     color: Colors.grey,
                   ),
@@ -205,6 +241,14 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                        Text(
+                          "Location: ${eachRecordData.location}",
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
                     trailing: Row(
@@ -256,9 +300,9 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
             },
           );
         } else {
-          return Column(
+          return const Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
+            children: [
               Center(
                 child: Text(
                   "No Record Yet...",
@@ -267,11 +311,8 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
                   ),
                 ),
               ),
-              const SizedBox(
+              SizedBox(
                 height: 10,
-              ),
-              Center(
-                child: CircularProgressIndicator(),
               ),
             ],
           );

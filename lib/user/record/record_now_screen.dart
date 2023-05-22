@@ -2,13 +2,15 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 //import 'package:psm_v2/api_connection/api_connection.dart';
 import 'package:psm_v2/api_connection/api_connection_laravel.dart';
 import 'package:psm_v2/user/controller/water_test_controller.dart';
 import 'package:psm_v2/user/fragment/dashboard_fragment_screen.dart';
-import 'package:psm_v2/user/fragment/home_fragment_screen.dart';
-import 'package:psm_v2/user/fragment/record_fragment_screen.dart';
+//import 'package:psm_v2/user/fragment/home_fragment_screen.dart';
+//import 'package:psm_v2/user/fragment/record_fragment_screen.dart';
 import 'package:psm_v2/user/model/record.dart';
 import 'package:psm_v2/user/userPreferences/current_user.dart';
 import 'package:http/http.dart' as http;
@@ -17,6 +19,9 @@ class RecordNowScreen extends StatelessWidget {
   final List<Map<String, dynamic>>? selectedMakroListInfo;
   final double? totalMark;
   final List<int>? selectedMakroID;
+  final double? latitude;
+  final double? longitude;
+  final String? currentAddress;
 
   CurrentUser currentUser = Get.put(CurrentUser());
   WaterTestController makroController = Get.put(WaterTestController());
@@ -25,6 +30,9 @@ class RecordNowScreen extends StatelessWidget {
     this.selectedMakroListInfo,
     this.totalMark,
     this.selectedMakroID,
+    this.latitude,
+    this.longitude,
+    this.currentAddress,
   });
 
   saveRecordMakro() async {
@@ -37,6 +45,9 @@ class RecordNowScreen extends StatelessWidget {
       selected_makro: selectedMakroString,
       user_id: currentUser.user.user_id,
       record_average: totalMark,
+      location: currentAddress,
+      latitude: latitude,
+      longitude: longitude,
     );
 
     Map<String, dynamic> data = {
@@ -105,6 +116,22 @@ class RecordNowScreen extends StatelessWidget {
                   ),
                   Text(
                     totalMark!.toStringAsFixed(2),
+                    style: const TextStyle(
+                      fontSize: 25,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    'LAT: $latitude '
+                    'LGT: $longitude',
+                    style: const TextStyle(
+                      fontSize: 25,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    '$currentAddress',
+                    textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 25,
                       color: Colors.white,

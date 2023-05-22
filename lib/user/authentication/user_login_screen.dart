@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:psm_v2/api_connection/api_connection.dart';
+//import 'package:psm_v2/api_connection/api_connection.dart';
 import 'package:psm_v2/api_connection/api_connection_laravel.dart';
 import 'package:psm_v2/user/authentication/user_signup_screen.dart';
 import 'package:http/http.dart' as http;

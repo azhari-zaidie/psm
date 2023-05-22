@@ -6,6 +6,9 @@ class Record {
   int? user_id;
   DateTime? created_at;
   double? record_average;
+  String? location;
+  double? latitude;
+  double? longitude;
 
   Record({
     this.record_id,
@@ -13,6 +16,9 @@ class Record {
     this.user_id,
     this.created_at,
     this.record_average,
+    this.location,
+    this.latitude,
+    this.longitude,
   });
 
   factory Record.fromJson(Map<String, dynamic> json) => Record(
@@ -21,11 +27,17 @@ class Record {
         user_id: json["user_id"],
         created_at: DateTime.parse(json["created_at"]),
         record_average: double.parse(json["record_average"]),
+        location: json["location"],
+        latitude: json["latitude"],
+        longitude: json["longitude"],
       );
 
   Map<String, dynamic> toJson() => {
         "selected_makro": selected_makro,
         "user_id": user_id.toString(),
         "record_average": record_average!.toStringAsFixed(2),
+        "location": location,
+        "latitude": latitude!.toString(),
+        "longitude": longitude!.toString(),
       };
 }

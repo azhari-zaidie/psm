@@ -14,7 +14,11 @@ import 'package:psm_v2/user/model/makro.dart';
 import 'package:psm_v2/user/record/record_now_screen.dart';
 
 class WaterQualityScreen extends StatefulWidget {
-  const WaterQualityScreen({super.key});
+  const WaterQualityScreen(
+      {super.key, this.latitude, this.longitude, this.currentLocation});
+  final double? latitude;
+  final double? longitude;
+  final String? currentLocation;
 
   @override
   State<WaterQualityScreen> createState() => _WaterQualityScreenState();
@@ -108,6 +112,34 @@ class _WaterQualityScreenState extends State<WaterQualityScreen> {
             color: Colors.black,
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('Hint'),
+                    content: const Text(
+                        'The formula of the calculation is "Sum of every score selected macro divide total selected macro"'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('Close'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            icon: const Icon(
+              Icons.question_mark,
+              color: Colors.black,
+            ),
+          )
+        ],
       ),
       body: Obx(
         () => makroController.makroList.length > 0
@@ -252,6 +284,9 @@ class _WaterQualityScreenState extends State<WaterQualityScreen> {
                                 getSelectedMakroListInformation(),
                             selectedMakroID: makroController.selectedMakroList,
                             totalMark: makroController.total,
+                            latitude: widget.latitude,
+                            longitude: widget.longitude,
+                            currentAddress: widget.currentLocation,
                           ));
                         } else {
                           Fluttertoast.showToast(msg: "Select the Makro");

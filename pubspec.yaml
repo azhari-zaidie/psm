@@ -41,6 +41,8 @@ dependencies:
   shared_preferences: ^2.0.18
   flutter_rating_bar: ^4.0.1
   intl: ^0.18.0
+  geolocator: ^9.0.2
+  geocoding: ^2.1.0
 
 dev_dependencies:
   flutter_test:

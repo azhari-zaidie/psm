@@ -4,7 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:psm_v2/api_connection/api_connection.dart';
+//import 'package:psm_v2/api_connection/api_connection.dart';
 import 'package:psm_v2/api_connection/api_connection_laravel.dart';
 import 'package:psm_v2/user/model/news.dart';
 import 'package:psm_v2/user/userPreferences/current_user.dart';
@@ -98,13 +98,13 @@ class _HomeFragmentScreenState extends State<HomeFragmentScreen> {
                   ),
                 ],
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
+              child: const Padding(
+                padding: EdgeInsets.all(10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
-                      "About Us",
+                      "About this Apps",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -112,7 +112,7 @@ class _HomeFragmentScreenState extends State<HomeFragmentScreen> {
                     ),
                     Text(
                       textAlign: TextAlign.justify,
-                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printe",
+                      "This apps is a Water quality test based on Macroinvertebrate. This apps also allow user learn the type of Macroinvertebrates.",
                       style: TextStyle(
                         fontSize: 15,
                       ),
