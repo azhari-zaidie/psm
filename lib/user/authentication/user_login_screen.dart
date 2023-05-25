@@ -26,10 +26,19 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
 
   loginUserNow() async {
     try {
-      var res = await http.post(Uri.parse(APILARAVEL.hostConnectLogin), body: {
-        "user_email": emailController.text,
-        "password": passwordController.text,
-      });
+      var res = await http.post(
+        Uri.parse(APILARAVEL.hostConnectLogin),
+        body: jsonEncode(
+          {
+            "user_email": emailController.text,
+            "password": passwordController.text,
+          },
+        ),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+        },
+      );
 
       if (res.statusCode == 200) {
         var responseOfLoginUser = jsonDecode(res.body);
@@ -51,7 +60,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
         }
       } else {
         // ignore: avoid_print
-        print("Error");
+        print("Error status code not 200");
       }
     } catch (e) {
       // ignore: avoid_print

@@ -19,6 +19,9 @@ class LearningFragmentScreen extends StatelessWidget {
     try {
       var res = await http.get(
         Uri.parse(APILARAVEL.readFamilyMakro),
+        headers: {
+          'Content-type': 'application/json',
+        },
       );
 
       if (res.statusCode == 200) {

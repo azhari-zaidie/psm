@@ -33,6 +33,9 @@ class _FamilyMakroDetailsScreenState extends State<FamilyMakroDetailsScreen> {
         //body: {
         //'family_id': widget.familyInfo!.family_id.toString(),
         //},
+        headers: {
+          'Content-type': 'application/json',
+        },
       );
 
       if (res.statusCode == 200) {

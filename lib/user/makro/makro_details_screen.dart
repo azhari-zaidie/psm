@@ -30,10 +30,19 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
 
   validateFavorite() async {
     try {
-      var res = await http.post(Uri.parse(APILARAVEL.validateFavorite), body: {
-        "user_id": _currentUser.user.user_id.toString(),
-        "makro_id": widget.makroInfo!.makro_id.toString(),
-      });
+      var res = await http.post(
+        Uri.parse(APILARAVEL.validateFavorite),
+        body: jsonEncode(
+          {
+            "user_id": _currentUser.user.user_id.toString(),
+            "makro_id": widget.makroInfo!.makro_id.toString(),
+          },
+        ),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      );
 
       if (res.statusCode == 200) {
         var responseBodyOfValidateFavorite = jsonDecode(res.body);
@@ -45,6 +54,8 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
           print("tiada");
           makroDetailsController.setIsFavorite(false);
         }
+      } else {
+        print("object");
       }
     } catch (e) {
       print("Error :: $e");
@@ -53,10 +64,19 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
 
   addMakroToFavorite() async {
     try {
-      var res = await http.post(Uri.parse(APILARAVEL.addFavorite), body: {
-        "user_id": _currentUser.user.user_id.toString(),
-        "makro_id": widget.makroInfo!.makro_id.toString(),
-      });
+      var res = await http.post(
+        Uri.parse(APILARAVEL.addFavorite),
+        body: jsonEncode(
+          {
+            "user_id": _currentUser.user.user_id.toString(),
+            "makro_id": widget.makroInfo!.makro_id.toString(),
+          },
+        ),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+        },
+      );
 
       if (res.statusCode == 200) {
         var responseBodyOfAddToFavorite = jsonDecode(res.body);
@@ -75,10 +95,19 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
 
   deleteFromFavorite() async {
     try {
-      var res = await http.post(Uri.parse(APILARAVEL.deleteFavorite), body: {
-        "user_id": _currentUser.user.user_id.toString(),
-        "makro_id": widget.makroInfo!.makro_id.toString(),
-      });
+      var res = await http.post(
+        Uri.parse(APILARAVEL.deleteFavorite),
+        body: jsonEncode(
+          {
+            "user_id": _currentUser.user.user_id.toString(),
+            "makro_id": widget.makroInfo!.makro_id.toString(),
+          },
+        ),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+        },
+      );
 
       if (res.statusCode == 200) {
         var responseBodyOfDeleteFavorite = jsonDecode(res.body);
@@ -102,8 +131,12 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
 
     try {
       var res = await http.post(
-        Uri.parse(APILARAVEL.readMakroDetails +
-            widget.makroInfo!.makro_id.toString()),
+        Uri.parse(
+          APILARAVEL.readMakroDetails + widget.makroInfo!.makro_id.toString(),
+        ),
+        headers: {
+          'Content-type': 'application/json',
+        },
         //body: {
         //"makro_id": widget.makroInfo!.makro_id.toString(),
         //},

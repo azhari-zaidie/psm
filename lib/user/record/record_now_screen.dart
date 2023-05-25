@@ -39,16 +39,16 @@ class RecordNowScreen extends StatelessWidget {
     String selectedMakroString = selectedMakroListInfo!
         .map((eachSelectedMakro) => jsonEncode(eachSelectedMakro))
         .toList()
-        .join("||");
+        .join("|");
 
-    Record record = Record(
-      selected_makro: selectedMakroString,
-      user_id: currentUser.user.user_id,
-      record_average: totalMark,
-      location: currentAddress,
-      latitude: latitude,
-      longitude: longitude,
-    );
+    // Record record = Record(
+    //   selected_makro: selectedMakroString,
+    //   user_id: currentUser.user.user_id,
+    //   record_average: totalMark,
+    //   location: currentAddress,
+    //   latitude: latitude,
+    //   longitude: longitude,
+    // );
 
     // Map<String, dynamic> data = {
     //   'selected_record': "selectedMakroString",
@@ -59,7 +59,21 @@ class RecordNowScreen extends StatelessWidget {
     try {
       var res = await http.post(
         Uri.parse(APILARAVEL.addRecord),
-        body: record.toJson(),
+        body: //record.toJson,
+            jsonEncode(
+          {
+            "selected_makro": selectedMakroString,
+            "user_id": currentUser.user.user_id,
+            "record_average": totalMark,
+            "location": currentAddress,
+            "latitude": latitude,
+            "longitude": longitude,
+          },
+        ),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+        },
       );
 
       if (res.statusCode == 200) {
@@ -67,13 +81,13 @@ class RecordNowScreen extends StatelessWidget {
 
         if (responseBodyOfAddNewRecord["success"] == true) {
           Fluttertoast.showToast(msg: "Success");
+          //print(jsonEncode(selectedMakroString));
           Get.to(DasboardFragmentScreen());
-          print(record.toJson());
         } else {
           print("Error ::");
         }
       } else {
-        print(res.body);
+        print(jsonEncode(selectedMakroString));
         //print(json.encode(data));
       }
     } catch (e) {

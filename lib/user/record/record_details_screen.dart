@@ -68,12 +68,12 @@ class _RecordDetailsScreenState extends State<RecordDetailsScreen> {
 
   displayClickedRecordMakro() {
     List<String> clickedRecordMakroInfo =
-        widget.clickedRecordInfo!.selected_makro!.split("||");
+        widget.clickedRecordInfo!.selected_makro!.split("|");
 
     return ListView.builder(
       itemCount: clickedRecordMakroInfo.length,
       itemBuilder: (BuildContext context, index) {
-        Map<String, dynamic> makroInfo =
+        Map<String?, dynamic> makroInfo =
             jsonDecode(clickedRecordMakroInfo[index]);
 
         return Container(

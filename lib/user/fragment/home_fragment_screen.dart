@@ -25,6 +25,9 @@ class _HomeFragmentScreenState extends State<HomeFragmentScreen> {
     try {
       var res = await http.get(
         Uri.parse(APILARAVEL.readNews),
+        headers: {
+          'Content-type': 'application/json',
+        },
       );
 
       if (res.statusCode == 200) {
@@ -34,6 +37,8 @@ class _HomeFragmentScreenState extends State<HomeFragmentScreen> {
             allNewsList.add(News.fromJson(eachNews));
           });
         }
+      } else {
+        print(res.statusCode);
       }
     } catch (e) {
       print("Error :: $e");

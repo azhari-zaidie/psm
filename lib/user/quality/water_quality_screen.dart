@@ -31,6 +31,9 @@ class _WaterQualityScreenState extends State<WaterQualityScreen> {
     try {
       var res = await http.get(
         Uri.parse(APILARAVEL.readMakro),
+        headers: {
+          'Content-type': 'application/json',
+        },
       );
 
       if (res.statusCode == 200) {
@@ -44,7 +47,7 @@ class _WaterQualityScreenState extends State<WaterQualityScreen> {
         makroController.setList(readAllMakro);
       }
     } catch (e) {
-      print("Erro :: $e");
+      print("Error :: $e");
     }
 
     calculateTotalMark();
@@ -302,7 +305,7 @@ class _WaterQualityScreenState extends State<WaterQualityScreen> {
                 ],
               )
             : const Center(
-                child: Text("test"),
+                child: CircularProgressIndicator(),
               ),
       ),
     );

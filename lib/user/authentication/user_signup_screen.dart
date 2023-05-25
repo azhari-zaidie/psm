@@ -26,13 +26,20 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
   var isObsecurePassword = true.obs; //used to display the password
   var isObsecureConfirmPassword =
       true.obs; //used to display the  confirm password
-
   validateUserEmail() async {
     try {
-      var res = await http
-          .post(Uri.parse(APILARAVEL.hostConnectEmailValidator), body: {
-        'user_email': emailController.text.trim(),
-      });
+      var res = await http.post(
+        Uri.parse(APILARAVEL.hostConnectEmailValidator),
+        body: jsonEncode(
+          {
+            'user_email': emailController.text.trim(),
+          },
+        ),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+        },
+      );
 
       if (res.statusCode == 200) {
         var resBodyOfValidateUserEmail = jsonDecode(res.body);
@@ -45,7 +52,7 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
           registerAndSaveUserRecord();
         }
       } else {
-        print("rte");
+        print(res.statusCode);
       }
     } catch (e) {
       print("Error :: $e");
@@ -54,13 +61,21 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
 
   registerAndSaveUserRecord() async {
     try {
-      var res =
-          await http.post(Uri.parse(APILARAVEL.hostConnectRegister), body: {
-        "user_name": nameController.text.trim(),
-        "user_email": emailController.text.trim(),
-        "password": passwordController.text.trim(),
-        "user_role": "user",
-      });
+      var res = await http.post(
+        Uri.parse(APILARAVEL.hostConnectRegister),
+        body: jsonEncode(
+          {
+            "user_name": nameController.text.trim(),
+            "user_email": emailController.text.trim(),
+            "password": passwordController.text.trim(),
+            "user_role": "user",
+          },
+        ),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+        },
+      );
 
       if (res.statusCode == 200) {
         var resBodyOfSignUpUser = json.decode(res.body);

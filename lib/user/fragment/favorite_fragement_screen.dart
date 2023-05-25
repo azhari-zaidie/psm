@@ -24,6 +24,9 @@ class FavoriteFragmentScreen extends StatelessWidget {
         Uri.parse(
           APILARAVEL.readFavorite + _currentUser.user.user_id.toString(),
         ),
+        headers: {
+          'Content-type': 'application/json',
+        },
       );
 
       if (res.statusCode == 200) {

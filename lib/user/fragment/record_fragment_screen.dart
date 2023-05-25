@@ -29,9 +29,14 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
     List<Record> currentRecordUser = [];
 
     try {
-      var res = await http.get(Uri.parse(
-        APILARAVEL.readRecord + currentUser.user.user_id.toString(),
-      ));
+      var res = await http.get(
+        Uri.parse(
+          APILARAVEL.readRecord + currentUser.user.user_id.toString(),
+        ),
+        headers: {
+          'Content-type': 'application/json',
+        },
+      );
 
       if (res.statusCode == 200) {
         var responseBodyOfGetRecord = jsonDecode(res.body);
@@ -94,21 +99,21 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
           ),
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              Get.to(() => WaterQualityScreen());
-            },
-            icon: const Icon(
-              Icons.add,
-              color: Colors.black,
-            ),
-          ),
+          // IconButton(
+          //   onPressed: () {
+          //     Get.to(() => WaterQualityScreen());
+          //   },
+          //   icon: const Icon(
+          //     Icons.add,
+          //     color: Colors.black,
+          //   ),
+          // ),
           IconButton(
             onPressed: () {
               Get.to(() => LocationPage());
             },
             icon: const Icon(
-              Icons.telegram,
+              Icons.add,
               color: Colors.black,
             ),
           ),
