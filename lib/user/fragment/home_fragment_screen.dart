@@ -55,84 +55,96 @@ class _HomeFragmentScreenState extends State<HomeFragmentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(
-            height: 16,
-          ),
-          // profile widget
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.blue,
-                  ),
-                  child: Image.asset(
-                    "images/profile_icon.png",
-                    width: 70,
-                  ),
-                ),
-                const SizedBox(
-                  width: 16,
-                ),
-                //profile
-                profileWidget(context),
-              ],
-            ),
-          ),
-
-          // about us
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Container(
-              width: MediaQuery.of(context).size.width * 1,
-              height: MediaQuery.of(context).size.height * 0.15,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
-                    spreadRadius: 2,
-                    blurRadius: 5,
-                  ),
-                ],
+    return Scaffold(
+      body: RefreshIndicator(
+        onRefresh: _pullRefresh,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 16,
               ),
-              child: const Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              // profile widget
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Row(
                   children: [
-                    Text(
-                      "About this Apps",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                    Container(
+                      padding: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.blue,
+                      ),
+                      child: Image.asset(
+                        "images/profile_icon.png",
+                        width: 70,
                       ),
                     ),
-                    Text(
-                      textAlign: TextAlign.justify,
-                      "This apps is a Water quality test based on Macroinvertebrate. This apps also allow user learn the type of Macroinvertebrates.",
-                      style: TextStyle(
-                        fontSize: 15,
-                      ),
+                    const SizedBox(
+                      width: 16,
                     ),
+                    //profile
+                    profileWidget(context),
                   ],
                 ),
               ),
-            ),
-          ),
 
-          // news
-          allNewsWidget(context),
-        ],
+              // about us
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 1,
+                  height: MediaQuery.of(context).size.height * 0.15,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.3),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                      ),
+                    ],
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "About this Apps",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                        Text(
+                          textAlign: TextAlign.justify,
+                          "This apps is a Water quality test based on Macroinvertebrate. This apps also allow user learn the type of Macroinvertebrates.",
+                          style: TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
+              // news
+              allNewsWidget(context),
+            ],
+          ),
+        ),
       ),
     );
+  }
+
+  Future<void> _pullRefresh() async {
+    setState(() {
+      profileWidget(context);
+    });
+    // why use freshNumbers var? https://stackoverflow.com/a/52992836/2301224
   }
 
   //widget display profile

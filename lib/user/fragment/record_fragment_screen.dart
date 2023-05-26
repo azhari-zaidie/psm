@@ -10,7 +10,7 @@ import 'package:psm_v2/api_connection/api_connection_laravel.dart';
 //import 'package:psm_v2/user/fragment/learning_fragment_screen.dart';
 import 'package:psm_v2/user/model/record.dart';
 import 'package:psm_v2/user/quality/water_details_screen.dart';
-import 'package:psm_v2/user/quality/water_quality_screen.dart';
+//import 'package:psm_v2/user/quality/water_quality_screen.dart';
 import 'package:psm_v2/user/record/record_details_screen.dart';
 import 'package:psm_v2/user/userPreferences/current_user.dart';
 import 'package:http/http.dart' as http;
@@ -72,8 +72,8 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: Text('Hint'),
-                  content: Text(
+                  title: const Text('Hint'),
+                  content: const Text(
                       'This is record screen that will display all the record that already submitted. Click `+` if want to add new record.'),
                   actions: [
                     TextButton(
@@ -125,7 +125,7 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
           //my order and history order
           Center(
             child: Padding(
-              padding: EdgeInsets.fromLTRB(16, 24, 8, 0),
+              padding: const EdgeInsets.fromLTRB(16, 24, 8, 0),
               //history icon and my history
               child: Column(
                 children: [

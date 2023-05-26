@@ -124,6 +124,7 @@ class FavoriteFragmentScreen extends StatelessWidget {
                 makro_image: eachFavoriteFound.makro_image,
                 family_id: eachFavoriteFound.family_id,
                 makro_mark: eachFavoriteFound.makro_mark,
+                makro_features: eachFavoriteFound.makro_features,
               );
               return Container(
                 margin: EdgeInsets.fromLTRB(

@@ -1,24 +1,30 @@
 class APILARAVEL {
-  static const hostConnect = "https://ujimakro-online.preview-domain.com/api";
+  //static const hostConnect = "https://ujimakro-online.preview-domain.com/api";
+  static const hostConnect = "http://192.168.0.162:8000/api";
 
   //login and register purpose
   static const hostConnectLogin = "$hostConnect/login";
   static const hostConnectRegister = "$hostConnect/register";
   static const hostConnectEmailValidator = "$hostConnect/emailvalidator";
 
+  //profile
+  static const updateProfile = "$hostConnect/update";
+  static const changePassword = "$hostConnect/changepassword";
+
   //news
   static const readNews = "$hostConnect/news";
-  static const readNewsImage = "https://ujimakro.online/api/news/"; //newsimage
+  static const readNewsImage =
+      "http://192.168.0.162:8000/api/news/"; //newsimage
 
   //familymakro
   static const readFamilyMakro = "$hostConnect/familymakro";
   static const readFamilyMakroImage =
-      "https://ujimakro.online/assets/images/familymakro/"; //familymakroimage
+      "http://192.168.0.162:8000/assets/images/familymakro/"; //familymakroimage
 
   //makro
   static const readMakro = "$hostConnect/makro";
   static const readMakroImage =
-      "https://ujimakro.online/api/makro/image/"; //makroimage
+      "http://192.168.0.162:8000/api/makro/image/"; //makroimage
   static const readMakroList = "$hostConnect/makro/";
   static const readMakroDetails = "$hostConnect/makro/details/";
 

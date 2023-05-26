@@ -109,19 +109,19 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
               decoration: const BoxDecoration(
                 color: Colors.cyan,
               ),
-              child: Column(
+              child: const Column(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     height: 100,
                   ),
                   //header padding
                   Padding(
-                    padding: const EdgeInsets.all(20),
+                    padding: EdgeInsets.all(20),
                     child: Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: EdgeInsets.all(20.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           //login text
                           Center(
                             child: Text(

@@ -130,7 +130,7 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
     List<Makro> detailsMakro = [];
 
     try {
-      var res = await http.post(
+      var res = await http.get(
         Uri.parse(
           APILARAVEL.readMakroDetails + widget.makroInfo!.makro_id.toString(),
         ),
@@ -151,10 +151,10 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
           });
         }
       } else {
-        print("test");
+        print(res.request);
       }
     } catch (e) {
-      print("Error :: $e");
+      print("Errors :: $e");
     }
 
     return detailsMakro;
@@ -304,7 +304,7 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
                           ),
                         ),
                         child: const Text(
-                          'Families',
+                          'Features',
                           style: TextStyle(
                             fontSize: 15,
                           ),
@@ -320,7 +320,7 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
             height: 5,
           ),
           Expanded(
-            child: _selectedIndex == 0 ? makroDetails() : familyList(context),
+            child: _selectedIndex == 0 ? makroDetails() : featuresList(context),
           ),
         ],
       ),
@@ -449,209 +449,88 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
     );
   }
 
-  Widget familyList(context) {
-    return SingleChildScrollView(
-      child: FutureBuilder(
-        future: getMakroDetails(),
-        builder: (context, AsyncSnapshot<List<Makro>> dataSnapShot) {
-          if (dataSnapShot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (dataSnapShot.data == null) {
-            return const Center(
-              child: Text("No Makro found"),
-            );
-          }
+  Widget featuresList(context) {
+    List<String> featuresMakro = widget.makroInfo!.makro_features!.split("|");
 
-          if (dataSnapShot.data!.length > 0) {
-            return ListView.builder(
-              itemCount: dataSnapShot.data!.length,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              scrollDirection: Axis.vertical,
-              itemBuilder: (context, index) {
-                Makro eachFamilyFound = dataSnapShot.data![index];
-                return Container(
-                  margin: EdgeInsets.fromLTRB(
-                    16,
-                    index == 0 ? 16 : 8,
-                    16,
-                    index == dataSnapShot.data!.length - 1 ? 16 : 8,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.blue,
-                  ),
-                  child: Column(
-                    children: [
-                      Container(
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                          ),
-                          color: Colors.grey,
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 15),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    //title and scientific name
-                                    Text(
-                                      eachFamilyFound.makro_name!,
-                                      style: const TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
+    return ListView.builder(
+      itemCount: featuresMakro.length,
+      itemBuilder: (BuildContext context, index) {
+        Map<String?, dynamic> featureDetails = jsonDecode(featuresMakro[index]);
 
-                                    const Text(
-                                      "Scientific name",
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            const Spacer(),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 15),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextButton(
-                                      onPressed: () {},
-                                      child: const Text(
-                                        "See more...",
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+        return SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.all(15),
+            decoration: const BoxDecoration(color: Colors.white12),
+            child: Column(
+              children: [
+                //feature name
+                Text(
+                  //API.hostImageMakro + widget.makroInfo!.makro_image!,
+                  "${featureDetails["feature_name"]}",
+                  textAlign: TextAlign.start,
+                  style: const TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Colors.grey,
+                        width: 1.0,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: FadeInImage(
-                                height: 130,
-                                width: 200,
-                                fit: BoxFit.cover,
-                                placeholder:
-                                    const AssetImage("images/profile_icon.png"),
-                                //image: AssetImage("images/place_holder.png"),
-                                image: NetworkImage(
-                                  APILARAVEL.readMakroImage +
-                                      eachFamilyFound.makro_image!,
-                                ),
-                                imageErrorBuilder:
-                                    (context, error, stackTraceError) {
-                                  return const Center(
-                                    child: Icon(
-                                      Icons.broken_image_outlined,
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                    ),
                   ),
-                  /*Row(
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 15),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              //title and scientific name
-                              Text(
-                                eachFamilyFound.makro_name!,
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                "Scientific name",
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                ),
-                              ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ClipRRect(
+                      child: FadeInImage(
+                        height: 150,
+                        width: 200,
+                        fit: BoxFit.cover,
+                        placeholder:
+                            const AssetImage("images/profile_icon.png"),
+                        //image: AssetImage("images/place_holder.png"),
+                        image: NetworkImage(
+                          APILARAVEL.readMakroImage +
+                              featureDetails["feature_image"],
+                        ),
+                        imageErrorBuilder: (context, error, stackTraceError) {
+                          return const Center(
+                            child: Icon(
+                              Icons.broken_image_outlined,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
 
-                              TextButton(
-                                onPressed: () {},
-                                child: Text(
-                                  "See more...",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      ClipRRect(
-                        borderRadius: const BorderRadius.only(
-                          bottomRight: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                        ),
-                        child: FadeInImage(
-                          height: 130,
-                          width: 130,
-                          fit: BoxFit.cover,
-                          placeholder:
-                              const AssetImage("images/profile_icon.png"),
-                          //image: AssetImage("images/place_holder.png"),
-                          image: NetworkImage(
-                            API.hostImageMakro + eachFamilyFound.makro_image!,
-                          ),
-                          imageErrorBuilder: (context, error, stackTraceError) {
-                            return const Center(
-                              child: Icon(
-                                Icons.broken_image_outlined,
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),*/
-                );
-              },
-            );
-          } else {
-            return const Center(
-              child: Padding(
-                padding: EdgeInsets.all(20),
-                child: Text("Empty, No Data."),
-              ),
-            );
-          }
-        },
-      ),
+                Text(
+                  featureDetails["feature_details"],
+                  textAlign: TextAlign.justify,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                const Divider(color: Colors.black),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

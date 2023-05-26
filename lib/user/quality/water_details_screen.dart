@@ -60,24 +60,43 @@ class _LocationPageState extends State<LocationPage> {
   }
 
   Future<void> _getAddressFromLatLng(Position position) async {
-    await placemarkFromCoordinates(
-            _currentPosition!.latitude, _currentPosition!.longitude)
-        .then((List<Placemark> placemarks) {
-      Placemark place = placemarks[0];
-      setState(() {
-        _currentAddress =
-            '${place.street}, ${place.postalCode}, ${place.country}';
-      });
-    }).catchError((e) {
-      debugPrint(e);
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+    print(placemarks);
+    Placemark place = placemarks[0];
+
+    setState(() {
+      _currentAddress =
+          '${place.street}, ${place.postalCode}, ${place.country}';
     });
   }
+  // Future<void> _getAddressFromLatLng(Position position) async {
+  //   await placemarkFromCoordinates(
+  //           _currentPosition!.latitude, _currentPosition!.longitude)
+  //       .then((List<Placemark> placemarks) {
+  //     Placemark place = placemarks[0];
+  //     setState(() {
+  //       _currentAddress =
+  //           '${place.street}, ${place.postalCode}, ${place.country}';
+  //     });
+  //   }).catchError((e) {
+  //     debugPrint(e);
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Macro'),
+        iconTheme: IconThemeData(
+          color: Colors.black,
+        ),
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        title: const Text(
+          'Macro',
+          style: TextStyle(color: Colors.black),
+        ),
       ),
       body: Center(
         child: Stepper(
@@ -86,7 +105,8 @@ class _LocationPageState extends State<LocationPage> {
           onStepContinue: () {
             if (currentStep == 1) {
               if (_currentPosition?.latitude == null ||
-                  _currentPosition?.longitude == null) {
+                  _currentPosition?.longitude == null ||
+                  _currentAddress == null) {
                 Fluttertoast.showToast(msg: "Current Location Needed");
               } else {
                 Get.to(WaterQualityScreen(

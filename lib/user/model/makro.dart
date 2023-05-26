@@ -7,6 +7,7 @@ class Makro {
   String? makro_image;
   int? family_id;
   int? makro_mark;
+  String? makro_features;
 
   Makro({
     this.makro_id,
@@ -15,6 +16,7 @@ class Makro {
     this.makro_image,
     this.family_id,
     this.makro_mark,
+    this.makro_features,
   });
 
   factory Makro.fromJson(Map<String, dynamic> json) => Makro(
@@ -24,6 +26,7 @@ class Makro {
         makro_image: json["makro_image"],
         family_id: json["family_id"],
         makro_mark: json["makro_mark"],
+        makro_features: json["makro_features"],
       );
 }
 
