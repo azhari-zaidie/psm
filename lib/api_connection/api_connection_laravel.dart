@@ -1,6 +1,6 @@
 class APILARAVEL {
-  //static const hostConnect = "https://ujimakro-online.preview-domain.com/api";
-  static const hostConnect = "http://192.168.0.162:8000/api";
+  static const hostConnect = "https://www.ujimakro.online/api";
+  //static const hostConnect = "http://192.168.0.162:8000/api";
 
   //login and register purpose
   static const hostConnectLogin = "$hostConnect/login";
@@ -14,17 +14,17 @@ class APILARAVEL {
   //news
   static const readNews = "$hostConnect/news";
   static const readNewsImage =
-      "http://192.168.0.162:8000/api/news/"; //newsimage
+      "https://www.ujimakro.online/api/news/"; //newsimage
 
   //familymakro
   static const readFamilyMakro = "$hostConnect/familymakro";
   static const readFamilyMakroImage =
-      "http://192.168.0.162:8000/assets/images/familymakro/"; //familymakroimage
+      "https://www.ujimakro.online/assets/images/familymakro/"; //familymakroimage
 
   //makro
   static const readMakro = "$hostConnect/makro";
   static const readMakroImage =
-      "http://192.168.0.162:8000/api/makro/image/"; //makroimage
+      "https://www.ujimakro.online/api/makro/image/"; //makroimage
   static const readMakroList = "$hostConnect/makro/";
   static const readMakroDetails = "$hostConnect/makro/details/";
 
