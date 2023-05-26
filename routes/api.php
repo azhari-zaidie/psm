@@ -28,6 +28,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/login', [ApiAuthController::class, 'login']);
 Route::post('/register', [ApiAuthController::class, 'register']);
 Route::post('/emailvalidator', [ApiAuthController::class, 'emailValidator']);
+Route::post('/update', [ApiAuthController::class, 'update']);
+Route::post('/changepassword', [ApiAuthController::class, 'changePassword']);
 
 Route::get('/news', [ApiNewsController::class, 'index']);
 Route::post('/news', [ApiNewsController::class, 'store']);
