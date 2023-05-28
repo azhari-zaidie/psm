@@ -71,51 +71,46 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.cyan,
+      backgroundColor: Colors.cyanAccent,
       body: SingleChildScrollView(
         child: Column(
           children: [
             //header container
             Container(
-              height: MediaQuery.of(context).size.height * 0.4,
+              height: MediaQuery.of(context).size.height * 0.45,
               decoration: const BoxDecoration(
-                color: Colors.cyan,
+                color: Colors.cyanAccent,
               ),
               child: Column(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     height: 100,
                   ),
                   //header padding
                   Padding(
-                    padding: const EdgeInsets.all(20),
+                    padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
                     child: Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          //login text
+                        children: [
                           Center(
-                            child: Text(
-                              "Login",
-                              style: TextStyle(
-                                fontSize: 40,
-                                color: Colors.white,
-                              ),
+                            child: Image.asset(
+                              "images/logo5.png",
+                              width: 180,
                             ),
                           ),
-
                           SizedBox(
-                            height: 20,
+                            height: 5,
                           ),
 
                           //welcome to text
-                          Center(
+                          const Center(
                             child: Text(
                               "Welcome to UjiMakro Apps",
                               style: TextStyle(
                                 fontSize: 20,
-                                color: Colors.white,
+                                color: Colors.black,
                               ),
                             ),
                           ),
@@ -129,7 +124,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
 
             //form
             Container(
-              height: MediaQuery.of(context).size.height * 0.6,
+              height: MediaQuery.of(context).size.height * 0.55,
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(40),
@@ -141,8 +136,17 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
                   children: [
+                    const Center(
+                      child: Text(
+                        "LOGIN",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
                     const SizedBox(
-                      height: 35,
+                      height: 15,
                     ),
                     Container(
                       decoration: BoxDecoration(
@@ -234,7 +238,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                                 ),
 
                                 const SizedBox(
-                                  height: 40,
+                                  height: 20,
                                 ),
 
                                 //button
@@ -270,7 +274,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                           ),
 
                           const SizedBox(
-                            height: 20,
+                            height: 5,
                           ),
 
                           //dont have account

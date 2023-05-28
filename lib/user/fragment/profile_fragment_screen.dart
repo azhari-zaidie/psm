@@ -9,12 +9,12 @@ import 'package:psm_v2/user/userPreferences/user_preferences.dart';
 class ProfileFragmentScreen extends StatelessWidget {
   ProfileFragmentScreen({super.key});
   final CurrentUser _currentUser = Get.put(CurrentUser());
-
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   //getUserDetails() async {}
   signOutUser() async {
     var resultResponse = await Get.dialog(
       AlertDialog(
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.white,
         title: const Text(
           "Log out",
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -52,9 +52,22 @@ class ProfileFragmentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
-        iconTheme: const IconThemeData(
-          color: Colors.black,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.settings,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            if (scaffoldKey.currentState!.isDrawerOpen) {
+              scaffoldKey.currentState!.closeDrawer();
+              //close drawer, if drawer is open
+            } else {
+              scaffoldKey.currentState!.openDrawer();
+              //open drawer, if drawer is closed
+            }
+          },
         ),
         backgroundColor: Colors.white,
         centerTitle: true,
@@ -120,11 +133,14 @@ class ProfileFragmentScreen extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
+            DrawerHeader(
+              decoration: const BoxDecoration(
+                color: Colors.cyanAccent,
               ),
-              child: Text("Uji Makro Header"),
+              child: Image.asset(
+                "images/logo5.png",
+                width: 180,
+              ),
             ),
             ListTile(
               leading: const Icon(

@@ -236,9 +236,10 @@ class _WaterQualityScreenState extends State<WaterQualityScreen> {
                                 ),
 
                                 Text(
-                                  makroModel.makro_name!,
+                                  "Score: ${makroModel.makro_mark!.toString()}",
                                   style: const TextStyle(
                                     fontSize: 10,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
 

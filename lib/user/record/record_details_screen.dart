@@ -39,7 +39,7 @@ class _RecordDetailsScreenState extends State<RecordDetailsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
-                    "Makro Total Mark: ",
+                    "Macro Total Mark: ",
                     style: TextStyle(
                       fontSize: 25,
                       color: Colors.white,
@@ -48,6 +48,17 @@ class _RecordDetailsScreenState extends State<RecordDetailsScreen> {
                   Text(
                     widget.clickedRecordInfo!.record_average!
                         .toStringAsFixed(2),
+                    style: const TextStyle(
+                      fontSize: 25,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 2,
+                  ),
+                  Text(
+                    "Location: ${widget.clickedRecordInfo?.location}",
+                    textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 25,
                       color: Colors.white,

@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:psm_v2/api_connection/api_connection_laravel.dart';
 import 'package:psm_v2/user/authentication/user_login_screen.dart';
 import 'package:http/http.dart' as http;
+import 'package:validation_textformfield/validation_textformfield.dart';
 
 class UserSignUpScreen extends StatefulWidget {
   const UserSignUpScreen({super.key});
@@ -87,9 +89,11 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
             passwordController.clear();
             confirmPasswordController.clear();
           });
+
+          Get.to(UserLoginScreen());
         }
       } else {
-        Fluttertoast.showToast(msg: "Register Unsuccessfully:: Refresh");
+        Fluttertoast.showToast(msg: "Register Unsuccessfully :: Refresh");
       }
     } catch (e) {
       print("Error :: $e");
@@ -99,7 +103,7 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.cyan,
+      backgroundColor: Colors.cyanAccent,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -107,43 +111,35 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
             Container(
               height: MediaQuery.of(context).size.height * 0.4,
               decoration: const BoxDecoration(
-                color: Colors.cyan,
+                color: Colors.cyanAccent,
               ),
-              child: const Column(
+              child: Column(
                 children: [
                   SizedBox(
                     height: 100,
                   ),
                   //header padding
                   Padding(
-                    padding: EdgeInsets.all(20),
+                    padding: EdgeInsets.fromLTRB(5, 1, 5, 1),
                     child: Padding(
-                      padding: EdgeInsets.all(20.0),
+                      padding: EdgeInsets.fromLTRB(5, 1, 5, 1),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          //login text
                           Center(
-                            child: Text(
-                              "Sign Up",
-                              style: TextStyle(
-                                fontSize: 40,
-                                color: Colors.white,
-                              ),
+                            child: Image.asset(
+                              "images/logo5.png",
+                              width: 180,
                             ),
-                          ),
-
-                          SizedBox(
-                            height: 20,
                           ),
 
                           //welcome to text
                           Center(
                             child: Text(
-                              "Welcome to UjiMakro Apps",
+                              "Sign Up to UjiMakro Apps",
                               style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
+                                fontSize: 17,
+                                color: Colors.black,
                               ),
                             ),
                           ),
@@ -184,10 +180,19 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
                             child: Column(
                               children: [
                                 //email
-                                TextFormField(
-                                  controller: emailController,
-                                  validator: (value) =>
-                                      value == "" ? "Please write email" : null,
+                                EmailValidationTextField(
+                                  textEditingController: emailController,
+                                  whenTextFieldEmpty: "Please write an Email",
+                                  validatorMassage: "Please enter valid email",
+                                  // validator: (value) {
+                                  //   if (value!.isEmpty) {
+                                  //     return "Please write an Email";
+                                  //   } else if (EmailValidator.validate(value)) {
+                                  //     return "Please write valid Email";
+                                  //   } else {
+                                  //     return null;
+                                  //   }
+                                  // },
                                   decoration: InputDecoration(
                                     prefixIcon: const Icon(
                                       Icons.email,
@@ -245,13 +250,35 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
                                 //password
                                 //wrap with obx because want to change the isObsecure value
                                 Obx(
-                                  () => TextFormField(
+                                  () => PassWordValidationTextFiled(
                                     //isObsecure is true. because want make sure the password hidden
                                     obscureText: isObsecurePassword.value,
-                                    controller: passwordController,
-                                    validator: (value) => value == ""
-                                        ? "Please write password"
-                                        : null,
+                                    passTextEditingController:
+                                        passwordController,
+                                    lineIndicator: false,
+                                    passwordMinLength: 5,
+                                    passwordMaxLength: 10,
+                                    passwordMinError:
+                                        "Must be more than 5 charater",
+                                    hasPasswordEmpty: "Password is Empty",
+                                    passwordMaxError: "Password too long",
+                                    passWordUpperCaseError:
+                                        "at least one Uppercase (Capital) letter",
+                                    passWordDigitsCaseError:
+                                        "at least one digit",
+                                    passwordLowercaseError:
+                                        "at least one lowercase character",
+                                    passWordSpecialCharacters:
+                                        "at least one Special Characters",
+                                    // validator: (value) {
+                                    //   if (value!.isEmpty) {
+                                    //     return "Please write password";
+                                    //   } else if (value.length < 6) {
+                                    //     return "Password length need at least 6 character";
+                                    //   } else {
+                                    //     return null;
+                                    //   }
+                                    // },
                                     decoration: InputDecoration(
                                       prefixIcon: const Icon(
                                         Icons.vpn_key_sharp,
@@ -297,21 +324,28 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
                                 //confirm password
                                 //wrap with obx because want to change the isObsecure value
                                 Obx(
-                                  () => TextFormField(
+                                  () => ConfirmPassWordValidationTextFromField(
                                     //isObsecure is true. because want make sure the password hidden
                                     obscureText:
                                         isObsecureConfirmPassword.value,
-                                    controller: confirmPasswordController,
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "Please write confirm password";
-                                      } else if (value !=
-                                          passwordController.text) {
-                                        return "Password not Match";
-                                      } else {
-                                        return null;
-                                      }
-                                    },
+                                    confirmtextEditingController:
+                                        confirmPasswordController,
+                                    whenTextFieldEmpty: "Password is Empty",
+                                    validatorMassage: "Password not Match",
+                                    passtextEditingController:
+                                        passwordController,
+                                    // validator: (value) {
+                                    //   if (value!.isEmpty) {
+                                    //     return "Please write confirm password";
+                                    //   } else if (value !=
+                                    //       passwordController.text) {
+                                    //     return "Password not Match";
+                                    //   } else if (value.length < 6) {
+                                    //     return "Password length need at least 6 character";
+                                    //   } else {
+                                    //     return null;
+                                    //   }
+                                    // },
                                     decoration: InputDecoration(
                                       prefixIcon: const Icon(
                                         Icons.vpn_key_sharp,
@@ -374,7 +408,7 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
                                         horizontal: 50,
                                       ),
                                       child: Text(
-                                        "Login",
+                                        "Sign Up",
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 18,

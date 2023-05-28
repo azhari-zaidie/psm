@@ -73,7 +73,7 @@ class FavoriteFragmentScreen extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.fromLTRB(16, 24, 8, 8),
             child: Text(
-              "Order these best clothes for yourself now.",
+              "Learn about your favorite Macros.",
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 16,

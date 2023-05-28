@@ -7,6 +7,7 @@ import 'package:psm_v2/api_connection/api_connection_laravel.dart';
 import 'package:psm_v2/user/fragment/dashboard_fragment_screen.dart';
 import 'package:psm_v2/user/userPreferences/current_user.dart';
 import 'package:http/http.dart' as http;
+import 'package:validation_textformfield/validation_textformfield.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   ChangePasswordScreen({super.key});
@@ -96,7 +97,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     obscureText: isObsecureCurrentPassword.value,
                     controller: _currentPasswordController,
                     validator: (value) =>
-                        value == "" ? "Please write confirm password" : null,
+                        value == "" ? "Password is Empty" : null,
                     decoration: InputDecoration(
                       prefixIcon: const Icon(
                         Icons.vpn_key_sharp,
@@ -141,19 +142,31 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 // new password
                 //wrap with obx because want to change the isObsecure value
                 Obx(
-                  () => TextFormField(
+                  () => PassWordValidationTextFiled(
                     //isObsecure is true. because want make sure the password hidden
                     obscureText: isObsecureNewPassword.value,
-                    controller: _newPasswordController,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Please write new password";
-                      } else if (value.length < 6) {
-                        return "Password length need at least 6 character";
-                      } else {
-                        return null;
-                      }
-                    },
+                    passTextEditingController: _newPasswordController,
+                    lineIndicator: false,
+                    passwordMinLength: 5,
+                    passwordMaxLength: 10,
+                    passwordMinError: "Must be more than 5 charater",
+                    hasPasswordEmpty: "New Password is Empty",
+                    passwordMaxError: "Password too long",
+                    passWordUpperCaseError:
+                        "at least one Uppercase (Capital) letter",
+                    passWordDigitsCaseError: "at least one digit",
+                    passwordLowercaseError: "at least one lowercase character",
+                    passWordSpecialCharacters:
+                        "at least one Special Characters",
+                    // validator: (value) {
+                    //   if (value!.isEmpty) {
+                    //     return "Please write new password";
+                    //   } else if (value.length < 6) {
+                    //     return "Password length need at least 6 character";
+                    //   } else {
+                    //     return null;
+                    //   }
+                    // },
                     decoration: InputDecoration(
                       prefixIcon: const Icon(
                         Icons.vpn_key_sharp,
@@ -198,21 +211,24 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 //confirm password
                 //wrap with obx because want to change the isObsecure value
                 Obx(
-                  () => TextFormField(
+                  () => ConfirmPassWordValidationTextFromField(
                     //isObsecure is true. because want make sure the password hidden
                     obscureText: isObsecureConfirmPassword.value,
-                    controller: _confirmPasswordController,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Please write confirm password";
-                      } else if (value != _newPasswordController.text) {
-                        return "Password not Match";
-                      } else if (value.length < 6) {
-                        return "Password length need at least 6 character";
-                      } else {
-                        return null;
-                      }
-                    },
+                    confirmtextEditingController: _confirmPasswordController,
+                    passtextEditingController: _newPasswordController,
+                    whenTextFieldEmpty: "Confirm Password is Empty",
+                    validatorMassage: "Password not Match",
+                    // validator: (value) {
+                    //   if (value!.isEmpty) {
+                    //     return "Please write confirm password";
+                    //   } else if (value != _newPasswordController.text) {
+                    //     return "Password not Match";
+                    //   } else if (value.length < 6) {
+                    //     return "Password length need at least 6 character";
+                    //   } else {
+                    //     return null;
+                    //   }
+                    // },
                     decoration: InputDecoration(
                       prefixIcon: const Icon(
                         Icons.vpn_key_sharp,
