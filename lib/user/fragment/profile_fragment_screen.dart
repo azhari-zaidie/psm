@@ -14,6 +14,7 @@ class ProfileFragmentScreen extends StatelessWidget {
   signOutUser() async {
     var resultResponse = await Get.dialog(
       AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         backgroundColor: Colors.white,
         title: const Text(
           "Log out",
@@ -52,12 +53,175 @@ class ProfileFragmentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 221, 221, 221),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        /*leading: IconButton(
+          icon: const Icon(
+            Icons.settings,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            if (scaffoldKey.currentState!.isDrawerOpen) {
+              scaffoldKey.currentState!.closeDrawer();
+              //close drawer, if drawer is open
+            } else {
+              scaffoldKey.currentState!.openDrawer();
+              //open drawer, if drawer is closed
+            }
+          },
+        ),*/
+        backgroundColor: Color.fromARGB(255, 99, 0, 238),
+        centerTitle: true,
+        title: const Text(
+          "Profile",
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: 200,
+              width: 400,
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 3, 218, 197),
+              ),
+              child: Image.asset("images/logo5.png"),
+            ),
+            Container(
+              padding: EdgeInsets.all(20),
+              //margin: EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                children: [
+                  userProfileDisplay(Icons.person, _currentUser.user.user_name),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  userProfileDisplay(Icons.email, _currentUser.user.user_email),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                    onPressed: () {
+                      Get.to(UpdateProfileScreen());
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Change Profile Info",
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                        Icon(
+                          Icons.person,
+                          color: Colors.black,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 3,
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                    onPressed: () {
+                      Get.to(ChangePasswordScreen());
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Change Password",
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                        Icon(
+                          Icons.lock,
+                          color: Colors.black,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                    ),
+                    onPressed: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "About Us",
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                        Icon(
+                          Icons.people,
+                          color: Colors.black,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Material(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(10),
+                    child: InkWell(
+                      onTap: () {
+                        signOutUser();
+                      },
+                      borderRadius: BorderRadius.circular(30),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 10,
+                          horizontal: 40,
+                        ),
+                        child: Text(
+                          "Sign Out",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+  /*Widget build(BuildContext context) {
+    return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(
             Icons.settings,
-            color: Colors.black,
+            color: Colors.white,
           ),
           onPressed: () {
             if (scaffoldKey.currentState!.isDrawerOpen) {
@@ -69,12 +233,12 @@ class ProfileFragmentScreen extends StatelessWidget {
             }
           },
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromARGB(255, 99, 0, 238),
         centerTitle: true,
         title: const Text(
           "Profile",
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
       ),
@@ -170,13 +334,13 @@ class ProfileFragmentScreen extends StatelessWidget {
         ),
       ),
     );
-  }
+  }*/
 
   Widget userProfileDisplay(IconData iconData, String userData) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.black87,
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
       ),
       padding: const EdgeInsets.symmetric(
         horizontal: 16,
@@ -187,7 +351,7 @@ class ProfileFragmentScreen extends StatelessWidget {
           Icon(
             iconData,
             size: 30,
-            color: Colors.white,
+            color: Colors.black,
           ),
           const SizedBox(
             width: 16,
@@ -195,7 +359,7 @@ class ProfileFragmentScreen extends StatelessWidget {
           Text(
             userData,
             style: const TextStyle(
-              color: Colors.white,
+              color: Colors.black,
               fontSize: 15,
             ),
           ),

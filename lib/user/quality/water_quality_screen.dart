@@ -105,14 +105,14 @@ class _WaterQualityScreenState extends State<WaterQualityScreen> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(
-          color: Colors.black,
+          color: Colors.white,
         ),
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromARGB(255, 99, 0, 238),
         title: const Text(
           "Select Makro",
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
         actions: [
@@ -122,6 +122,8 @@ class _WaterQualityScreenState extends State<WaterQualityScreen> {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
                     title: const Text('Hint'),
                     content: const Text(
                         'The formula of the calculation is "Sum of every score selected macro divide total selected macro"'),
@@ -281,6 +283,8 @@ class _WaterQualityScreenState extends State<WaterQualityScreen> {
                     bottom: 20,
                     right: 20,
                     child: FloatingActionButton(
+                      //hoverColor: Color.fromARGB(255, 99, 0, 238),
+                      backgroundColor: Color.fromARGB(255, 99, 0, 238),
                       onPressed: () {
                         if (makroController.selectedMakroList.length > 0) {
                           Get.to(RecordNowScreen(

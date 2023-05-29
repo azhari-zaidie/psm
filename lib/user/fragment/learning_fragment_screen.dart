@@ -46,12 +46,12 @@ class LearningFragmentScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromARGB(255, 99, 0, 238),
         centerTitle: true,
         title: const Text(
-          "Field Guide",
+          "Macros Categories",
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
       ),

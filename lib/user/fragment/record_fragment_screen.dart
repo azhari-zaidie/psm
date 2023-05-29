@@ -63,7 +63,7 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromARGB(255, 99, 0, 238),
         automaticallyImplyLeading: false,
         centerTitle: true,
         leading: IconButton(
@@ -72,6 +72,8 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
                   title: const Text('Hint'),
                   content: const Text(
                       'This is record screen that will display all the record that already submitted. Click `+` if want to add new record.'),
@@ -89,13 +91,13 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
           },
           icon: const Icon(
             Icons.question_mark_sharp,
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
         title: const Text(
           "History Record",
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
         actions: [
@@ -114,7 +116,7 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
             },
             icon: const Icon(
               Icons.add,
-              color: Colors.black,
+              color: Colors.white,
             ),
           ),
         ],
@@ -139,7 +141,7 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
                   const Text(
                     "My History of Records",
                     style: TextStyle(
-                      color: Colors.purpleAccent,
+                      color: Colors.black,
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
@@ -217,7 +219,7 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
               Record eachRecordData = recordList[index];
 
               return Card(
-                color: Colors.white24,
+                color: Color.fromARGB(255, 3, 218, 197),
                 child: Padding(
                   padding: const EdgeInsets.all(18),
                   child: ListTile(

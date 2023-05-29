@@ -64,7 +64,7 @@ class FavoriteFragmentScreen extends StatelessWidget {
             child: Text(
               "My Favorite List",
               style: TextStyle(
-                color: Colors.purpleAccent,
+                color: Colors.black,
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
               ),
@@ -135,7 +135,7 @@ class FavoriteFragmentScreen extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Colors.blue,
+                  color: Color.fromARGB(255, 99, 0, 238),
                 ),
                 child: Column(
                   children: [
@@ -145,7 +145,7 @@ class FavoriteFragmentScreen extends StatelessWidget {
                           topLeft: Radius.circular(20),
                           topRight: Radius.circular(20),
                         ),
-                        color: Colors.grey,
+                        color: Color.fromARGB(255, 3, 218, 197),
                       ),
                       child: Row(
                         children: [

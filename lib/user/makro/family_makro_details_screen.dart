@@ -69,16 +69,16 @@ class _FamilyMakroDetailsScreenState extends State<FamilyMakroDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromARGB(255, 99, 0, 238),
         centerTitle: true,
         title: const Text(
           "Orders",
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
         leading: const BackButton(
-          color: Colors.black,
+          color: Colors.white,
         ),
       ),
       body: Column(
@@ -322,7 +322,7 @@ class _FamilyMakroDetailsScreenState extends State<FamilyMakroDetailsScreen> {
                   ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: Colors.cyan,
+                    color: Color.fromARGB(255, 99, 0, 238),
                   ),
                   child: Column(
                     children: [
@@ -332,7 +332,7 @@ class _FamilyMakroDetailsScreenState extends State<FamilyMakroDetailsScreen> {
                             topLeft: Radius.circular(20),
                             topRight: Radius.circular(20),
                           ),
-                          color: Colors.grey,
+                          color: Color.fromARGB(255, 3, 218, 197),
                         ),
                         child: Row(
                           children: [
@@ -400,7 +400,7 @@ class _FamilyMakroDetailsScreenState extends State<FamilyMakroDetailsScreen> {
                                 width: 200,
                                 fit: BoxFit.cover,
                                 placeholder:
-                                    const AssetImage("images/profile_icon.png"),
+                                    const AssetImage("images/place_holder.png"),
                                 //image: AssetImage("images/place_holder.png"),
                                 image: NetworkImage(
                                   APILARAVEL.readMakroImage +

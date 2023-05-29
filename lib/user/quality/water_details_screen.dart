@@ -89,65 +89,81 @@ class _LocationPageState extends State<LocationPage> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
-          color: Colors.black,
+          color: Colors.white,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromARGB(255, 99, 0, 238),
         centerTitle: true,
         title: const Text(
           'Macro',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
       ),
       body: Center(
-        child: Stepper(
-          type: StepperType.horizontal,
-          currentStep: currentStep,
-          onStepContinue: () {
-            if (currentStep == 1) {
-              if (_currentPosition?.latitude == null ||
-                  _currentPosition?.longitude == null ||
-                  _currentAddress == null) {
-                Fluttertoast.showToast(msg: "Current Location Needed");
-              } else {
-                Get.to(WaterQualityScreen(
-                  latitude: _currentPosition?.latitude,
-                  longitude: _currentPosition?.longitude,
-                  currentLocation: _currentAddress,
-                ));
+        child: Theme(
+          data: ThemeData(
+            canvasColor: Colors.white,
+            colorScheme: Theme.of(context).colorScheme.copyWith(
+                  primary: Color.fromARGB(255, 99, 0, 238),
+                  background: Colors.red,
+                  secondary: Colors.black,
+                ),
+          ),
+          child: Stepper(
+            type: StepperType.horizontal,
+            currentStep: currentStep,
+            onStepContinue: () {
+              if (currentStep == 1) {
+                if (_currentPosition?.latitude == null ||
+                    _currentPosition?.longitude == null ||
+                    _currentAddress == null) {
+                  Fluttertoast.showToast(msg: "Current Location Needed");
+                } else {
+                  Get.to(WaterQualityScreen(
+                    latitude: _currentPosition?.latitude,
+                    longitude: _currentPosition?.longitude,
+                    currentLocation: _currentAddress,
+                  ));
+                }
+              } else if (currentStep != 1) {
+                setState(() => currentStep++);
               }
-            } else if (currentStep != 1) {
-              setState(() => currentStep++);
-            }
-          },
-          onStepCancel: () {
-            if (currentStep != 0) {
-              setState(() => currentStep--);
-            }
-          },
-          steps: [
-            Step(
-              isActive: currentStep >= 0,
-              title: Text('Information'),
-              content: Text('test'),
-            ),
-            Step(
-              isActive: currentStep >= 1,
-              title: const Text('Set My Location'),
-              content: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('LAT: ${_currentPosition?.latitude ?? ""}'),
-                  Text('LNG: ${_currentPosition?.longitude ?? ""}'),
-                  Text('ADDRESS: ${_currentAddress ?? ""}'),
-                  const SizedBox(height: 32),
-                  ElevatedButton(
-                    onPressed: _getCurrentPosition,
-                    child: const Text("Get Current Location"),
-                  )
-                ],
+            },
+            onStepCancel: () {
+              if (currentStep != 0) {
+                setState(() => currentStep--);
+              }
+            },
+            steps: [
+              Step(
+                isActive: currentStep >= 0,
+                title: Text('Information'),
+                content: Text(
+                  'Please be careful and always watch your step. Firstly, prepare the tools to collect the Macro. After the preparation is done. Click continue to proceed next step.',
+                  style: TextStyle(
+                    fontSize: 25,
+                  ),
+                  textAlign: TextAlign.justify,
+                ),
               ),
-            ),
-          ],
+              Step(
+                isActive: currentStep >= 1,
+                title: const Text('Set My Location'),
+                content: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('LAT: ${_currentPosition?.latitude ?? ""}'),
+                    Text('LNG: ${_currentPosition?.longitude ?? ""}'),
+                    Text('ADDRESS: ${_currentAddress ?? ""}'),
+                    const SizedBox(height: 32),
+                    ElevatedButton(
+                      onPressed: _getCurrentPosition,
+                      child: const Text("Get Current Location"),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

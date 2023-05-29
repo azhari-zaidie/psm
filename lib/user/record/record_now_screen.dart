@@ -99,14 +99,14 @@ class RecordNowScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(
-          color: Colors.black,
+          color: Colors.white,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromARGB(255, 99, 0, 238),
         centerTitle: true,
         title: const Text(
           'Selected Makro Overview',
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
       ),
@@ -116,7 +116,7 @@ class RecordNowScreen extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Container(
-              color: Colors.blue,
+              color: Color.fromARGB(255, 3, 218, 197),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -125,30 +125,30 @@ class RecordNowScreen extends StatelessWidget {
                     "Makro Total Mark: ",
                     style: TextStyle(
                       fontSize: 25,
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ),
                   Text(
                     totalMark!.toStringAsFixed(2),
                     style: const TextStyle(
                       fontSize: 25,
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ),
-                  Text(
-                    'LAT: $latitude '
-                    'LGT: $longitude',
-                    style: const TextStyle(
-                      fontSize: 25,
-                      color: Colors.white,
-                    ),
-                  ),
+                  // Text(
+                  //   'LAT: $latitude '
+                  //   'LGT: $longitude',
+                  //   style: const TextStyle(
+                  //     fontSize: 25,
+                  //     color: Colors.white,
+                  //   ),
+                  // ),
                   Text(
                     '$currentAddress',
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 25,
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ),
                 ],
@@ -196,7 +196,11 @@ class RecordNowScreen extends StatelessWidget {
           //passing dialog box with parameter
           var responseFromDialogBox = await Get.dialog(
             AlertDialog(
-              title: Text("Calculation?"),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              iconColor: Color.fromARGB(255, 99, 0, 238),
+              title: Text("Calculation"),
+              //titlePadding: const EdgeInsets.all(0),
               content: const Text(
                   "Are you sure want to Continue to the Calculation Step?"),
               actions: [

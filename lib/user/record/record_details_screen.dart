@@ -19,11 +19,11 @@ class _RecordDetailsScreenState extends State<RecordDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.black),
-        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: Color.fromARGB(255, 99, 0, 238),
         title: const Text(
           "Record Details",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
       ),
@@ -33,7 +33,7 @@ class _RecordDetailsScreenState extends State<RecordDetailsScreen> {
           Expanded(
             flex: 2,
             child: Container(
-              color: Colors.blue,
+              color: Color.fromARGB(255, 3, 218, 197),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,8 +41,8 @@ class _RecordDetailsScreenState extends State<RecordDetailsScreen> {
                   const Text(
                     "Macro Total Mark: ",
                     style: TextStyle(
-                      fontSize: 25,
-                      color: Colors.white,
+                      fontSize: 20,
+                      color: Colors.black,
                     ),
                   ),
                   Text(
@@ -50,7 +50,7 @@ class _RecordDetailsScreenState extends State<RecordDetailsScreen> {
                         .toStringAsFixed(2),
                     style: const TextStyle(
                       fontSize: 25,
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ),
                   const SizedBox(
@@ -61,7 +61,7 @@ class _RecordDetailsScreenState extends State<RecordDetailsScreen> {
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 25,
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ),
                 ],

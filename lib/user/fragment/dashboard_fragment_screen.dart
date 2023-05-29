@@ -78,7 +78,7 @@ class _DasboardFragmentScreenState extends State<DasboardFragmentScreen> {
           ),
           bottomNavigationBar: Container(
             decoration: const BoxDecoration(
-              color: Colors.white,
+              //color: Colors.white,
               border: Border(
                 top: BorderSide(color: Colors.black26, width: 1.0),
               ),
@@ -91,12 +91,12 @@ class _DasboardFragmentScreenState extends State<DasboardFragmentScreen> {
                 },
                 showSelectedLabels: true,
                 showUnselectedLabels: true,
-                selectedItemColor: Colors.lime,
-                unselectedItemColor: Colors.grey,
+                selectedItemColor: Colors.cyanAccent,
+                unselectedItemColor: Colors.white,
                 items: List.generate(5, (index) {
                   var navBtnProperty = _navigationButtonsProperties[index];
                   return BottomNavigationBarItem(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Color.fromARGB(255, 99, 0, 238),
                     icon: Icon(navBtnProperty["non_active_icon"]),
                     activeIcon: Icon(navBtnProperty["active_icon"]),
                     label: navBtnProperty["label"],
