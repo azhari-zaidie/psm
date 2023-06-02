@@ -7,6 +7,7 @@
 <hr />
 <form action="{{route('makros.store')}}" method="POST" enctype="multipart/form-data">
     @csrf
+    <div class="form-container" id="formContainer">
     <div class="row mb-3">
         <div class="col">
             <input type="text" name="makro_name" class="form-control" placeholder="Macros Name">
@@ -34,7 +35,7 @@
         </div>
     </div>
 
-    <button type="button" id="addProductButton">Add New Product</button>
+    
 
     <!-- <div class="row mb-3">
         <div class="col">
@@ -53,47 +54,102 @@
         </div>
     </div> -->
 
+    
+    </div>
     <div class="row">
         <div class="d-grid">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
+        <button type="button" id="addProductButton" onclick="addNewForm()">Add New Product</button>
     </div>
 </form>
 
 <script>
-    const container = document.getElementById('productContainer');
-    const addButton = document.getElementById('addProductButton');
-    let productCount = 1;
+    function addNewForm() {
+    // Create a new form container
+    var formContainer = document.createElement('div');
+    formContainer.classList.add('row', 'mb-3');
 
-    addButton.addEventListener('click', () => {
-        const productDiv = document.createElement('div');
-        productDiv.classList.add('col');
+    // Create the name input field
+    var nameFormGroup = document.createElement('div');
+    nameFormGroup.classList.add('col');
 
-        const productNameLabel = document.createElement('label');
-        productNameLabel.textContent = `makro ${productCount + 1} Name:`;
-        const productNameInput = document.createElement('input');
-        productNameInput.type = 'text';
-        productNameInput.name = `makro[${productCount}][test_name]`;
-        productNameInput.classList.add('form-control');
-        productNameInput.required = true;
+    var nameLabel = document.createElement('label');
+    nameLabel.setAttribute('for', 'name');
+    nameLabel.textContent = 'Name';
 
-        const productDescLabel = document.createElement('label');
-        productDescLabel.textContent = `makro ${productCount + 1} Description:`;
-        const productDescTextarea = document.createElement('textarea');
-        productDescTextarea.name = `makro[${productCount}][test_desc]`;
-        productDescTextarea.classList.add('form-control');
-        productDescTextarea.required = true;
+    var nameInput = document.createElement('input');
+    nameInput.classList.add('form-control');
+    nameInput.setAttribute('type', 'text');
+    nameInput.setAttribute('name', 'name');
+    nameInput.setAttribute('placeholder', 'Name');
 
-        productDiv.appendChild(productNameLabel);
-        productDiv.appendChild(productNameInput);
-        productDiv.appendChild(document.createElement('br'));
-        container.appendChild(productDiv);
-        productDiv.appendChild(productDescLabel);
-        productDiv.appendChild(productDescTextarea);
+    nameFormGroup.appendChild(nameLabel);
+    nameFormGroup.appendChild(nameInput);
 
-        //container.appendChild(productDiv);
+    // Create the email input field
+    var emailFormGroup = document.createElement('div');
+    emailFormGroup.classList.add('col');
 
-        productCount++;
-    });
+    var emailLabel = document.createElement('label');
+    emailLabel.setAttribute('for', 'email');
+    emailLabel.textContent = 'Email';
+
+    var emailInput = document.createElement('input');
+    emailInput.classList.add('form-control');
+    emailInput.setAttribute('type', 'email');
+    emailInput.setAttribute('name', 'email');
+    emailInput.setAttribute('placeholder', 'Email');
+
+    emailFormGroup.appendChild(emailLabel);
+    emailFormGroup.appendChild(emailInput);
+
+    // Append the form groups to the form container
+    formContainer.appendChild(nameFormGroup);
+    formContainer.appendChild(emailFormGroup);
+
+    // Append the form container to the dynamic-form
+    var dynamicForm = document.getElementById('formContainer');
+    dynamicForm.appendChild(formContainer);
+  }
+    // const container = document.getElementById('productContainer');
+    // const addButton = document.getElementById('addProductButton');
+    // let productCount = 1;
+
+    // addButton.addEventListener('click', () => {
+    //     const productDiv = document.createElement('div');
+    //     productDiv.classList.add('row mb-3');
+
+    //     var nameFormGroup = document.createElement('div');
+    // nameFormGroup.classList.add('form-group');
+
+    //     const productNameLabel = document.createElement('label');
+    //     productNameLabel.textContent = `makro ${productCount + 1} Name:`;
+    //     const productNameInput = document.createElement('input');
+    //     productNameInput.type = 'text';
+    //     productNameInput.name = `makro[${productCount}][test_name]`;
+    //     productNameInput.classList.add('form-control');
+    //     productNameInput.required = true;
+
+    //     nameFormGroup.appendChi
+
+    //     const productDescLabel = document.createElement('label');
+    //     productDescLabel.textContent = `makro ${productCount + 1} Description:`;
+    //     const productDescTextarea = document.createElement('textarea');
+    //     productDescTextarea.name = `makro[${productCount}][test_desc]`;
+    //     productDescTextarea.classList.add('form-control');
+    //     productDescTextarea.required = true;
+
+    //     productDiv.appendChild(productNameLabel);
+    //     productDiv.appendChild(productNameInput);
+    //     productDiv.appendChild(document.createElement('br'));
+    //     //container.appendChild(productDiv);
+    //     productDiv.appendChild(productDescLabel);
+    //     productDiv.appendChild(productDescTextarea);
+
+    //     container.appendChild(productDiv);
+
+    //     productCount++;
+    // });
 </script>
 @endsection
