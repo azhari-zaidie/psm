@@ -24,6 +24,7 @@ class Record extends Model
         'location',
         'latitude',
         'longitude',
+        'record_desc',
     ];
 
     public function user()

@@ -45,6 +45,7 @@ Route::get('/makro/{family_id}', [ApiMakroController::class, 'show']);
 Route::get('/makro/details/{makro_id}', [ApiMakroController::class, 'showDetails']);
 Route::post('/makro', [ApiMakroController::class, 'store']);
 Route::get('/makro/image/{imagePath}', [ApiMakroController::class, 'sendImage']);
+Route::post('/makro/search', [ApiMakroController::class, 'search']);
 
 Route::get('records', [ApiRecordController::class, 'index']);
 Route::get('records/{id}', [ApiRecordController::class, 'show']);

@@ -53,12 +53,12 @@
                             <div class="btn-group" role="group">
                                 <a href="{{route('familymakros.show', $mk->family_id)}}" type="button" class="btn btn-secondary btn-circle" title="Details"><i class="fas fa-book"></i></a>
                                 <a href="{{route('familymakros.edit', $mk->family_id)}}" type="button" class="btn btn-info btn-circle" title="Update"><i class="fas fa-check"></i></a>
-                                <button type="button" class="btn btn-danger btn-circle p-0 delete-btn" data-product-id="{{ $mk->family_id }}"><i class="fas fa-trash"></i></button>
-                                <!-- <form id="deleteForm" action="{{route('familymakros.destroy', $mk->family_id)}}" method="POST" type="button" class="btn btn-danger btn-circle p-0">
+                                <!-- <button type="button" class="btn btn-danger btn-circle p-0 delete-btn" data-product-id="{{ $mk->family_id }}"><i class="fas fa-trash"></i></button> -->
+                                <form id="deleteForm" action="{{route('familymakros.destroy', $mk->family_id)}}" method="POST" type="button" class="btn btn-danger btn-circle p-0" onclick="return confirm('Are you sure?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-danger btn-circle m-0" title="Delete" id="deleteBtn"><i class="fas fa-trash"></i></button>
-                                </form> -->
+                                    <button class="btn btn-danger btn-circle m-0" title="Delete"><i class="fas fa-trash"></i></button>
+                                </form>
                             </div>
                         </td>
                     </tr>

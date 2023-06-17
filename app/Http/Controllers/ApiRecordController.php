@@ -47,6 +47,7 @@ class ApiRecordController extends Controller
             'location' => $request->location,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
+            'record_desc' => $request->record_desc,
         ]);
 
         return response()->json([

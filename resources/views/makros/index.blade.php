@@ -7,6 +7,7 @@
     <a href="{{route('makros.create')}}" class="btn btn-primary">Add Macros</a>
 </div>
 <hr>
+
 @if(Session::has('success'))
 <div class="alert alert-success" role="alert">
     {{Session::get('success')}}
@@ -55,8 +56,12 @@
                             <div class="btn-group" role="group">
                                 <a href="{{route('makros.show', $mk->makro_id)}}" type="button" class="btn btn-secondary btn-circle" title="Details"><i class="fas fa-book"></i></a>
                                 <a href="{{route('makros.edit', $mk->makro_id)}}" type="button" class="btn btn-info btn-circle" title="Update"><i class="fas fa-check"></i></a>
-                                <button type="button" class="btn btn-danger btn-circle p-0 delete-btn" data-product-id="{{ $mk->makro_id }}"><i class="fas fa-trash"></i></button>
-
+                                <!-- <button type="button" class="btn btn-danger btn-circle p-0 delete-btn" data-product-id="{{ $mk->makro_id }}"><i class="fas fa-trash"></i></button> -->
+                                <form id="deleteForm" action="{{route('makros.destroy', $mk->makro_id)}}" method="POST" type="button" class="btn btn-danger btn-circle p-0" onclick="return confirm('Are you sure?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger btn-circle m-0" title="Delete"><i class="fas fa-trash"></i></button>
+                                </form>
                             </div>
                         </td>
                     </tr>
@@ -103,7 +108,7 @@
 
     deleteButtons.forEach(button => {
         button.addEventListener('click', (event) => {
-            event.preventDefault();
+            //event.preventDefault();
 
             // Set the form action to the product's delete route
             const productId = event.target.getAttribute('data-product-id');

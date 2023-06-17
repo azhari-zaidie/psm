@@ -93,4 +93,21 @@ class ApiMakroController extends Controller
             ]);
         }
     }
+
+    public function search(Request $request)
+    {
+        # code...
+
+        $typedKeyWords = $request->input('typedKeyWords');
+
+        $makros = Makro::where('makro_name', 'LIKE', '%' . $typedKeyWords . '%')
+            ->orWhere('makro_desc', 'LIKE', '%' . $typedKeyWords . '%')
+            ->orWhere('makro_features', 'LIKE', '%' . $typedKeyWords . '%')
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'searchData' => $makros,
+        ]);
+    }
 }
