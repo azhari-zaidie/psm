@@ -3,153 +3,175 @@
 @section('title', 'Create Macros')
 
 @section('contents')
-<h1 class="mb-0">Add Macros</h1>
 <hr />
 <form action="{{route('makros.store')}}" method="POST" enctype="multipart/form-data">
     @csrf
-    <div class="form-container" id="formContainer">
-    <div class="row mb-3">
-        <div class="col">
-            <input type="text" name="makro_name" class="form-control" placeholder="Macros Name">
-        </div>
-        <div class="col">
-            <input type="text" name="makro_mark" class="form-control" placeholder="Macros Mark">
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col">
-            <input type="text" name="family_id" class="form-control" placeholder="Family ID">
-        </div>
-        <div class="col">
-            <textarea class="form-control" name="makro_desc" placeholder="Description"></textarea>
-        </div>
-    </div>
-    <div class="row mb-3" id="productContainer">
-        <div class="col">
-            <label for="product1Name">Product 1 Name:</label>
-            <input type="text" class="form-control" id="product1Name" name="makro[0][test_name]" required>
-        </div>
-        <div class="col">
-            <label for="product1Desc">Product 1 Description:</label>
-            <textarea class="form-control" id="product1Desc" name="makro[0][test_desc]" required></textarea>
-        </div>
-    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <!-- Default Card Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header">
+                    <h6 class="m-0 font-weight-bold text-primary">Macro Details</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="makro_name">Macro Name:</label>
+                            <input type="text" name="makro_name" class="form-control" placeholder="Larvae Beetle" required>
+                        </div>
+                        <div class="col">
+                            <label for="makro_mark">Macro Mark:</label>
+                            <input type="number" min="1" name="makro_mark" class="form-control" required>
+                        </div>
+                    </div>
 
-    
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="family_makro_id">Macro Family:</label>
+                            <select name="family_id" id="family_makro_id" class="form-control" required>
+                                @foreach($familyMakro as $f)
+                                <option value="{{ $f->family_id }}">{{ $f->family_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
-    <!-- <div class="row mb-3">
-        <div class="col">
-            <input type="text" name="makro[0][test_name]" class="form-control" placeholder="tesc_name1">
-        </div>
-        <div class="col">
-            <textarea class="form-control" name="makro[0][test_desc]" placeholder="tesc_desc1"></textarea>
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col">
-            <input type="text" name="makro[1][test_name]" class="form-control" placeholder="tesc_name2">
-        </div>
-        <div class="col">
-            <textarea class="form-control" name="makro[1][test_desc]" placeholder="tesc_desc2"></textarea>
-        </div>
-    </div> -->
+                        <div class="col">
+                            <label for="makro_image">Macro Image:</label>
+                            <input type="file" name="makro_image" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="family_makro_id">Macro Description:</label>
+                        <textarea class="form-control" name="makro_desc" placeholder="Description" required></textarea>
+                    </div>
 
-    
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <!-- Default Card Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Macro Feature</h6>
+
+                    <button type="button" class="btn btn-info" id="addProductButton">Add New Feature</button>
+                </div>
+                <div class="card-body" id="formContainer">
+                    <div class="row mb-3" id="productContainer">
+                        <div class="col">
+                            <label for="product1Name">Feature Name:</label>
+                            <input type="text" class="form-control" id="product1Name" name="makro[0][feature_name]" required>
+                        </div>
+                        <div class="col">
+                            <label for="product1Desc">Feature Description:</label>
+                            <textarea class="form-control" id="product1Desc" name="makro[0][feature_desc]" required></textarea>
+                        </div>
+                        <div class="col">
+                            <label for="product1Desc">Feature Image:</label>
+                            <input type="file" class="form-control" id="product1Desc" name="makro[0][feature_image]" required>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="d-grid">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary mr-1">Submit</button>
         </div>
-        <button type="button" id="addProductButton" onclick="addNewForm()">Add New Product</button>
     </div>
 </form>
 
 <script>
-    function addNewForm() {
-    // Create a new form container
-    var formContainer = document.createElement('div');
-    formContainer.classList.add('row', 'mb-3');
+    const container = document.getElementById('productContainer');
+    const addButton = document.getElementById('addProductButton');
+    let featureCount = 1;
 
-    // Create the name input field
-    var nameFormGroup = document.createElement('div');
-    nameFormGroup.classList.add('col');
+    addButton.addEventListener('click', () => {
+        const makroDiv = document.createElement('div');
+        makroDiv.classList.add('row', 'mb-3');
 
-    var nameLabel = document.createElement('label');
-    nameLabel.setAttribute('for', 'name');
-    nameLabel.textContent = 'Name';
+        var nameFormGroup = document.createElement('div');
+        nameFormGroup.classList.add('col');
 
-    var nameInput = document.createElement('input');
-    nameInput.classList.add('form-control');
-    nameInput.setAttribute('type', 'text');
-    nameInput.setAttribute('name', 'name');
-    nameInput.setAttribute('placeholder', 'Name');
+        const featureNameLabel = document.createElement('label');
+        featureNameLabel.textContent = `Feature Name:`;
+        const featureNameInput = document.createElement('input');
+        featureNameInput.type = 'text';
+        featureNameInput.name = `makro[${featureCount}][feature_name]`;
+        featureNameInput.classList.add('form-control');
+        featureNameInput.required = true;
 
-    nameFormGroup.appendChild(nameLabel);
-    nameFormGroup.appendChild(nameInput);
+        nameFormGroup.appendChild(featureNameLabel);
+        nameFormGroup.appendChild(featureNameInput);
 
-    // Create the email input field
-    var emailFormGroup = document.createElement('div');
-    emailFormGroup.classList.add('col');
+        // Create the desc input field
+        var descFormGroup = document.createElement('div');
+        descFormGroup.classList.add('col');
 
-    var emailLabel = document.createElement('label');
-    emailLabel.setAttribute('for', 'email');
-    emailLabel.textContent = 'Email';
+        const featureDescLabel = document.createElement('label');
+        featureDescLabel.textContent = `Feature Description:`;
+        const featureDescTextarea = document.createElement('textarea');
+        featureDescTextarea.name = `makro[${featureCount}][feature_desc]`;
+        featureDescTextarea.classList.add('form-control');
+        featureDescTextarea.required = true;
 
-    var emailInput = document.createElement('input');
-    emailInput.classList.add('form-control');
-    emailInput.setAttribute('type', 'email');
-    emailInput.setAttribute('name', 'email');
-    emailInput.setAttribute('placeholder', 'Email');
+        descFormGroup.appendChild(featureDescLabel);
+        descFormGroup.appendChild(featureDescTextarea);
 
-    emailFormGroup.appendChild(emailLabel);
-    emailFormGroup.appendChild(emailInput);
+        var fileFormGroup = document.createElement('div');
+        fileFormGroup.classList.add('col');
 
-    // Append the form groups to the form container
-    formContainer.appendChild(nameFormGroup);
-    formContainer.appendChild(emailFormGroup);
+        const featureImageLabel = document.createElement('label');
+        featureImageLabel.textContent = `Feature Image:`;
+        const featureImageInput = document.createElement('input');
+        featureImageInput.type = 'file';
+        featureImageInput.name = `makro[${featureCount}][feature_image]`;
+        featureImageInput.classList.add('form-control');
+        featureImageInput.required = true;
 
-    // Append the form container to the dynamic-form
-    var dynamicForm = document.getElementById('formContainer');
-    dynamicForm.appendChild(formContainer);
-  }
-    // const container = document.getElementById('productContainer');
-    // const addButton = document.getElementById('addProductButton');
-    // let productCount = 1;
+        fileFormGroup.appendChild(featureImageLabel);
+        fileFormGroup.appendChild(featureImageInput);
 
-    // addButton.addEventListener('click', () => {
-    //     const productDiv = document.createElement('div');
-    //     productDiv.classList.add('row mb-3');
+        //     // Append the form groups to the form container
+        makroDiv.appendChild(nameFormGroup);
+        makroDiv.appendChild(descFormGroup);
+        makroDiv.appendChild(fileFormGroup);
 
-    //     var nameFormGroup = document.createElement('div');
-    // nameFormGroup.classList.add('form-group');
+        // Create the "Remove Form" button
+        var removeButton = document.createElement('button');
+        removeButton.classList.add('btn', 'btn-danger');
+        removeButton.textContent = 'Remove Feature';
+        removeButton.addEventListener('click', removeForm);
 
-    //     const productNameLabel = document.createElement('label');
-    //     productNameLabel.textContent = `makro ${productCount + 1} Name:`;
-    //     const productNameInput = document.createElement('input');
-    //     productNameInput.type = 'text';
-    //     productNameInput.name = `makro[${productCount}][test_name]`;
-    //     productNameInput.classList.add('form-control');
-    //     productNameInput.required = true;
+        // Append the "Remove Form" button to the form container
+        makroDiv.appendChild(removeButton);
 
-    //     nameFormGroup.appendChi
+        //     // Append the form container to the dynamic-form
+        var dynamicForm = document.getElementById('formContainer');
 
-    //     const productDescLabel = document.createElement('label');
-    //     productDescLabel.textContent = `makro ${productCount + 1} Description:`;
-    //     const productDescTextarea = document.createElement('textarea');
-    //     productDescTextarea.name = `makro[${productCount}][test_desc]`;
-    //     productDescTextarea.classList.add('form-control');
-    //     productDescTextarea.required = true;
+        var hrElement = document.createElement("hr");
+        hrElement.id = "hr-element";
 
-    //     productDiv.appendChild(productNameLabel);
-    //     productDiv.appendChild(productNameInput);
-    //     productDiv.appendChild(document.createElement('br'));
-    //     //container.appendChild(productDiv);
-    //     productDiv.appendChild(productDescLabel);
-    //     productDiv.appendChild(productDescTextarea);
+        //dynamicForm.appendChild(hrElement);
+        dynamicForm.appendChild(makroDiv);
+        dynamicForm.appendChild(hrElement);
 
-    //     container.appendChild(productDiv);
+        featureCount++;
+    });
 
-    //     productCount++;
-    // });
+    function removeForm(event) {
+        event.preventDefault();
+        var dynamicForm = document.getElementById('formContainer');
+        var formContainer = event.target.parentNode;
+        //dynamicForm.removeChild(formContainer);
+
+        var hrElement = document.getElementById("hr-element");
+        hrElement.parentNode.removeChild(hrElement);
+        //formContainer.removeChild(hrElement);
+        dynamicForm.removeChild(formContainer);
+    }
 </script>
 @endsection

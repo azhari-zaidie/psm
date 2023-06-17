@@ -14,9 +14,11 @@
     <!-- Custom fonts for this template-->
     <link href="/admin_assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <!-- Custom styles for this template-->
     <link href="/admin_assets/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <link href="/admin_assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -83,11 +85,11 @@
     <script src="/admin_assets/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="/admin_assets/vendor/chart.js/Chart.min.js"></script>
+    <script src="/admin_assets/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/admin_assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="/admin_assets/js/demo/chart-area-demo.js"></script>
-    <script src="/admin_assets/js/demo/chart-pie-demo.js"></script>
+    <script src="/admin_assets/js/demo/datatables-demo.js"></script>
 
 </body>
 

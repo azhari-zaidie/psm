@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MakroController;
+use App\Http\Controllers\MakroFamilyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,7 @@ use App\Http\Controllers\MakroController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::controller(AuthController::class)->group(function () {
@@ -34,14 +35,25 @@ Route::middleware('auth')->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
+    //makro route
     Route::controller(MakroController::class)->prefix('makros')->group(function () {
         Route::get('', 'index')->name('makros');
-        Route::get('create', 'create')->name('makros.create');
-        Route::post('store', 'store')->name('makros.store');
-        Route::get('show/{id}', 'show')->name('makros.show');
-        Route::get('edit/{id}', 'edit')->name('makros.edit');
-        Route::put('edit/{id}', 'update')->name('makros.update');
-        Route::delete('destroy/{id}', 'destroy')->name('makros.destroy');
+        Route::get('create', 'create')->name('makros.create');      //directed to the create page
+        Route::post('store', 'store')->name('makros.store');        //store function
+        Route::get('show/{id}', 'show')->name('makros.show');       //directed to the display page
+        Route::get('edit/{id}', 'edit')->name('makros.edit');       //directed to the update page
+        Route::put('edit/{id}', 'update')->name('makros.update');   //update function
+        Route::delete('destroy/{id}', 'destroy')->name('makros.destroy');   //delete function
+    });
+
+    Route::controller(MakroFamilyController::class)->prefix('familymakros')->group(function () {
+        Route::get('', 'index')->name('familymakros');
+        Route::get('create', 'create')->name('familymakros.create');
+        Route::post('store', 'store')->name('familymakros.store');
+        Route::get('show/{id}', 'show')->name('familymakros.show');
+        Route::get('edit/{id}', 'edit')->name('familymakros.edit');
+        Route::put('edit/{id}', 'update')->name('familymakros.update');
+        Route::delete('destroy/{id}', 'destroy')->name('familymakros.destroy');
     });
 
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');

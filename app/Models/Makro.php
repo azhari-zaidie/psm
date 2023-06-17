@@ -16,6 +16,7 @@ class Makro extends Model
         'family_id',
         'makro_mark',
         'makro_features',
+        'status',
     ];
 
     public function familymakros()

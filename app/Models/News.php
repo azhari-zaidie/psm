@@ -13,5 +13,7 @@ class News extends Model
         'news_title',
         'news_desc',
         'news_image',
+        'news_category',
+        'status',
     ];
 }

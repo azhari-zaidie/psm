@@ -70,4 +70,8 @@ class AuthController extends Controller
     {
         return view('profile');
     }
+
+    public function update(Request $request, $id)
+    {
+    }
 }
