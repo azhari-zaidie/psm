@@ -15,6 +15,7 @@ class ApiRecordController extends Controller
     public function index()
     {
         $records = Record::all();
+        //$records = Record::orderBy('created_at', 'DESC')->get();
 
         return response()->json([
             'success' => true,
@@ -63,7 +64,9 @@ class ApiRecordController extends Controller
      */
     public function show($id)
     {
-        $record = Record::where('user_id', $id)->get();
+        $record = Record::where('user_id', $id)
+            ->orderByDesc('created_at')
+            ->get();
 
         if (!$record) {
             return response()->json([

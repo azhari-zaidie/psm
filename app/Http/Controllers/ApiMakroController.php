@@ -17,7 +17,8 @@ class ApiMakroController extends Controller
     public function index()
     {
         //
-        $makro = Makro::all();
+        $makro = Makro::orderBy('created_at', 'DESC')->get();
+        //$makro = Makro::all();
 
         return response()->json([
             'success' => true,
