@@ -18,7 +18,7 @@ class ApiMakroFamilyController extends Controller
     public function index()
     {
         //
-        $familyMakro = FamilyMakro::all();
+        $familyMakro = FamilyMakro::where('status', 'Verified')->get();
 
         return response()->json([
             'success' => true,

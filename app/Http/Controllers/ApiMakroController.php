@@ -17,7 +17,9 @@ class ApiMakroController extends Controller
     public function index()
     {
         //
-        $makro = Makro::orderBy('created_at', 'DESC')->get();
+        $makro = Makro::where('status', 'Verified')
+            ->orderBy('created_at', 'DESC')
+            ->get();
         //$makro = Makro::all();
 
         return response()->json([
@@ -35,7 +37,7 @@ class ApiMakroController extends Controller
     public function showDetails($makro_id)
     {
         // Retrieve the food record with the given food_id
-        $makro = Makro::find($makro_id);
+        $makro = Makro::where('status', 'Verified')->find($makro_id);
 
         // Return a response with the retrieved record
         return response()->json([
@@ -56,7 +58,9 @@ class ApiMakroController extends Controller
         //
 
         // Retrieve all the Makro records with the given family_id
-        $makros = Makro::where('family_id', $family_id)->get();
+        $makros = Makro::where('family_id', $family_id)
+            ->where('status', 'Verified')
+            ->get();
 
         // Return a response with the retrieved records
         return response()->json([
@@ -101,10 +105,17 @@ class ApiMakroController extends Controller
 
         $typedKeyWords = $request->input('typedKeyWords');
 
-        $makros = Makro::where('makro_name', 'LIKE', '%' . $typedKeyWords . '%')
-            ->orWhere('makro_desc', 'LIKE', '%' . $typedKeyWords . '%')
-            ->orWhere('makro_features', 'LIKE', '%' . $typedKeyWords . '%')
+        $makros = Makro::where('status', 'Verified')
+            ->where(function ($query) use ($typedKeyWords) {
+                $query->where('makro_name', 'LIKE', '%' . $typedKeyWords . '%')
+                    ->orWhere('makro_desc', 'LIKE', '%' . $typedKeyWords . '%')
+                    ->orWhere('makro_features', 'LIKE', '%' . $typedKeyWords . '%');
+            })
             ->get();
+        // $makros = Makro::where('makro_name', 'LIKE', '%' . $typedKeyWords . '%')
+        //     ->orWhere('makro_desc', 'LIKE', '%' . $typedKeyWords . '%')
+        //     ->orWhere('makro_features', 'LIKE', '%' . $typedKeyWords . '%')
+        //     ->get();
 
         return response()->json([
             'success' => true,
