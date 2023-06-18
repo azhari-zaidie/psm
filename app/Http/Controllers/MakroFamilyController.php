@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\FamilyMakro;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\File;
+
 class MakroFamilyController extends Controller
 {
     /**
@@ -43,7 +45,7 @@ class MakroFamilyController extends Controller
             'family_scientific_name' => 'required',
             'family_name' => 'required',
             'family_desc' => 'required',
-            'family_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'family_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10000',
         ]);
 
         $imageName = time() . '.' . $request->family_image->extension();
@@ -129,6 +131,16 @@ class MakroFamilyController extends Controller
     {
         //delete
         $familymakros = FamilyMakro::findOrFail($id);
+
+        $imageFeatureName = $familymakros->family_image;
+
+        if ($imageFeatureName) {
+            $imagePath = public_path('assets/images/familymakro/' . $imageFeatureName);
+            if (File::exists($imagePath)) {
+                File::delete($imagePath);
+            }
+        }
+
         $familymakros->delete();
 
         return redirect()->route('familymakros')->with('success', 'Family Macros deleted Successfully');

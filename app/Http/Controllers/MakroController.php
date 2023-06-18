@@ -31,10 +31,10 @@ class MakroController extends Controller
             'makro_name' => 'required',
             'family_id' => 'required',
             'makro_mark' => 'required',
-            'makro_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'makro_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10000',
             'makro.*.feature_name' => 'required',
             'makro.*.feature_desc' => 'required',
-            'makro.*.feature_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'makro.*.feature_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10000',
         ]);
 
         $imageName = time() . '.' . $request->makro_image->extension();
@@ -128,7 +128,7 @@ class MakroController extends Controller
         $currentFeature = $request->validate([
             'makro.*.current_feature_name' => 'required',
             'makro.*.current_feature_desc' => 'required',
-            'makro.*.current_feature_image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'makro.*.current_feature_image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:10000',
             'makro.*.current_feature_delete' => 'sometimes'
         ]);
 
@@ -172,7 +172,7 @@ class MakroController extends Controller
         $newFeatureData = $request->validate([
             'newMakro.*.new_feature_name' => 'required',
             'newMakro.*.new_feature_desc' => 'required',
-            'newMakro.*.new_feature_image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'newMakro.*.new_feature_image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:10000',
         ]);
 
         if (isset($newFeatureData['newMakro'])) {
@@ -203,6 +203,24 @@ class MakroController extends Controller
     public function destroy(string $id)
     {
         $makro = Makro::findOrFail($id);
+
+        $imageFeatureName = $makro->makro_image;
+        $featureData = explode('|', $makro->makro_features);
+
+        foreach ($featureData as $data) {
+            $feature = json_decode($data, true);
+            $imagePath = public_path('assets/images/makro/' . $feature['feature_image']);
+            if (File::exists($imagePath)) {
+                File::delete($imagePath);
+            }
+        }
+
+        if ($imageFeatureName) {
+            $imagePath = public_path('assets/images/makro/' . $imageFeatureName);
+            if (File::exists($imagePath)) {
+                File::delete($imagePath);
+            }
+        }
 
         $makro->delete();
 
