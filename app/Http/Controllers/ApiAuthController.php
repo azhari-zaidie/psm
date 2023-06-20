@@ -85,10 +85,6 @@ class ApiAuthController extends Controller
                 'success' => false,
             ], 200);
         } else {
-            //Auth::attempt($user);
-            //$users = Auth::user();
-
-
             $user->user_name = $request->input('user_name');
             $user->save();
 
@@ -116,8 +112,6 @@ class ApiAuthController extends Controller
                 'message' => 'User not Found',
             ], 200);
         } else {
-            //Auth::attempt($user);
-            //$users = Auth::user();
             $request->validate([
                 'current_password' => 'required',
                 'new_password' => 'required|min:6',
@@ -137,13 +131,6 @@ class ApiAuthController extends Controller
                 $user->password = Hash::make($request->input('new_password'));
                 $user->save();
 
-                // $userData = [
-                //     'user_id' => $user->user_id,
-                //     'user_name' => $user->user_name,
-                //     'user_email' => $user->user_email,
-                //     'password' => $user->password,
-                //     'user_role' => $user->user_role,
-                // ];
                 return response()->json([
                     'success' => true,
                     'message' => 'Success change password',

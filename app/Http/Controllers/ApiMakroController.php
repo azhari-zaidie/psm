@@ -86,8 +86,6 @@ class ApiMakroController extends Controller
             'makro_mark' => 'required|numeric',
         ]);
 
-        //$news = ;
-
         if (Makro::create($data)) {
             return response()->json([
                 'success' => true
@@ -112,11 +110,6 @@ class ApiMakroController extends Controller
                     ->orWhere('makro_features', 'LIKE', '%' . $typedKeyWords . '%');
             })
             ->get();
-        // $makros = Makro::where('makro_name', 'LIKE', '%' . $typedKeyWords . '%')
-        //     ->orWhere('makro_desc', 'LIKE', '%' . $typedKeyWords . '%')
-        //     ->orWhere('makro_features', 'LIKE', '%' . $typedKeyWords . '%')
-        //     ->get();
-
         return response()->json([
             'success' => true,
             'searchData' => $makros,
