@@ -27,7 +27,6 @@
                         <th>Name</th>
                         <th>Desc</th>
                         <th>Image</th>
-                        <th>Mark</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -37,7 +36,6 @@
                         <th>Name</th>
                         <th>Desc</th>
                         <th>Image</th>
-                        <th>Mark</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>
@@ -51,7 +49,6 @@
                         <td class="align-middle">
                             <img src="{{ asset('assets/images/makro/'.$mk->makro_image) }}" alt="job image" width="100" title="job image">
                         </td>
-                        <td class="align-middle">{{$mk->makro_mark}} </td>
                         <td class="align-middle">
                             <div class="btn-group" role="group">
                                 <a href="{{route('makros.show', $mk->makro_id)}}" type="button" class="btn btn-secondary btn-circle" title="Details"><i class="fas fa-book"></i></a>

@@ -19,7 +19,14 @@
     <link href="/admin_assets/css/sb-admin-2.min.css" rel="stylesheet">
 
     <link href="/admin_assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        #map {
+            height: 300px;
+        }
+    </style>
 </head>
 
 <body id="page-top">

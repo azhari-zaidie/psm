@@ -42,10 +42,11 @@
                         <textarea class="form-control" name="family_desc" placeholder="Description" required>{{ $familymakros->family_desc }}</textarea>
                     </div>
                 </div>
-                <div class="row">
-                    <button class="btn btn-secondary" id="updateBtn">Update</button>
+                <div class="col">
+                    <button class="btn btn-primary" id="updateBtn">Update</button>
                 </div>
             </div>
+
         </div>
     </div>
     <!-- Confirmation Modal -->

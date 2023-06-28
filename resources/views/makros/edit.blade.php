@@ -29,8 +29,8 @@
                             @endforeach
                         </select>
                         <br>
-                        <label for="family_makro_id">Macro Status</label>
-                        <select name="status" id="family_makro_id" class="form-control" required>
+                        <label for="macro_status">Macro Status</label>
+                        <select name="status" id="macro_status" class="form-control" required>
                             @foreach($statusOptions as $value => $label)
                             <option value="{{ $value }}" {{ $makro->status == $value ? 'selected' : '' }}>{{ $label }}</option>
                             @endforeach
@@ -98,11 +98,10 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="d-grid">
-            <button class="btn btn-warning" id="updateBtn">Update</button>
-        </div>
+    <div class="col">
+        <button class="btn btn-primary" id="updateBtn">Update</button>
     </div>
+    <br>
     <!-- Confirmation Modal -->
     <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

@@ -2,8 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MakroController;
 use App\Http\Controllers\MakroFamilyController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\RecordController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,9 +35,9 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::controller(DashboardController::class)->prefix('dashboard')->group(function () {
+        Route::get('', 'index')->name('dashboard');
+    });
 
     //makro route
     Route::controller(MakroController::class)->prefix('makros')->group(function () {
@@ -55,6 +59,31 @@ Route::middleware('auth')->group(function () {
         Route::put('edit/{id}', 'update')->name('familymakros.update');
         Route::delete('destroy/{id}', 'destroy')->name('familymakros.destroy');
     });
+
+    Route::controller(NewsController::class)->prefix('news')->group(function () {
+        Route::get('', 'index')->name('news');
+        Route::put('edit/{id}', 'update')->name('news.update');
+        Route::delete('destroy/{id}', 'destroy')->name('news.destroy');
+
+        Route::get('create', 'create')->name('news.create');
+        Route::post('store', 'store')->name('news.store');
+    });
+
+    Route::controller(UserController::class)->prefix('users')->group(function () {
+        Route::get('', 'index')->name('users');
+        Route::put('edit/{user_id}', 'update')->name('users.update');
+        Route::delete('destroy/{id}', 'destroy')->name('users.destroy');
+    });
+
+    Route::controller(RecordController::class)->prefix('records')->group(function () {
+        Route::get('', 'index')->name('records');
+        Route::get('/singlereport/{id}', 'generateSinglePDF')->name('pdf.single');
+        Route::get('/fullreport', 'generatePDF')->name('pdf.full');
+        Route::delete('destroy/{id}', 'destroy')->name('records.destroy');
+    });
+
+    //Route::get('/fullreport', [RecordController::class, 'generatePDF'])->name('generatepdf');
+    //Route::get('singlereport/{id}', [RecordController::class, 'generateSinglePDF'])->name('pdf.single');
 
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
 });

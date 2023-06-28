@@ -11,17 +11,18 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
+    <li class="{{request()->is('dashboard') ? 'nav-item active' : 'nav-item'}}">
         <a class="nav-link" href="{{route('dashboard')}}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
     <!-- Nav Item - Profile -->
-    <li class="nav-item active">
+    <!-- <li class="{{request()->is('profile') ? 'nav-item active' : 'nav-item'}}">
         <a class="nav-link" href="/profile">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Profile</span></a>
-    </li>
+            <i class="fas fa-fw fa-users"></i>
+            <span>Profile</span>
+        </a>
+    </li> -->
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -30,21 +31,48 @@
     <div class="sidebar-heading">
         Macro Management
     </div>
-
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-cog"></i>
+    <!-- Nav Item - Macros -->
+    <li class="{{request()->is('makros') ? 'nav-item active' : 'nav-item'}}">
+        <a class="nav-link" href="{{route('makros')}}">
+            <i class="fa fa-fw fa-key"></i>
             <span>Macros</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Macros Components:</h6>
-                <a class="collapse-item" href="{{route('makros')}}">Macros</a>
-                <a class="collapse-item" href="{{route('familymakros')}}">Macros Family</a>
-            </div>
-        </div>
+    </li>
 
+    <li class="{{request()->is('familymakros') ? 'nav-item active' : 'nav-item'}}">
+        <a class="nav-link" href="{{route('familymakros')}}">
+            <i class="fa fa-fw fa-key"></i>
+            <span>Family Macros</span>
+        </a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Others Management
+    </div>
+    <!-- Nav Item - Macros -->
+    <li class="{{request()->is('news') ? 'nav-item active' : 'nav-item'}}">
+        <a class="nav-link" href="{{route('news')}}">
+            <i class="fa fa-fw fa-book"></i>
+            <span>News</span>
+        </a>
+    </li>
+
+    <li class="{{request()->is('users') ? 'nav-item active' : 'nav-item'}}">
+        <a class="nav-link" href="{{route('users')}}">
+            <i class="fa fa-fw fa-users"></i>
+            <span>User</span>
+        </a>
+    </li>
+
+    <li class="{{request()->is('records') ? 'nav-item active' : 'nav-item'}}">
+        <a class="nav-link" href="{{route('records')}}">
+            <i class="fa fa-fw  fa-bars"></i>
+            <span>Record</span>
+        </a>
     </li>
 
     <!-- Divider -->

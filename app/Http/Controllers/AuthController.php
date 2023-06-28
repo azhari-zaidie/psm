@@ -52,10 +52,28 @@ class AuthController extends Controller
             throw ValidationException::withMessages([
                 'user_email' => trans('auth.failed')
             ]);
-        }
-        $request->session()->regenerate();
+        } else {
+            $user = Auth::user();
+            if ($user->user_role !== 'admin') {
+                Auth::logout();
+                throw ValidationException::withMessages([
+                    'user_email' => trans('auth.failed')
+                ]);
+            }
 
-        return redirect()->route('dashboard');
+            $request->session()->regenerate();
+            return redirect()->route('dashboard');
+        }
+
+        // // Check if the authenticated user has the "admin" role
+        // if (!Auth::user()->user_role !== 'admin') {
+        //     // Redirect or return an error response indicating unauthorized access
+        //     // For example:
+        //     throw ValidationException::withMessages([
+        //         'user_email' => trans('auth.unauthorized')
+        //     ]);
+        // }
+        // $request->session()->regenerate();
     }
 
     public function logout(Request $request)
