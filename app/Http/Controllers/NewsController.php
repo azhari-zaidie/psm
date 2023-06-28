@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class NewsController extends Controller
 {
@@ -108,6 +109,14 @@ class NewsController extends Controller
         //
 
         $news = News::findOrFail($id);
+        $imageFeatureName = $news->news_image;
+        if ($imageFeatureName) {
+            $imagePath = public_path('assets/images/news/' . $imageFeatureName);
+            if (File::exists($imagePath)) {
+                File::delete($imagePath);
+            }
+        }
+
 
         $news->delete();
 
