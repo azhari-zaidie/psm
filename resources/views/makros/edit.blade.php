@@ -20,7 +20,7 @@
                         <input type="text" name="makro_name" class="form-control" placeholder="Title" value="{{ $makro->makro_name }}" required>
                         <br>
                         <label class="form-label">Macro Mark</label>
-                        <input type="number" min="1" name="makro_mark" class="form-control" placeholder="Macro Mark" value="{{ $makro->family_id }}" required>
+                        <input type="number" min="1" name="makro_mark" class="form-control" placeholder="Macro Mark" value="{{ $makro->makro_mark }}" required>
                         <br>
                         <label for="family_makro_id">Macro Family:</label>
                         <select name="family_id" id="family_makro_id" class="form-control" required>

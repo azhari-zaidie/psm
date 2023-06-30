@@ -52,6 +52,7 @@ class DashboardController extends Controller
         //$makroId = [];
         $count = [];
         foreach ($makros as $m) {
+            //dd($makros);
             $makroId = $m['makro_name'];
 
             if (!isset($count[$makroId])) {
