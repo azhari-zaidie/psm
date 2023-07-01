@@ -9,6 +9,7 @@ class Record {
   String? location;
   double? latitude;
   double? longitude;
+  String? record_desc;
 
   Record({
     this.record_id,
@@ -19,6 +20,7 @@ class Record {
     this.location,
     this.latitude,
     this.longitude,
+    this.record_desc,
   });
 
   factory Record.fromJson(Map<String, dynamic> json) => Record(
@@ -30,6 +32,7 @@ class Record {
         location: json["location"],
         latitude: json["latitude"],
         longitude: json["longitude"],
+        record_desc: json["record_desc"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -39,5 +42,6 @@ class Record {
         "location": location,
         "latitude": latitude!.toString(),
         "longitude": longitude!.toString(),
+        "record_desc": record_desc,
       };
 }

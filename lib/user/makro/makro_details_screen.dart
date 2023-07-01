@@ -207,11 +207,15 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
                   padding: const EdgeInsets.fromLTRB(13, 8, 13, 8),
                   child: Row(
                     children: [
-                      Text(
-                        widget.makroInfo!.makro_name!,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                      Expanded(
+                        child: Text(
+                          widget.makroInfo!.makro_name!,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                       const Spacer(),
@@ -238,7 +242,7 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
                 const Padding(
                   padding: EdgeInsets.fromLTRB(13, 8, 13, 8),
                   child: Text(
-                    "Makro Scientific name",
+                    "Macro Scientific name",
                     style: TextStyle(
                       fontSize: 13,
                     ),
@@ -347,9 +351,9 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: ClipRRect(
                   child: FadeInImage(
-                    height: 250,
+                    height: 200,
                     width: 300,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                     placeholder: const AssetImage("images/profile_icon.png"),
                     //image: AssetImage("images/place_holder.png"),
                     image: NetworkImage(
@@ -365,6 +369,17 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
                     },
                   ),
                 ),
+              ),
+            ),
+            Text(
+              //API.hostImageMakro + widget.makroInfo!.makro_image!,
+              "Image by macroinvertebrates.org",
+              textAlign: TextAlign.start,
+              style: const TextStyle(
+                fontSize: 10,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontStyle: FontStyle.italic,
               ),
             ),
 
@@ -419,22 +434,6 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
               height: 10,
             ),
 
-            Text(
-              widget.makroInfo!.makro_desc!,
-              textAlign: TextAlign.justify,
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.black,
-              ),
-            ),
-            Text(
-              widget.makroInfo!.makro_desc!,
-              textAlign: TextAlign.justify,
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.black,
-              ),
-            ),
             Text(
               widget.makroInfo!.makro_desc!,
               textAlign: TextAlign.justify,
@@ -510,12 +509,23 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
                     ),
                   ),
                 ),
+                Text(
+                  //API.hostImageMakro + widget.makroInfo!.makro_image!,
+                  "Image by macroinvertebrates.org",
+                  textAlign: TextAlign.start,
+                  style: const TextStyle(
+                    fontSize: 10,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
                 const SizedBox(
                   height: 10,
                 ),
 
                 Text(
-                  featureDetails["feature_details"],
+                  featureDetails["feature_desc"],
                   textAlign: TextAlign.justify,
                   style: const TextStyle(
                     fontSize: 18,

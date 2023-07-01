@@ -17,6 +17,29 @@ class RecordDetailsScreen extends StatefulWidget {
 class _RecordDetailsScreenState extends State<RecordDetailsScreen> {
   @override
   Widget build(BuildContext context) {
+    double score = widget.clickedRecordInfo!.record_average!;
+    IconData iconData;
+    String text;
+
+    if (score >= 7.6 && score <= 10) {
+      iconData = Icons.sentiment_very_satisfied;
+      text = 'Very Clean';
+    } else if (score >= 5.1 && score <= 7.59) {
+      iconData = Icons.sentiment_satisfied;
+      text = 'Almost Clean';
+    } else if (score >= 2.6 && score <= 5.09) {
+      iconData = Icons.sentiment_neutral;
+      text = 'Almost Dirty';
+    } else if (score >= 1.0 && score <= 2.59) {
+      iconData = Icons.sentiment_dissatisfied;
+      text = 'Dirty';
+    } else if (score >= 0 && score <= 0.9) {
+      iconData = Icons.sentiment_very_dissatisfied;
+      text = 'Very Dirty';
+    } else {
+      iconData = Icons.sentiment_dissatisfied;
+      text = 'Very Dirty';
+    }
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.white),
@@ -39,7 +62,7 @@ class _RecordDetailsScreenState extends State<RecordDetailsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
-                    "Macro Total Mark: ",
+                    "Biological Water Quality Index: ",
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.black,
@@ -60,11 +83,62 @@ class _RecordDetailsScreenState extends State<RecordDetailsScreen> {
                     "Location: ${widget.clickedRecordInfo?.location}",
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                      fontSize: 25,
+                      fontSize: 15,
                       color: Colors.black,
                     ),
                   ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "Water Classification: ",
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black),
+                    ),
+                    child: Column(
+                      children: [
+                        Icon(
+                          iconData,
+                          size: 30,
+                        ),
+                        Text(
+                          text,
+                          style: TextStyle(fontSize: 15),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
+              ),
+            ),
+          ),
+          Visibility(
+            visible: widget.clickedRecordInfo!.record_desc != null,
+            child: Expanded(
+              child: Container(
+                padding: EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.black,
+                  ),
+                ),
+                child: Text(
+                  widget.clickedRecordInfo!.record_desc != null
+                      ? widget.clickedRecordInfo!.record_desc!
+                      : 'No description',
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                  ),
+                ),
               ),
             ),
           ),

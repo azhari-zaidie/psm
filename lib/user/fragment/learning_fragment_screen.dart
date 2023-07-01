@@ -10,9 +10,58 @@ import 'package:psm_v2/api_connection/api_connection_laravel.dart';
 import 'package:psm_v2/user/makro/family_makro_details_screen.dart';
 import 'package:psm_v2/user/model/makro.dart';
 import 'package:http/http.dart' as http;
+import 'package:psm_v2/user/model/news.dart';
 
-class LearningFragmentScreen extends StatelessWidget {
+class LearningFragmentScreen extends StatefulWidget {
   const LearningFragmentScreen({super.key});
+
+  @override
+  State<LearningFragmentScreen> createState() => _LearningFragmentScreenState();
+}
+
+class _LearningFragmentScreenState extends State<LearningFragmentScreen> {
+  int _selectedIndex = -1;
+
+  final List<Learning> learning = [
+    Learning(
+      learning_title: 'Calculation Formula',
+      learning_name:
+          'ASPT is used to calculate the Average of macro to determine the quality',
+      learning_desc:
+          'The Average Score Per Taxon (ASPT) represents the average tolerance score of all taxa within the community, and is calculated by dividing the BMWP by the number of families/taxa represented in the sample. ' +
+              '\nThe formula is: \nSum of every makro / Total makro found',
+    ),
+    Learning(
+      learning_title: 'Item 1',
+      learning_name: 'How to Take Sample?',
+      learning_desc: 'The instruction of how to Take sample need to be done properly to get clear result. \n' +
+          '1. Filing the river water into tray that in the kit' +
+          '\n2. Two methods for finding macroinvertabrates in water: ' +
+          '\n   i. Using the legs and cathing using a net. Removing the animal from the net and placing it in a container; Or' +
+          '\n   ii. Using stones or leaves and being boosted in water, in containers' +
+          '\n3. In facilitate the process of identifying macroinvertebrate, the animalshould be transferred to petri dish using a spoon or dropper. A type of animal for one petri dish' +
+          '\n4. Place a petri dish on a sunny surface and identify the animal through a magnifying lens and refer to the classification module.',
+    ),
+    Learning(
+      learning_title: 'Item 1',
+      learning_name: 'How to test water quality using this UjiMakro Apps?',
+      learning_desc: 'There is two way that can be done: ' +
+          '\n1. In homepage there is a take sample button, user can simply click on it'
+              '\n2. User can go to records page. At the top right page will have + icon. Click on it',
+    ),
+    Learning(
+      learning_title: 'Item 1',
+      learning_name: 'Macroinvertebrates as Bioindicators of Water Quality',
+      learning_desc:
+          'Macroinvertebrates like insects, crustaceans, and worms can indicate water quality. Their presence, abundance, and diversity reflect pollution levels, helping monitor and manage ecosystems.',
+    ),
+    Learning(
+      learning_title: 'Item 1',
+      learning_name: 'Assessing Water Quality Using Macroinvertebrate Metrics',
+      learning_desc:
+          'By analyzing macroinvertebrate communities, metrics like BMWP and EPT can quantify water quality. Higher scores indicate better health, aiding in environmental assessments and decision-making.',
+    ),
+  ];
 
   Future<List<FamilyMakro>> readFamilyMakro() async {
     List<FamilyMakro> familyMakroList = [];
@@ -42,6 +91,24 @@ class LearningFragmentScreen extends StatelessWidget {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    _selectedIndex = 0;
+  }
+
+  Future<void> _pullRefresh() async {
+    setState(() {
+      //profileWidget(context);
+      //favoriteAllItemsWidget(context);
+      allFamilyMakro(context);
+      learningList(context);
+    });
+    // why use freshNumbers var? https://stackoverflow.com/a/52992836/2301224
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -49,20 +116,117 @@ class LearningFragmentScreen extends StatelessWidget {
         backgroundColor: Color.fromARGB(255, 99, 0, 238),
         centerTitle: true,
         title: const Text(
-          "Macros Categories",
+          "Learning Field",
           style: TextStyle(
             color: Colors.white,
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            allFamilyMakro(context),
-          ],
+      body: RefreshIndicator(
+        onRefresh: _pullRefresh,
+        child: Container(
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  //overview or details with desc
+                  SizedBox(
+                    width: 100, // Adjust this value to adjust the spacing
+                    child: TextButton(
+                      autofocus: _selectedIndex == 0,
+                      onPressed: () {
+                        setState(() {
+                          _selectedIndex = 0;
+                        });
+                      },
+                      style: TextButton.styleFrom(
+                        foregroundColor: Colors.black,
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        textStyle: TextStyle(
+                          decoration: _selectedIndex == 0
+                              ? TextDecoration.underline
+                              : TextDecoration.none,
+                          color: Colors.blue,
+                        ),
+                      ),
+                      child: const Text(
+                        'Categories',
+                        style: TextStyle(
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  //families
+                  SizedBox(
+                    width: 80, // Adjust this value to adjust the spacing
+                    child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          _selectedIndex = 1;
+                        });
+                      },
+                      style: TextButton.styleFrom(
+                        foregroundColor: Colors.black,
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        textStyle: TextStyle(
+                          decoration: _selectedIndex == 1
+                              ? TextDecoration.underline
+                              : TextDecoration.none,
+                        ),
+                      ),
+                      child: const Text(
+                        'Guide',
+                        style: TextStyle(
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const Divider(),
+              Expanded(
+                  child: _selectedIndex == 0
+                      ? SingleChildScrollView(
+                          child: allFamilyMakro(context),
+                        )
+                      : learningList(context)),
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  Widget learningList(context) {
+    return ListView.builder(
+      itemCount: learning.length,
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+          child: Card(
+            elevation: 5,
+            shadowColor: Colors.grey,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListTile(
+                title: Text(learning[index].learning_name!),
+                subtitle: Text(learning[index].learning_desc!),
+                onTap: () {},
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -172,7 +336,7 @@ class LearningFragmentScreen extends StatelessWidget {
           );
         } else {
           return const Center(
-            child: Text("Empty, No Data."),
+            child: Text("No Family Macro"),
           );
         }
       },

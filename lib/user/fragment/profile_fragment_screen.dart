@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:psm_v2/user/authentication/user_login_screen.dart';
+import 'package:psm_v2/user/profile/about_us_screen.dart';
 import 'package:psm_v2/user/profile/change_password_screen.dart';
 import 'package:psm_v2/user/profile/update_profile_screen.dart';
 import 'package:psm_v2/user/userPreferences/current_user.dart';
@@ -162,7 +163,9 @@ class ProfileFragmentScreen extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(AboutUsScreen());
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

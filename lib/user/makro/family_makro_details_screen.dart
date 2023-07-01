@@ -109,10 +109,10 @@ class _FamilyMakroDetailsScreenState extends State<FamilyMakroDetailsScreen> {
                     ),
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.fromLTRB(13, 8, 13, 8),
                   child: Text(
-                    "Makro Scientific name",
+                    widget.familyInfo!.family_scientific_name!,
                     style: TextStyle(
                       fontSize: 13,
                     ),
@@ -223,9 +223,9 @@ class _FamilyMakroDetailsScreenState extends State<FamilyMakroDetailsScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: ClipRRect(
                   child: FadeInImage(
-                    height: 250,
-                    width: 300,
-                    fit: BoxFit.cover,
+                    height: 300,
+                    width: 250,
+                    fit: BoxFit.fill,
                     placeholder: const AssetImage("images/profile_icon.png"),
                     //image: AssetImage("images/place_holder.png"),
                     image: NetworkImage(
@@ -241,6 +241,17 @@ class _FamilyMakroDetailsScreenState extends State<FamilyMakroDetailsScreen> {
                     },
                   ),
                 ),
+              ),
+            ),
+            Text(
+              //API.hostImageMakro + widget.makroInfo!.makro_image!,
+              "Image by macroinvertebrates.org",
+              textAlign: TextAlign.start,
+              style: const TextStyle(
+                fontSize: 10,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontStyle: FontStyle.italic,
               ),
             ),
 

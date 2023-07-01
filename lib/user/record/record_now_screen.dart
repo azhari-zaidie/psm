@@ -26,6 +26,8 @@ class RecordNowScreen extends StatelessWidget {
   CurrentUser currentUser = Get.put(CurrentUser());
   WaterTestController makroController = Get.put(WaterTestController());
 
+  TextEditingController descController = TextEditingController();
+
   RecordNowScreen({
     this.selectedMakroListInfo,
     this.totalMark,
@@ -68,6 +70,7 @@ class RecordNowScreen extends StatelessWidget {
             "location": currentAddress,
             "latitude": latitude,
             "longitude": longitude,
+            "record_desc": descController.text,
           },
         ),
         headers: {
@@ -81,7 +84,9 @@ class RecordNowScreen extends StatelessWidget {
 
         if (responseBodyOfAddNewRecord["success"] == true) {
           Fluttertoast.showToast(msg: "Success");
-          //print(jsonEncode(selectedMakroString));
+          print(
+            descController.text,
+          );
           Get.to(DasboardFragmentScreen());
         } else {
           print("Error ::");
@@ -122,7 +127,7 @@ class RecordNowScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
-                    "Makro Total Mark: ",
+                    "Macro Total Average: ",
                     style: TextStyle(
                       fontSize: 25,
                       color: Colors.black,
@@ -135,14 +140,6 @@ class RecordNowScreen extends StatelessWidget {
                       color: Colors.black,
                     ),
                   ),
-                  // Text(
-                  //   'LAT: $latitude '
-                  //   'LGT: $longitude',
-                  //   style: const TextStyle(
-                  //     fontSize: 25,
-                  //     color: Colors.white,
-                  //   ),
-                  // ),
                   Text(
                     '$currentAddress',
                     textAlign: TextAlign.center,
@@ -152,6 +149,17 @@ class RecordNowScreen extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: TextField(
+              controller: descController,
+              maxLines: 3,
+              decoration: InputDecoration(
+                hintText: 'Description (optional)',
+                border: OutlineInputBorder(),
               ),
             ),
           ),
@@ -182,7 +190,8 @@ class RecordNowScreen extends StatelessWidget {
                       eachSelectedMakro["makro_name"],
                     ),
                     subtitle: Text(
-                      'This is item $index',
+                      "Score for this Makro: " +
+                          eachSelectedMakro["makro_mark"].toString(),
                     ),
                   ),
                 );

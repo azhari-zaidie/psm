@@ -11,9 +11,14 @@ import 'package:psm_v2/user/model/makro.dart';
 import 'package:psm_v2/user/userPreferences/current_user.dart';
 import 'package:http/http.dart' as http;
 
-class FavoriteFragmentScreen extends StatelessWidget {
+class FavoriteFragmentScreen extends StatefulWidget {
   FavoriteFragmentScreen({super.key});
 
+  @override
+  State<FavoriteFragmentScreen> createState() => _FavoriteFragmentScreenState();
+}
+
+class _FavoriteFragmentScreenState extends State<FavoriteFragmentScreen> {
   final CurrentUser _currentUser = Get.put(CurrentUser());
 
   Future<List<Favorite>> getCurrentUserFavorite() async {
@@ -53,42 +58,55 @@ class FavoriteFragmentScreen extends StatelessWidget {
     return currentUserFavorite;
   }
 
+  Future<void> _pullRefresh() async {
+    setState(() {
+      //profileWidget(context);
+      favoriteAllItemsWidget(context);
+    });
+    // why use freshNumbers var? https://stackoverflow.com/a/52992836/2301224
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Padding(
-            padding: EdgeInsets.fromLTRB(16, 24, 8, 8),
-            child: Text(
-              "My Favorite List",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
+    return Scaffold(
+      body: RefreshIndicator(
+        onRefresh: _pullRefresh,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.fromLTRB(16, 24, 8, 8),
+                child: Text(
+                  "My Favorite List",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.fromLTRB(16, 24, 8, 8),
-            child: Text(
-              "Learn about your favorite Macros.",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 16,
-                fontWeight: FontWeight.w300,
+              const Padding(
+                padding: EdgeInsets.fromLTRB(16, 24, 8, 8),
+                child: Text(
+                  "Learn about your favorite Macros.",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
               ),
-            ),
-          ),
 
-          const SizedBox(
-            height: 24,
-          ),
+              const SizedBox(
+                height: 24,
+              ),
 
-          //displaying favoritelist
-          favoriteAllItemsWidget(context),
-        ],
+              //displaying favoritelist
+              favoriteAllItemsWidget(context),
+            ],
+          ),
+        ),
       ),
     );
   }

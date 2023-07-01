@@ -59,6 +59,15 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
     return currentRecordUser;
   }
 
+  Future<void> _pullRefresh() async {
+    setState(() {
+      //profileWidget(context);
+      //favoriteAllItemsWidget(context);
+      displayRecordList(context);
+    });
+    // why use freshNumbers var? https://stackoverflow.com/a/52992836/2301224
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,41 +130,44 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
           ),
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          //my order and history order
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 24, 8, 0),
-              //history icon and my history
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Image.asset(
-                      "images/track-record.png",
-                      width: 140,
+      body: RefreshIndicator(
+        onRefresh: _pullRefresh,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            //my order and history order
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 24, 8, 0),
+                //history icon and my history
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image.asset(
+                        "images/track-record.png",
+                        width: 140,
+                      ),
                     ),
-                  ),
-                  const Text(
-                    "My History of Records",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
+                    const Text(
+                      "My History of Records",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
 
-          //listing record
-          Expanded(
-            child: displayRecordList(context),
-          ),
-        ],
+            //listing record
+            Expanded(
+              child: displayRecordList(context),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -233,14 +245,6 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Record ID # ${eachRecordData.record_id}",
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
                           "Total Average: ${eachRecordData.record_average}",
                           style: const TextStyle(
                             fontSize: 14,
@@ -283,7 +287,7 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
                             //time
                             Text(
                               DateFormat("hh:mm a")
-                                  .format(eachRecordData.created_at!),
+                                  .format(eachRecordData.created_at!.toLocal()),
                               style: const TextStyle(
                                 color: Colors.black,
                               ),

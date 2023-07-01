@@ -20,3 +20,17 @@ class News {
         main_image: json["news_image"],
       );
 }
+
+class Learning {
+  int? learning_id;
+  String? learning_title;
+  String? learning_name;
+  String? learning_desc;
+
+  Learning({
+    this.learning_id,
+    this.learning_title,
+    this.learning_name,
+    this.learning_desc,
+  });
+}

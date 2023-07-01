@@ -168,24 +168,26 @@ class _WaterQualityScreenState extends State<WaterQualityScreen> {
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 title: const Text('Description'),
-                                content: Column(
-                                  children: [
-                                    Container(
-                                      height: 200,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: NetworkImage(
-                                              APILARAVEL.readMakroImage +
-                                                  makroModel.makro_image!),
-                                          fit: BoxFit.fill,
+                                content: SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        height: 150,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                                APILARAVEL.readMakroImage +
+                                                    makroModel.makro_image!),
+                                            fit: BoxFit.fill,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Text(
-                                      makroModel.makro_desc!,
-                                      textAlign: TextAlign.justify,
-                                    ),
-                                  ],
+                                      Text(
+                                        makroModel.makro_desc!,
+                                        textAlign: TextAlign.justify,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 actions: [
                                   TextButton(
@@ -212,68 +214,67 @@ class _WaterQualityScreenState extends State<WaterQualityScreen> {
                             },
                           );
                         },
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: Card(
-                            elevation: 5,
-                            child: Column(
-                              children: [
-                                Container(
-                                  height: 100,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                          APILARAVEL.readMakroImage +
-                                              makroModel.makro_image!),
-                                      fit: BoxFit.cover,
+                        child: Card(
+                          elevation: 5,
+                          child: Column(
+                            children: [
+                              Container(
+                                height: 90,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                        APILARAVEL.readMakroImage +
+                                            makroModel.makro_image!),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+
+                              Text(
+                                makroModel.makro_name!,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                ),
+                              ),
+                              SizedBox(height: 0),
+                              Text(
+                                "Score: ${makroModel.makro_mark!.toString()}",
+                                style: const TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+
+                              //check box
+                              GetBuilder(
+                                init: WaterTestController(),
+                                builder: (controller) {
+                                  return IconButton(
+                                    onPressed: () {
+                                      if (makroController.selectedMakroList
+                                          .contains(makroModel.makro_id)) {
+                                        makroController.deleteSelectedMakro(
+                                            makroModel.makro_id!);
+                                      } else {
+                                        makroController.addSelectedMakro(
+                                            makroModel.makro_id!);
+                                      }
+
+                                      calculateTotalMark();
+                                    },
+                                    icon: Icon(
+                                      makroController.selectedMakroList
+                                              .contains(makroModel.makro_id)
+                                          ? Icons.check_box
+                                          : Icons.check_box_outline_blank,
+                                      color: Colors.black,
                                     ),
-                                  ),
-                                ),
-
-                                Text(
-                                  makroModel.makro_name!,
-                                  style: const TextStyle(
-                                    fontSize: 15,
-                                  ),
-                                ),
-
-                                Text(
-                                  "Score: ${makroModel.makro_mark!.toString()}",
-                                  style: const TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-
-                                //check box
-                                GetBuilder(
-                                  init: WaterTestController(),
-                                  builder: (controller) {
-                                    return IconButton(
-                                      onPressed: () {
-                                        if (makroController.selectedMakroList
-                                            .contains(makroModel.makro_id)) {
-                                          makroController.deleteSelectedMakro(
-                                              makroModel.makro_id!);
-                                        } else {
-                                          makroController.addSelectedMakro(
-                                              makroModel.makro_id!);
-                                        }
-
-                                        calculateTotalMark();
-                                      },
-                                      icon: Icon(
-                                        makroController.selectedMakroList
-                                                .contains(makroModel.makro_id)
-                                            ? Icons.check_box
-                                            : Icons.check_box_outline_blank,
-                                        color: Colors.black,
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
+                                  );
+                                },
+                              ),
+                            ],
                           ),
                         ),
                       );
