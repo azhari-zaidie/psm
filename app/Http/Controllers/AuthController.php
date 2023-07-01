@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -89,7 +90,35 @@ class AuthController extends Controller
         return view('profile');
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
+        $user = User::findOrFail($request->user_id);
+        $user_id = $request->query('user_id');
+        $validator = Validator::make($request->all(), [
+            'user_name' => 'required',
+            'user_email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($user_id, 'user_id')->where(function ($query) use ($user) {
+                    return $query->whereRaw('user_email != ? AND user_email != ?', [$user->user_email, $user->user_email]);
+                })
+            ],
+            'password' => 'nullable|confirmed|min:8',
+        ]);
+
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->password);
+        }
+
+        // If validation fails, redirect back with the error messages
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $user->user_name = $request->user_name;
+        $user->user_email = $request->user_email;
+
+        $user->save();
+        return redirect()->back()->with('success', 'Profile updated successfully.');
     }
 }

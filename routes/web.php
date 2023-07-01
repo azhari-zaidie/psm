@@ -32,6 +32,9 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'loginAction')->name('login.action');
 
     Route::get('logout', 'logout')->middleware('auth')->name('logout');
+
+    Route::get('profile', 'profile')->middleware('auth')->name('profile');
+    Route::put('update', 'update')->middleware('auth')->name('update.profile');
 });
 
 Route::middleware('auth')->group(function () {
