@@ -73,6 +73,7 @@
                 <th>Location</th>
                 <th>Date</th>
                 <th>Average Score</th>
+                <th>Water Status</th>
                 <th>Total Macro</th>
             </tr>
         </thead>
@@ -87,20 +88,23 @@
             $makros[] = $makro;
             $totalMakro = count(array_unique(array_column($makros, 'makro_id')));
             }
-            @endphp
-            <tr>
-                <td>{{$loop->iteration}}</td>
-                <td>{{$r->user->user_name}}</td>
-                <td>{{$r->user->user_email}}</td>
-                <td>{{$r->location}}</td>
-                <td>{{$r->created_at}}</td>
-                <td>{{$r->record_average}}</td>
-                <td>{{$totalMakro}}</td>
-            </tr>
+
+            $water_status = "";
+
+            if ($r->record_average >= 7.6 && $r->record_average <= 10) { $water_status="Very Clean" ; } else if ($r->record_average >= 5.1 && $r->record_average <= 7.59) { $water_status="Almost Clean" ; } else if ($r->record_average >= 2.6 && $r->record_average <= 5.09) { $water_status="Almost Dirty" ; } else if ($r->record_average >= 1.0 && $r->record_average <= 2.59) { $water_status="Dirty" ; } else if ($r->record_average >= 0 && $r->record_average <= 0.9) { $water_status="Very Dirty" ; } else { $water_status="Invalid Score" ; } @endphp <tr>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$r->user->user_name}}</td>
+                                <td>{{$r->user->user_email}}</td>
+                                <td>{{$r->location}}</td>
+                                <td>{{$r->created_at}}</td>
+                                <td>{{$r->record_average}}</td>
+                                <td>{{$water_status}}</td>
+                                <td>{{$totalMakro}}</td>
+                                </tr>
 
 
-            @endforeach
-            <!-- Add more rows as needed -->
+                                @endforeach
+                                <!-- Add more rows as needed -->
         </tbody>
     </table>
     <div class="footer">

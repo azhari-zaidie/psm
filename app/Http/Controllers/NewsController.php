@@ -25,10 +25,10 @@ class NewsController extends Controller
             $selectedNews = News::findOrFail($news_id);
             //dd($selectedNews);
         }
-
+        $displayOptions = ['Display' => 'Display', 'Dont Display' => 'Dont Display'];
         $statusOptions = ['News' => 'News', 'Learning' => 'Learning'];
 
-        return view('news.index', compact('news', 'selectedNews', 'statusOptions'));
+        return view('news.index', compact('news', 'selectedNews', 'statusOptions', 'displayOptions'));
     }
 
     /**
@@ -39,6 +39,7 @@ class NewsController extends Controller
     public function create()
     {
         //
+
         $statusOptions = ['News' => 'News', 'Learning' => 'Learning'];
         return view('news.create', compact('statusOptions'));
     }
@@ -93,6 +94,7 @@ class NewsController extends Controller
         $news->news_title = $request->news_title;
         $news->news_desc = $request->news_desc;
         $news->category = $request->category;
+        $news->status = $request->status;
 
         $news->save();
         return redirect()->route('news')->with('success', 'News Updated Successfully');

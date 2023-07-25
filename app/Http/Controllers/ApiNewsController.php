@@ -15,7 +15,11 @@ class ApiNewsController extends Controller
     public function index()
     {
         //
-        $news = News::all();
+        //$news = News::all();
+
+        $news = News::where('status', 'Display')->get();
+
+
 
         return response()->json([
             'success' => true,

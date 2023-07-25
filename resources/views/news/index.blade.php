@@ -17,8 +17,11 @@
 <div class="row">
     <div class="col-lg-6">
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">List of News</h6>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#noticeModal">
+                    <i class="fas fa-info-circle" aria-hidden="true"></i>
+                </button>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -28,6 +31,7 @@
                                 <th>#</th>
                                 <th>Image</th>
                                 <th>Title</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -36,6 +40,7 @@
                                 <th>#</th>
                                 <th>Image</th>
                                 <th>Title</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
@@ -48,7 +53,7 @@
                                     <img src="{{ asset('assets/images/news/'.$mk->news_image) }}" alt="job image" width="100" title="job image">
                                 </td>
                                 <td class="align-middle">{{nl2br($mk->news_title, true)}} </td>
-
+                                <td class="align-middle">{{nl2br($mk->status, true)}} </td>
                                 <td class="align-middle">
                                     <div class="btn-group" role="group">
                                         <a href="{{route('news', ['news_id' => $mk->news_id])}}" type="button" class="btn btn-secondary btn-circle" title="Details"><i class="fas fa-book"></i></a>
@@ -117,12 +122,26 @@
                             <input type="text" class="form-control" placeholder="News Title" name="news_title" value="{{$selectedNews -> news_title}}" required>
 
                         </div>
+
+                    </div>
+                    <br>
+                    <div class="row">
                         <div class="col">
                             <label class="form-label">News Categories</label>
 
                             <select name="category" id="category" class="form-control" required>
                                 @foreach($statusOptions as $value => $label)
                                 <option value="{{ $value }}" {{ $selectedNews->category == $value ? 'selected' : '' }}>{{ $label }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col">
+                            <label class="form-label">News Status</label>
+
+                            <select name="status" id="status" class="form-control" required>
+                                @foreach($displayOptions as $value => $label)
+                                <option value="{{ $value }}" {{ $selectedNews->status == $value ? 'selected' : '' }}>{{ $label }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -140,7 +159,7 @@
                     <div class="row">
                         <div class="col">
                             <label class="form-label">News Description</label>
-                            <input type="text" class="form-control" placeholder="News Description" name="news_desc" value="{{$selectedNews->news_desc}}" required>
+                            <textarea class="form-control" name="news_desc" placeholder="News Description" required>{{$selectedNews->news_desc}}</textarea>
                         </div>
                     </div>
                     <hr>
@@ -176,6 +195,30 @@
             </div>
         </div>
 
+    </div>
+
+    <!-- Create the modal dialog with the desired content -->
+    <div class="modal fade" id="noticeModal" tabindex="-1" role="dialog" aria-labelledby="noticeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="noticeModalLabel">About News</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Add your popup content here, e.g., a list of briefings -->
+                    <p>This is News pages, in here Admin can display/update and delete by click books icon and trash icon respectively.</p>
+                    <p>For updating purpose, News Categories is used to determine the different categories for every News which is Learning or News.</p>
+                    <p>Also for News Status is used to determine whether the News will be display on Application or not.</p>
+                    <p>Application will only display 4 News only. So Admin need to decide which News will be display on apps.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 
