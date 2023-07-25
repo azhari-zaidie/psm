@@ -51,7 +51,7 @@
         </div>
         <div class="info">
             <div style="text-align: left;">
-                <h2>Report Title</h2>
+                <h2>Full User Report</h2>
                 <p>Report generated on: {{ date('Y-m-d H:i:s') }}</p>
                 <p>Additional Information:</p>
                 <ul>
