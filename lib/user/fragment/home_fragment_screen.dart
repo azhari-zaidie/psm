@@ -559,79 +559,6 @@ class _HomeFragmentScreenState extends State<HomeFragmentScreen> {
               },
             ),
           );
-          // return PageView.builder(
-          //   physics: BouncingScrollPhysics(),
-          //   itemCount: 3,
-          //   scrollDirection: Axis.horizontal,
-          //   controller: _pageController,
-          //   itemBuilder: (context, index) {
-          //     News eachNewsRecord = dataSnapShot.data![index];
-
-          //     return GestureDetector(
-          //       onTap: () {},
-          //       child: Container(
-          //         decoration: BoxDecoration(
-          //           color: Color.fromARGB(255, 3, 218, 197),
-          //         ),
-          //         child: Row(
-          //           children: [
-          //             Expanded(
-          //               child: Padding(
-          //                 padding: EdgeInsets.all(20),
-          //                 child: Column(
-          //                   crossAxisAlignment: CrossAxisAlignment.start,
-          //                   children: [
-          //                     Text(
-          //                       "Welcome to UjiMakro Apps",
-          //                       style: const TextStyle(
-          //                         fontSize: 20,
-          //                         fontWeight: FontWeight.bold,
-          //                       ),
-          //                     ),
-          //                     SizedBox(
-          //                       height: 5,
-          //                     ),
-          //                     //title and desc
-          //                     Text(
-          //                       APILARAVEL.readNewsImage +
-          //                           eachNewsRecord.main_image!,
-          //                       maxLines: 3,
-          //                       overflow: TextOverflow.ellipsis,
-          //                       style: const TextStyle(
-          //                         fontSize: 15,
-          //                       ),
-          //                     ),
-          //                   ],
-          //                 ),
-          //               ),
-          //             ),
-          //             ClipRRect(
-          //               child: FadeInImage(
-          //                 height: 200,
-          //                 width: 200,
-          //                 fit: BoxFit.cover,
-          //                 placeholder:
-          //                     const AssetImage("images/profile_icon.png"),
-          //                 //image: AssetImage("images/place_holder.png"),
-          //                 image: NetworkImage(
-          //                   APILARAVEL.readNewsImage +
-          //                       eachNewsRecord.main_image!,
-          //                 ),
-          //                 imageErrorBuilder: (context, error, stackTraceError) {
-          //                   return const Center(
-          //                     child: Icon(
-          //                       Icons.broken_image_outlined,
-          //                     ),
-          //                   );
-          //                 },
-          //               ),
-          //             ),
-          //           ],
-          //         ),
-          //       ),
-          //     );
-          //   },
-          // );
         } else {
           return const Center(
             child: Text("Empty, No Data."),
@@ -641,7 +568,7 @@ class _HomeFragmentScreenState extends State<HomeFragmentScreen> {
     );
   }
 
-  //widget display news
+  //widget display latest makros
   Widget allLatestMakro(context) {
     return FutureBuilder(
       future: getLatestMakros(),
@@ -653,7 +580,7 @@ class _HomeFragmentScreenState extends State<HomeFragmentScreen> {
         }
         if (dataSnapShot.data == null) {
           return const Center(
-            child: Text("No news found"),
+            child: Text("No latest macros found"),
           );
         }
 
@@ -726,7 +653,7 @@ class _HomeFragmentScreenState extends State<HomeFragmentScreen> {
                         child: FadeInImage(
                           height: 130,
                           width: 130,
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fill,
                           placeholder:
                               const AssetImage("images/profile_icon.png"),
                           //image: AssetImage("images/place_holder.png"),
