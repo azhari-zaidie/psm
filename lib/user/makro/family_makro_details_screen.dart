@@ -278,22 +278,6 @@ class _FamilyMakroDetailsScreenState extends State<FamilyMakroDetailsScreen> {
                 color: Colors.black,
               ),
             ),
-            Text(
-              widget.familyInfo!.family_desc!,
-              textAlign: TextAlign.justify,
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.black,
-              ),
-            ),
-            Text(
-              widget.familyInfo!.family_desc!,
-              textAlign: TextAlign.justify,
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.black,
-              ),
-            ),
           ],
         ),
       ),

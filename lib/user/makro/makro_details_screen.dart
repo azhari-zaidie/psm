@@ -413,21 +413,23 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
             ),
 
             //rating
-            RatingBar.builder(
-              initialRating:
-                  double.parse(widget.makroInfo!.makro_mark.toString()),
-              minRating: 1,
-              maxRating: 10,
-              itemCount: 10,
-              direction: Axis.horizontal,
-              itemBuilder: (context, c) => const Icon(
-                Icons.circle,
-                color: Colors.black,
+            Container(
+              child: RatingBar.builder(
+                initialRating:
+                    double.parse(widget.makroInfo!.makro_mark.toString()),
+                minRating: 1,
+                maxRating: 10,
+                itemCount: 10,
+                direction: Axis.horizontal,
+                itemBuilder: (context, c) => const Icon(
+                  Icons.circle,
+                  color: Colors.black,
+                ),
+                onRatingUpdate: (updateRating) {},
+                ignoreGestures: true,
+                unratedColor: Colors.grey.shade400,
+                itemSize: 20,
               ),
-              onRatingUpdate: (updateRating) {},
-              ignoreGestures: true,
-              unratedColor: Colors.grey.shade400,
-              itemSize: 20,
             ),
 
             const SizedBox(
