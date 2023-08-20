@@ -414,21 +414,69 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
 
             //rating
             Container(
-              child: RatingBar.builder(
-                initialRating:
-                    double.parse(widget.makroInfo!.makro_mark.toString()),
-                minRating: 1,
-                maxRating: 10,
-                itemCount: 10,
-                direction: Axis.horizontal,
-                itemBuilder: (context, c) => const Icon(
-                  Icons.circle,
-                  color: Colors.black,
-                ),
-                onRatingUpdate: (updateRating) {},
-                ignoreGestures: true,
-                unratedColor: Colors.grey.shade400,
-                itemSize: 20,
+              width: MediaQuery.of(context).size.width * 0.6,
+              //alignment: Alignment.center,
+              //height: 100,
+              //color: Colors.blue,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      RatingBar.builder(
+                        initialRating: double.parse(
+                            widget.makroInfo!.makro_mark.toString()),
+                        minRating: 1,
+                        maxRating: 10,
+                        itemCount: 10,
+                        direction: Axis.horizontal,
+                        itemBuilder: (context, c) => const Icon(
+                          Icons.circle,
+                          color: Colors.black,
+                        ),
+                        onRatingUpdate: (updateRating) {},
+                        ignoreGestures: true,
+                        unratedColor: Colors.grey.shade400,
+                        itemSize: 20,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                          height:
+                              10), // Adding spacing between the RatingBar and the text
+                      Text(
+                        "Bad",
+                        style: TextStyle(
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                      Spacer(),
+                      SizedBox(
+                          height:
+                              10), // Adding spacing between the RatingBar and the text
+                      Text(
+                        "Neutral",
+                        style: TextStyle(
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                      Spacer(),
+                      SizedBox(
+                          height:
+                              10), // Adding spacing between the RatingBar and the text
+                      Text(
+                        "Good",
+                        style: TextStyle(
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ],
+                  )
+                ],
               ),
             ),
 
