@@ -3,20 +3,18 @@
 @section('title', 'Macro Management')
 
 @section('contents')
-<div class="d-flex align-items-center justify-content-between">
-    <a href="{{route('makros.create')}}" class="btn btn-primary">Add Macros</a>
-</div>
-<hr>
+
 
 @if(Session::has('success'))
 <div class="alert alert-success" role="alert">
     {{Session::get('success')}}
 </div>
 @endif
-
+<hr>
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">List of Macros</h6>
+    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+         <h6 class="m-0 font-weight-bold text-primary">List of Macros</h6>
+         <a href="{{route('makros.create')}}" class="btn btn-primary">Add Macros</a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -24,18 +22,20 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>Image</th>
                         <th>Name</th>
                         <th>Desc</th>
-                        <th>Image</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th>#</th>
+                        <th>Image</th>
                         <th>Name</th>
                         <th>Desc</th>
-                        <th>Image</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>
@@ -44,10 +44,18 @@
                     @foreach($makros as $mk)
                     <tr>
                         <td class="align-middle">{{$loop->iteration}} </td>
-                        <td class="align-middle">{{$mk->makro_name}} </td>
-                        <td class="align-middle">{{$mk->makro_desc}} </td>
                         <td class="align-middle">
                             <img src="{{ asset('assets/images/makro/'.$mk->makro_image) }}" alt="job image" width="100" title="job image">
+                        </td>
+                        <td class="align-middle">{{$mk->makro_name}} </td>
+                        <td class="align-middle">{{$mk->makro_desc}} </td>
+                        
+                        <td class="align-middle">
+                            @if($mk->status == 'Pending') 
+                                <span class="badge badge-warning">{{$mk->status}}</span>
+                            @else
+                                <span class="badge badge-success">{{$mk->status}}</span>
+                            @endif
                         </td>
                         <td class="align-middle">
                             <div class="btn-group" role="group">

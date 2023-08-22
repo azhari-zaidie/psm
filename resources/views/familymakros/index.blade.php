@@ -3,10 +3,6 @@
 @section('title', 'Family Macro Management')
 
 @section('contents')
-<div class="d-flex align-items-center justify-content-between">
-    <a href="{{route('familymakros.create')}}" class="btn btn-primary">Add Family Macros</a>
-</div>
-<hr>
 
 @if(Session::has('success'))
 <div class="alert alert-success" role="alert">
@@ -14,28 +10,33 @@
 </div>
 @endif
 
+<hr>
+
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">List of Family Macros</h6>
-    </div>
+    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+         <h6 class="m-0 font-weight-bold text-primary">List of Family Macros</h6>
+         <a href="{{route('familymakros.create')}}" class="btn btn-primary">Add Family Macros</a>
+        </div>
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="3">
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>Image</th>
                         <th>Family Name</th>
                         <th>Desc</th>
-                        <th>Image</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th>#</th>
+                        <th>Image</th>
                         <th>Family Name</th>
                         <th>Desc</th>
-                        <th>Image</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>
@@ -44,10 +45,17 @@
                     @foreach($familymakros as $mk)
                     <tr>
                         <td class="align-middle">{{$loop->iteration}} </td>
+                        <td class="align-middle">
+                            <img src="{{ asset('assets/images/familymakro/'.$mk->family_image) }}" alt="job image" width="100" title="job image">
+                        </td>
                         <td class="align-middle">{{$mk->family_name}} </td>
                         <td class="align-middle">{{$mk->family_desc}} </td>
                         <td class="align-middle">
-                            <img src="{{ asset('assets/images/familymakro/'.$mk->family_image) }}" alt="job image" width="100" title="job image">
+                            @if($mk->status == 'Pending') 
+                                <span class="badge badge-warning">{{$mk->status}}</span>
+                            @else
+                                <span class="badge badge-success">{{$mk->status}}</span>
+                            @endif
                         </td>
                         <td class="align-middle">
                             <div class="btn-group" role="group">

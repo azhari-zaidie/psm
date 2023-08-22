@@ -204,23 +204,23 @@ class MakroController extends Controller
     {
         $makro = Makro::findOrFail($id);
 
-        $imageFeatureName = $makro->makro_image;
-        $featureData = explode('|', $makro->makro_features);
+        // $imageFeatureName = $makro->makro_image;
+        // $featureData = explode('|', $makro->makro_features);
 
-        foreach ($featureData as $data) {
-            $feature = json_decode($data, true);
-            $imagePath = public_path('assets/images/makro/' . $feature['feature_image']);
-            if (File::exists($imagePath)) {
-                File::delete($imagePath);
-            }
-        }
+        // foreach ($featureData as $data) {
+        //     $feature = json_decode($data, true);
+        //     $imagePath = public_path('assets/images/makro/' . $feature['feature_image']);
+        //     if (File::exists($imagePath)) {
+        //         File::delete($imagePath);
+        //     }
+        // }
 
-        if ($imageFeatureName) {
-            $imagePath = public_path('assets/images/makro/' . $imageFeatureName);
-            if (File::exists($imagePath)) {
-                File::delete($imagePath);
-            }
-        }
+        // if ($imageFeatureName) {
+        //     $imagePath = public_path('assets/images/makro/' . $imageFeatureName);
+        //     if (File::exists($imagePath)) {
+        //         File::delete($imagePath);
+        //     }
+        // }
 
         $makro->delete();
 

@@ -4,24 +4,26 @@
 
 @section('contents')
 
-<div class="d-flex align-items-center justify-content-between">
-    <a href="{{route('news.create')}}" class="btn btn-primary">Add News</a>
-</div>
 
-<hr>
+
 @if(Session::has('success'))
 <div class="alert alert-success" role="alert">
     {{Session::get('success')}}
 </div>
 @endif
+
+<hr>
 <div class="row">
     <div class="col-lg-6">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">List of News</h6>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#noticeModal">
+                <div>
+                <a href="{{route('news.create')}}" class="btn btn-primary">Add News</a>
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#noticeModal">
                     <i class="fas fa-info-circle" aria-hidden="true"></i>
                 </button>
+                </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -53,7 +55,14 @@
                                     <img src="{{ asset('assets/images/news/'.$mk->news_image) }}" alt="job image" width="100" title="job image">
                                 </td>
                                 <td class="align-middle">{{nl2br($mk->news_title, true)}} </td>
-                                <td class="align-middle">{{nl2br($mk->status, true)}} </td>
+                               
+                                <td class="align-middle">
+                                    @if($mk->status == 'Dont Display') 
+                                        <span class="badge badge-warning">{{$mk->status}}</span>
+                                    @else
+                                        <span class="badge badge-success">{{$mk->status}}</span>
+                                    @endif
+                                </td>
                                 <td class="align-middle">
                                     <div class="btn-group" role="group">
                                         <a href="{{route('news', ['news_id' => $mk->news_id])}}" type="button" class="btn btn-secondary btn-circle" title="Details"><i class="fas fa-book"></i></a>

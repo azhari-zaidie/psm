@@ -27,6 +27,9 @@
                     <label class="form-label">Created At</label>
                     <input type="text" name="created_at" class="form-control" placeholder="Created At" value="{{ $familymakros->created_at }}" readonly>
                     <br>
+                    <label class="form-label">Updated At</label>
+                    <input type="text" name="updated_at" class="form-control" placeholder="Created At" value="{{ $familymakros->updated_at }}" readonly>
+                    <br>
                     <label class="form-label">Status</label>
                     <input type="text" name="updated_at" class="form-control" placeholder="Updated At" value="{{ $familymakros->status }}" readonly>
                 </div>

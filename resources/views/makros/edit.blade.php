@@ -127,7 +127,6 @@
 
 <script>
     $(document).ready(function() {
-
         // Show the confirmation modal when the update button is clicked
         $('#updateBtn').click(function() {
             event.preventDefault();

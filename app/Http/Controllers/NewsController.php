@@ -111,13 +111,13 @@ class NewsController extends Controller
         //
 
         $news = News::findOrFail($id);
-        $imageFeatureName = $news->news_image;
-        if ($imageFeatureName) {
-            $imagePath = public_path('assets/images/news/' . $imageFeatureName);
-            if (File::exists($imagePath)) {
-                File::delete($imagePath);
-            }
-        }
+        // $imageFeatureName = $news->news_image;
+        // if ($imageFeatureName) {
+        //     $imagePath = public_path('assets/images/news/' . $imageFeatureName);
+        //     if (File::exists($imagePath)) {
+        //         File::delete($imagePath);
+        //     }
+        // }
 
 
         $news->delete();

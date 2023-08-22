@@ -132,14 +132,14 @@ class MakroFamilyController extends Controller
         //delete
         $familymakros = FamilyMakro::findOrFail($id);
 
-        $imageFeatureName = $familymakros->family_image;
+        // $imageFeatureName = $familymakros->family_image;
 
-        if ($imageFeatureName) {
-            $imagePath = public_path('assets/images/familymakro/' . $imageFeatureName);
-            if (File::exists($imagePath)) {
-                File::delete($imagePath);
-            }
-        }
+        // if ($imageFeatureName) {
+        //     $imagePath = public_path('assets/images/familymakro/' . $imageFeatureName);
+        //     if (File::exists($imagePath)) {
+        //         File::delete($imagePath);
+        //     }
+        // }
 
         $familymakros->delete();
 

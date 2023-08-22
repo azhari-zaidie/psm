@@ -16,7 +16,7 @@
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">List of Record</h6>
 
-                <a href="{{ route('pdf.full') }}" class="btn btn-info" target="_blank" class="href">Generate Report</a>
+                <a href="{{ route('pdf.full') }}" class="btn btn-secondary" target="_blank" class="href">Generate Report</a>
 
             </div>
             <div class="card-body">
