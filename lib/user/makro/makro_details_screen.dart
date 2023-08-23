@@ -373,7 +373,7 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
             ),
             Text(
               //API.hostImageMakro + widget.makroInfo!.makro_image!,
-              "Image by macroinvertebrates.org",
+              "Image by fkaab.student",
               textAlign: TextAlign.start,
               style: const TextStyle(
                 fontSize: 10,
@@ -479,6 +479,7 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
                 ],
               ),
             ),
+            const Divider(color: Colors.black),
 
             const SizedBox(
               height: 10,
@@ -488,7 +489,7 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
               widget.makroInfo!.makro_desc!,
               textAlign: TextAlign.justify,
               style: const TextStyle(
-                fontSize: 14,
+                fontSize: 16,
                 color: Colors.black,
               ),
             ),
@@ -516,7 +517,7 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
                 Text(
                   //API.hostImageMakro + widget.makroInfo!.makro_image!,
                   "${featureDetails["feature_name"]}",
-                  textAlign: TextAlign.start,
+                  textAlign: TextAlign.center,
                   style: const TextStyle(
                       fontSize: 20,
                       color: Colors.black,
@@ -561,7 +562,7 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
                 ),
                 Text(
                   //API.hostImageMakro + widget.makroInfo!.makro_image!,
-                  "Image by macroinvertebrates.org",
+                  "Image by fkaab.student",
                   textAlign: TextAlign.start,
                   style: const TextStyle(
                     fontSize: 10,

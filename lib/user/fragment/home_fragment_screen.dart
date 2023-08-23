@@ -247,7 +247,7 @@ class _HomeFragmentScreenState extends State<HomeFragmentScreen> {
                       ),
                     ],
                   ),
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.all(10.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

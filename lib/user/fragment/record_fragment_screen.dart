@@ -177,7 +177,7 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
       future: getCurrentRecordUser(),
       builder: (context, AsyncSnapshot<List<Record>> dataSnapShot) {
         if (dataSnapShot.connectionState == ConnectionState.waiting) {
-          return const Column(
+          return Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Center(
@@ -196,7 +196,7 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
         }
 
         if (dataSnapShot.data == null) {
-          return const Column(
+          return Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Center(
@@ -311,7 +311,7 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
             },
           );
         } else {
-          return const Column(
+          return Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Center(

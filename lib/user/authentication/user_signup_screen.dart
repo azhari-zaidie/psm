@@ -269,7 +269,7 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
                                     passwordLowercaseError:
                                         "at least one lowercase character",
                                     passWordSpecialCharacters:
-                                        "at least one Special Characters",
+                                        "at least one Special Characters !@#%^&*()",
                                     // validator: (value) {
                                     //   if (value!.isEmpty) {
                                     //     return "Please write password";
