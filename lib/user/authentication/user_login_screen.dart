@@ -97,11 +97,11 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                           Center(
                             child: Image.asset(
                               "images/logo5.png",
-                              width: 180,
+                              width: 300,
                             ),
                           ),
                           SizedBox(
-                            height: 5,
+                            height: 20,
                           ),
 
                           //welcome to text

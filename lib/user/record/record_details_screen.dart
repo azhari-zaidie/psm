@@ -56,6 +56,7 @@ class _RecordDetailsScreenState extends State<RecordDetailsScreen> {
           Expanded(
             flex: 2,
             child: Container(
+              padding: EdgeInsets.all(10),
               color: Color.fromARGB(255, 3, 218, 197),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

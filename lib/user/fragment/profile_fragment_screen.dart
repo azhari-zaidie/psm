@@ -88,7 +88,7 @@ class ProfileFragmentScreen extends StatelessWidget {
               height: 200,
               width: 400,
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 3, 218, 197),
+                color: Color.fromARGB(255, 250, 250, 250),
               ),
               child: Image.asset("images/logo5.png"),
             ),

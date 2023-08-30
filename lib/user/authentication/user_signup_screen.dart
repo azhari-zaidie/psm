@@ -129,8 +129,12 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
                           Center(
                             child: Image.asset(
                               "images/logo5.png",
-                              width: 180,
+                              width: 300,
                             ),
+                          ),
+
+                          SizedBox(
+                            height: 10,
                           ),
 
                           //welcome to text
