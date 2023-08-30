@@ -50,12 +50,35 @@
                         </td>
                         <td class="align-middle">{{$mk->family_name}} </td>
                         <td class="align-middle">{{$mk->family_desc}} </td>
+
                         <td class="align-middle">
-                            @if($mk->status == 'Pending') 
-                                <span class="badge badge-warning">{{$mk->status}}</span>
-                            @else
+                            @if($mk->status == 'Pending')
+                            <a href="#" data-toggle="modal" data-target="#statusChangeModal{{$mk->family_id}}">
+                                <span class="badge badge-warning">{{$mk->status}}</span></a>
+                                @else
                                 <span class="badge badge-success">{{$mk->status}}</span>
                             @endif
+                            
+                            <!-- Bootstrap Modal -->
+                            <div class="modal fade" id="statusChangeModal{{$mk->family_id}}" tabindex="-1" role="dialog" aria-labelledby="statusChangeModalLabel{{$mk->family_id}}" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="statusChangeModalLabel{{$mk->family_id}}">Change Status Confirmation</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure you want to change the current status <strong>{{$mk->status}}</strong>?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                            <a href="{{ route('familymakros.changeStatus', ['id' => $mk->family_id]) }}" class="btn btn-primary">Confirm</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                         <td class="align-middle">
                             <div class="btn-group" role="group">

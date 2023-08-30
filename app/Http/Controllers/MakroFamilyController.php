@@ -145,4 +145,14 @@ class MakroFamilyController extends Controller
 
         return redirect()->route('familymakros')->with('success', 'Family Macros deleted Successfully');
     }
+
+    function changeStatus(string $id) {
+        $familymakros = FamilyMakro::find($id);
+
+        $familymakros->status = "Verified";
+        $familymakros->save();
+
+        return redirect()->route('familymakros')->with('success', 'Family Macros Status Updated Successfully');
+
+    }
 }

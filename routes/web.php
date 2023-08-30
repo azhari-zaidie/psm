@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
         Route::get('edit/{id}', 'edit')->name('makros.edit');       //directed to the update page
         Route::put('edit/{id}', 'update')->name('makros.update');   //update function
         Route::delete('destroy/{id}', 'destroy')->name('makros.destroy');   //delete function
+        Route::get('changeStatus/{id}', 'changeStatus')->name('makros.changeStatus');   //change status function
     });
 
     Route::controller(MakroFamilyController::class)->prefix('familymakros')->group(function () {
@@ -61,6 +62,7 @@ Route::middleware('auth')->group(function () {
         Route::get('edit/{id}', 'edit')->name('familymakros.edit');
         Route::put('edit/{id}', 'update')->name('familymakros.update');
         Route::delete('destroy/{id}', 'destroy')->name('familymakros.destroy');
+        Route::get('changeStatus/{id}', 'changeStatus')->name('familymakros.changeStatus');   //change status function
     });
 
     Route::controller(NewsController::class)->prefix('news')->group(function () {

@@ -226,4 +226,14 @@ class MakroController extends Controller
 
         return redirect()->route('makros')->with('success', 'Macros deleted Successfully');
     }
+
+    function changeStatus(string $id) {
+        $makro = Makro::find($id);
+
+        $makro->status = "Verified";
+        $makro->save();
+
+        return redirect()->route('makros')->with('success', 'Macros Status Updated Successfully');
+
+    }
 }
