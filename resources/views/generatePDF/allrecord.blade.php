@@ -47,7 +47,7 @@
 <body>
     <div class="header">
         <div class="logo">
-            <img src="{{ public_path('/assets/images/UJiMakrologoo.png') }}" width="100" class="logo" alt="Logo">
+            <img src="{{ public_path('/assets/images/newlogo.png') }}" width="100" class="logo" alt="Logo">
         </div>
         <div class="info">
             <div style="text-align: left;">
