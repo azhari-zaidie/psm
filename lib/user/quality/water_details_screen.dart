@@ -4,6 +4,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:psm_v2/user/quality/water_quality_screen.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class LocationPage extends StatefulWidget {
   const LocationPage({Key? key}) : super(key: key);
@@ -16,6 +17,20 @@ class _LocationPageState extends State<LocationPage> {
   int currentStep = 0;
   String? _currentAddress;
   Position? _currentPosition;
+
+  YoutubePlayerController? _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = YoutubePlayerController(
+      initialVideoId: 'Or0ExPBgI2s',
+      flags: YoutubePlayerFlags(
+        autoPlay: true,
+        mute: true,
+      ),
+    );
+  }
 
   Future<bool> _handleLocationPermission() async {
     bool serviceEnabled;
@@ -112,7 +127,7 @@ class _LocationPageState extends State<LocationPage> {
             type: StepperType.horizontal,
             currentStep: currentStep,
             onStepContinue: () {
-              if (currentStep == 1) {
+              if (currentStep == 2) {
                 if (_currentPosition?.latitude == null ||
                     _currentPosition?.longitude == null ||
                     _currentAddress == null) {
@@ -124,7 +139,7 @@ class _LocationPageState extends State<LocationPage> {
                     currentLocation: _currentAddress,
                   ));
                 }
-              } else if (currentStep != 1) {
+              } else if (currentStep != 2) {
                 setState(() => currentStep++);
               }
             },
@@ -136,28 +151,177 @@ class _LocationPageState extends State<LocationPage> {
             steps: [
               Step(
                 isActive: currentStep >= 0,
-                title: Text('Information'),
-                content: Text(
-                  'Please be careful and always watch your step. Firstly, prepare the tools to collect the Macro. After the preparation is done. Click continue to proceed next step.',
-                  style: TextStyle(
-                    fontSize: 25,
-                  ),
-                  textAlign: TextAlign.justify,
-                ),
+                title: Text('Preparation'),
+                content: SingleChildScrollView(
+                    child: Column(
+                  children: [
+                    Text(
+                      "Persediaan Aktiviti Persampelan",
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Divider(
+                      thickness: 2,
+                    ),
+                    Text(
+                      "Sebelum memulakan aktiviti persampelan, alat pelindung diri seperti Wader, Sarung tangan dan Pelindung mata perlu dipakai.",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.justify,
+                    ),
+                    Divider(
+                      thickness: 2,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Perkara-perkara yang perlu diberi perhatian sebelum aktiviti persampelan: ",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "1. Elakkan melakukan aktiviti di mana dan apabila terdapat kemungkinan banjir kilat." +
+                          "\n2. Periksa apakah ada empangan di atas tapak persampelan." +
+                          "\n3. Ketahui di mana air dilepaskan." +
+                          "\n4. Hanya melakukan aktiviti di air cetek tanpa arus kuat atau batu licin.",
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                      textAlign: TextAlign.justify,
+                    ),
+                  ],
+                )),
               ),
               Step(
-                isActive: currentStep >= 1,
-                title: const Text('Set My Location'),
+                  isActive: currentStep >= 1,
+                  title: Text('Instruction'),
+                  content: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Text(
+                          "Langkah-langkah Persampelan Petunujuk Bio\n(MAKROINVERTEBRATA)",
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        Divider(
+                          thickness: 2,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "1. Mengisi air sungai ke dalam bekas yang disediakan di dalam kit." +
+                              "\n2. Dua kaedah untuk cari makroinvertebrata di dalam air:" +
+                              "\n\t\ti. Mengodak menggunakan kaki dan menangkan jaring. Mengeluarkan haiwan dari jaring dan meletakkannya di dalam bekas; atau" +
+                              "\n\t\tii. Menggunakan batu atau daun dan digocakkan di dalam bekas." +
+                              "\n3. Bagi memudahakn proses mengenal pasti makroinvertebrata, haiwan perlu dipindahkan ke piring petri dengan menggunakan sudu atau penitis. Satu jenis haiwan bagi satu piring petri." +
+                              "\n4. Meletakkan piring petri di atas permukaan yang cerah dan kenal pasti makroinvertebrata melalui kanta pembesar.",
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                          textAlign: TextAlign.justify,
+                        ),
+                        Divider(
+                          thickness: 2,
+                        ),
+                        Text(
+                          "Video Pembelajaran",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Divider(
+                          thickness: 0,
+                        ),
+                        YoutubePlayer(
+                          controller: _controller!,
+                          showVideoProgressIndicator: true,
+                          progressIndicatorColor: Colors.amber,
+                          progressColors: ProgressBarColors(
+                            playedColor: Colors.amber,
+                            handleColor: Colors.amberAccent,
+                          ),
+                          onReady: () {
+                            _controller!.addListener(() {});
+                          },
+                        ),
+                      ],
+                    ),
+                  )),
+              Step(
+                isActive: currentStep >= 2,
+                title: const Text('Location'),
                 content: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('LAT: ${_currentPosition?.latitude ?? ""}'),
-                    Text('LNG: ${_currentPosition?.longitude ?? ""}'),
-                    Text('ADDRESS: ${_currentAddress ?? ""}'),
+                    Text(
+                      "Dapatkan Lokasi Persampelan",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    Divider(
+                      thickness: 2,
+                    ),
+                    Text(
+                      'LATITUDE: ',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      "${_currentPosition?.latitude ?? ""}",
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(
+                      'LONGITUDE: ',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      "${_currentPosition?.longitude ?? ""}",
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(
+                      'ADDRESS: ',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      "${_currentAddress ?? ""}",
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
                     const SizedBox(height: 32),
                     ElevatedButton(
                       onPressed: _getCurrentPosition,
-                      child: const Text("Get Current Location"),
+                      child: const Text("Get Location"),
                     )
                   ],
                 ),
