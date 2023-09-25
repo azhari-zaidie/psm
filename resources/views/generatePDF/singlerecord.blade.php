@@ -87,10 +87,11 @@
             @foreach($makros as $r)
             <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>{{$r['makro_name']}}</td>
-                <td>{{$r['makro_mark']}}</td>
+                <td>{{$r->makro->makro_name}}</td>
+                <td>{{$r->makro->makro_mark}}</td>
+                
                 <td style="height: 50; ">
-                    <img src="{{ public_path('/assets/images/makro/' .$r['makro_image']) }}" width="50" height="50" class="logo" alt="Logo">
+                    <img src="{{ public_path('/assets/images/makro/' .$r->makro->makro_image) }}" width="50" height="50" class="logo" alt="Logo">
                 </td>
             </tr>
 

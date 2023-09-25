@@ -97,4 +97,9 @@ class ApiNewsController extends Controller
     {
         //
     }
+
+    public function sendVideo() {
+        return response()->file(public_path("/assets/video/news/manual"));
+
+    }
 }

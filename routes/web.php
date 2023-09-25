@@ -85,6 +85,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/singlereport/{id}', 'generateSinglePDF')->name('pdf.single');
         Route::get('/fullreport', 'generatePDF')->name('pdf.full');
         Route::delete('destroy/{id}', 'destroy')->name('records.destroy');
+
+        Route::get('show/{id}', 'show')->name('records.show');
+
+
+        Route::get('edit/{id}', 'edit')->name('records.edit');
+        Route::put('edit/{id}', 'update')->name('records.update');
     });
 
     //Route::get('/fullreport', [RecordController::class, 'generatePDF'])->name('generatepdf');

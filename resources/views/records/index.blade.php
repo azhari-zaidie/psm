@@ -10,7 +10,7 @@
 </div>
 @endif
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col">
         <!-- Basic Card Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -25,6 +25,7 @@
                         <tr class="text-center">
                             <th>#</th>
                             <th>User Name</th>
+                            <th>Location</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -32,6 +33,7 @@
                         <tr class="text-center">
                             <th>#</th>
                             <th>User Name</th>
+                            <th>Location</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
@@ -41,10 +43,12 @@
                         <tr class="text-center">
                             <td>{{$loop->iteration}} </td>
                             <td class="align-middle">{{$mk->User->user_name}} </td>
+                            <td class="align-middle">{{$mk->location}} </td>
                             <td>
                                 <div class="btn-group" role="group">
-                                    <a href="{{route('records', ['record_id' => $mk->record_id]) }}" type="button" class="btn btn-secondary btn-circle" title="Details"><i class="fas fa-book"></i></a>
-                                    <a href="{{route('pdf.single', ['id' => $mk->record_id]) }}" target="_blank" type="button" class="btn btn-info btn-circle" title="Report"><i class="fas fa-check"></i></a>
+                                    <a href="{{route('records.show', ['id' => $mk->record_id]) }}" type="button" class="btn btn-secondary btn-circle" title="Details"><i class="fas fa-book"></i></a>
+                                    <a href="{{route('pdf.single', ['id' => $mk->record_id]) }}"  type="button" class="btn btn-info btn-circle" title="Update"><i class="fas fa-edit"></i></a>
+                                    {{-- <a href="{{route('pdf.single', ['id' => $mk->record_id]) }}" target="_blank" type="button" class="btn btn-info btn-circle" title="Report"><i class="fas fa-check"></i></a> --}}
                                     <!-- <button type="button" class="btn btn-danger btn-circle p-0 delete-btn" data-product-id="{{ $mk->makro_id }}"><i class="fas fa-trash"></i></button> -->
                                     <form id="deleteForm" action="{{route('records.destroy', ['id' => $mk->record_id])}}" method="POST" type="button" class="btn btn-danger btn-circle p-0" onclick="return confirm('Are you sure?')">
                                         @csrf
@@ -65,6 +69,7 @@
             </div>
         </div>
     </div>
+{{--     
     <div class="col-lg-6">
 
         <!-- Collapsable Card Example -->
@@ -149,6 +154,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
 @endsection

@@ -39,6 +39,8 @@ class DashboardController extends Controller
 
         //$selected_makro = json_decode($records->selected_makro);
         //dd($records->selected_makro);
+
+
         $makros = [];
         foreach ($records as $r) {
             $selected_makro = explode('|', $r->selected_makro);
@@ -51,17 +53,17 @@ class DashboardController extends Controller
         }
         //$makroId = [];
         $count = [];
-        foreach ($makros as $m) {
-            //dd($makros);
-            $makroId = $m['makro_name'];
+        // foreach ($makros as $m) {
+        //     //dd($makros);
+        //     $makroId = $m['makro_name'];
 
-            if (!isset($count[$makroId])) {
-                $count[$makroId] = 0;
-            }
+        //     if (!isset($count[$makroId])) {
+        //         $count[$makroId] = 0;
+        //     }
 
-            $count[$makroId]++;
-            // dd($makroId);
-        }
+        //     $count[$makroId]++;
+        //     // dd($makroId);
+        // }
 
         // $labels = $recordsChart->pluck('user_name')->toArray();
         //$values = $recordsChart->pluck('total_record')->toArray();

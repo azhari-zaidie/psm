@@ -40,7 +40,7 @@
                     <div class="col mb-3" align="center">
                         <label for="family_makro_id">Macro Image</label>
                         <br>
-                        <img src="{{ asset('assets/images/makro/'.$makro->makro_image) }}" alt="job image" width="150" title="job image"><br>
+                        <img src="{{ asset('assets/images/makro/'.$makro->makro_id.'/'.$makro->makro_image) }}" alt="job image" width="150" title="job image"><br>
                         <input type="file" name="makro_image" class="form-control">
 
                     </div>
@@ -80,15 +80,17 @@
                         <div class="col mb-3" align="center">
                             <label class="form-label">Feature Image</label><br>
 
-                            <img src="{{ asset('assets/images/makro/' . $feature['feature_image']) }}" width="100" alt="Feature Image">
+                            <img src="{{ asset('assets/images/makro/' . $makro->makro_id . '/features/' . $feature['feature_image']) }}" width="100" alt="Feature Image">
                             <br>
                             <!-- Button to update new image -->
                             <input type="file" name="makro[{{$index}}][current_feature_image]" class="form-control">
                         </div>
                     </div>
+                    <input type="text" class="form-control" placeholder="Feature Name" name="makro[{{$index}}][feature_id]" value="{{ $feature->id }}" hidden>
+
 
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="makro[{{$index}}][current_feature_delete]" value="makro[{{$loop->iteration}}][feature_name]">
+                        <input class="form-check-input" type="checkbox" name="makro[{{$index}}][current_feature_delete]" value="1">
                         <label class="form-check-label" style="color: black;">Delete this feature</label>
                     </div>
                     <hr>

@@ -32,7 +32,7 @@
                     <div class="col mb-3" align="center">
                         <label for="family_makro_id">Family Macro Image</label>
                         <br>
-                        <img src="{{ asset('assets/images/familymakro/'.$familymakros->family_image) }}" alt="job image" width="150" title="job image"><br>
+                        <img src="{{ asset('assets/images/familymakro/'.$familymakros->family_id.'/'.$familymakros->family_image) }}" alt="job image" width="150" title="job image"><br>
                         <input type="file" name="family_image" class="form-control">
                     </div>
                 </div>

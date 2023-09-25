@@ -20,6 +20,7 @@ class Makro extends Model
         'makro_mark',
         'makro_features',
         'status',
+        'url',
     ];
 
     public function familymakros()
@@ -30,5 +31,15 @@ class Makro extends Model
     public function favorites()
     {
         return $this->belongsTo(Favorite::class);
+    }
+
+    public function recordItems()
+    {
+        return $this->hasMany(RecordItem::class);
+    }
+
+    public function makroFeatures()
+    {
+        return $this->hasMany(MakroFeature::class);
     }
 }

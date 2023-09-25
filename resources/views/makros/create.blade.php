@@ -77,11 +77,11 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="d-grid">
-            <button type="submit" class="btn btn-primary mr-1">Submit</button>
-        </div>
+    <div class="col">
+        <button type="submit" class="btn btn-primary">Submit</button>
     </div>
+
+    <br>
 </form>
 
 <script>

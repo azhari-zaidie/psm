@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 class FamilyMakro extends Model
 {
     use HasFactory, SoftDeletes;
@@ -16,6 +17,7 @@ class FamilyMakro extends Model
         'family_desc',
         'family_image',
         'status',
+        'url',
     ];
 
     public function makros()

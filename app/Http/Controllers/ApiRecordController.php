@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MakroFeature;
 use App\Models\Record;
+use App\Models\RecordItems;
 use Illuminate\Http\Request;
 
 class ApiRecordController extends Controller
@@ -41,8 +43,9 @@ class ApiRecordController extends Controller
             'longitude' => 'required|numeric',
         ]);
 
+        //dd($request->all());
+
         $record = Record::create([
-            'selected_makro' => $request->selected_makro,
             'user_id' => $request->user_id,
             'record_average' => $request->record_average,
             'location' => $request->location,
@@ -51,9 +54,27 @@ class ApiRecordController extends Controller
             'record_desc' => $request->record_desc,
         ]);
 
+        $selected_makro = explode('|', $request->selected_makro);
+
+        foreach ($selected_makro as $data) {
+            $makro = json_decode($data, true);
+            $makros[] = $makro;
+            //dd($makro);
+        }
+
+        foreach ($makros as $itm) {
+            $recordItems = RecordItems::create([
+                'record_id' => $record->record_id,
+                'makro_id' => $itm['makro_id'],
+            ]);
+        }
+        //dd($makroFeature);
+
         return response()->json([
             'success' => true,
             'data' => $record,
+            'makro' => $makro,
+            'record' => $recordItems
         ]);
     }
     /**
@@ -68,6 +89,8 @@ class ApiRecordController extends Controller
             ->orderByDesc('created_at')
             ->get();
 
+        //$makro $record->recordItems->makro;
+
         if (!$record) {
             return response()->json([
                 'success' => false,
@@ -78,6 +101,18 @@ class ApiRecordController extends Controller
         return response()->json([
             'success' => true,
             'recordData' => $record,
+        ]);
+    }
+
+    public function showItems($id)
+    {
+        $recordItems = RecordItems::where('record_id', $id)
+            ->with('makro')
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'recordItems' => $recordItems
         ]);
     }
 
@@ -102,5 +137,23 @@ class ApiRecordController extends Controller
     public function destroy($id)
     {
         //
+
+        $record = Record::where('record_id', $id)->first();
+
+        //dd($record);
+        $recordItems = $record->recordItems;
+
+        //dd($recordItems);
+
+        foreach ($recordItems as $itm) {
+            $itm->delete();
+        }
+
+        $record->delete();
+        //$recordItems->delete();
+
+        return response()->json([
+            'success' => true,
+        ]);
     }
 }

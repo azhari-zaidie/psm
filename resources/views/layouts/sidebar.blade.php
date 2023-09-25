@@ -17,12 +17,12 @@
             <span>Dashboard</span></a>
     </li>
     <!-- Nav Item - Profile -->
-    <!-- <li class="{{request()->is('profile') ? 'nav-item active' : 'nav-item'}}">
+    {{-- <li class="{{request()->is('profile') ? 'nav-item active' : 'nav-item'}}">
         <a class="nav-link" href="/profile">
             <i class="fas fa-fw fa-users"></i>
             <span>Profile</span>
         </a>
-    </li> -->
+    </li> --}}
 
     <!-- Divider -->
     <hr class="sidebar-divider">

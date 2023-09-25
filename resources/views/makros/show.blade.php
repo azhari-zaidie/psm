@@ -48,7 +48,7 @@
 
                 <div class="col mb-3" align="center">
                     <br>
-                    <img src="{{ asset('assets/images/makro/'.$makro->makro_image) }}" alt="job image" width="200" title="job image">
+                    <img src="{{ asset('assets/images/makro/'.$makro->makro_id.'/'.$makro->makro_image) }}" alt="job image" width="200" title="job image">
                 </div>
 
 
@@ -85,7 +85,7 @@
                     </div>
                     <div class="col mb-3" align="center">
                         <label class="form-label">Feature Image</label><br>
-                        <img src="{{ asset('assets/images/makro/' . $feature['feature_image']) }}" width="100" alt="Feature Image">
+                        <img src="{{ asset('assets/images/makro/' .$makro->makro_id . '/features/'. $feature['feature_image']) }}" width="100" alt="Feature Image">
                     </div>
                 </div>
                 <hr>

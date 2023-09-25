@@ -46,9 +46,12 @@ Route::get('/makro/details/{makro_id}', [ApiMakroController::class, 'showDetails
 Route::post('/makro', [ApiMakroController::class, 'store']);
 Route::get('/makro/image/{imagePath}', [ApiMakroController::class, 'sendImage']);
 Route::post('/makro/search', [ApiMakroController::class, 'search']);
+Route::get('/makro/detailsFeature/{makro_id}', [ApiMakroController::class, 'showFeatureDetails']);
+
 
 Route::get('records', [ApiRecordController::class, 'index']);
 Route::get('records/{id}', [ApiRecordController::class, 'show']);
+Route::get('records/items/{id}', [ApiRecordController::class, 'showItems']);
 Route::post('records', [ApiRecordController::class, 'store']);
 Route::put('records/{id}', [ApiRecordController::class, 'update']);
 Route::delete('records/{id}', [ApiRecordController::class, 'destroy']);

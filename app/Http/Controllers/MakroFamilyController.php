@@ -6,6 +6,7 @@ use App\Models\FamilyMakro;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class MakroFamilyController extends Controller
 {
@@ -49,15 +50,37 @@ class MakroFamilyController extends Controller
         ]);
 
         $imageName = time() . '.' . $request->family_image->extension();
-        $request->file('family_image')->move(public_path('assets/images/familymakro'), $imageName);
+        //$request->file('family_image')->move(public_path('assets/images/familymakro'), $imageName);
 
-        FamilyMakro::create([
+
+        $FamilyMakro = FamilyMakro::create([
             'family_scientific_name' => $request->family_scientific_name,
             'family_name' => $request->family_name,
             'family_desc' => $request->family_desc,
             'family_image' => $imageName,
             'status' => "Pending",
         ]);
+
+        $folderName = $FamilyMakro->family_id;
+        $folderPath = 'assets/images/familymakro/' . $folderName;
+
+        //dd(Storage::exists($folderPath));
+
+        if (!Storage::disk('public')->exists($folderPath)) {
+            Storage::disk('public')->makeDirectory($folderPath);
+        }
+
+        $familyMakroImage = $request->file('family_image');
+
+        if ($familyMakroImage) {
+            // Store the image in the folder
+            $imagePath = $familyMakroImage->storeAs($folderPath, $imageName, 'public');
+
+            $FamilyMakro->update([
+                'url' => $imagePath,
+            ]);
+        }
+
 
         return redirect()->route('familymakros')->with('success', 'Family Macros added successfully');
     }
@@ -105,16 +128,44 @@ class MakroFamilyController extends Controller
 
         $familymakros = FamilyMakro::findOrFail($id);
 
+        $oldImageName = $familymakros->family_image;
+
+        $folderName = $familymakros->family_id;
+
+        $folderPathMakro = 'assets/images/familymakro/' . $folderName;
+
         if ($request->hasFile('family_image')) {
-            $family_image = time() . '.' . $request->family_image->extension();
-            $request->file('family_image')->move(public_path('assets/images/familymakro'), $family_image);
+            //$currImage = $request->hasFile('family_image');
+
+            $family_image = time() . '_' . $folderName . '.' . $request->family_image->extension();
+            //$request->file('family_image')->move(public_path('assets/images/familymakro'), $family_image);
+
+            $oldImageExtension = pathinfo($oldImageName, PATHINFO_EXTENSION);
+
+            $oldImageNameWithOld = pathinfo($oldImageName, PATHINFO_FILENAME) . '_old.' . $oldImageExtension;
+
+            $oldImagePath = $folderPathMakro . '/' . $oldImageName;
+            $newImagePath = $folderPathMakro . '/' . $oldImageNameWithOld;
+
+            //dd($oldImagePath);
+
+            // Rename the old image file
+            if (Storage::disk('public')->exists($oldImagePath)) {
+                Storage::disk('public')->move($oldImagePath, $newImagePath);
+                // /dd("test");
+            }
+
+            $imagePath = $request->family_image->storeAs($folderPathMakro, $family_image, 'public');
+
 
             $familymakros->family_image = $family_image;
+            $familymakros->url = $imagePath;
         }
         $familymakros->family_scientific_name = $request->family_scientific_name;
         $familymakros->family_name = $request->family_name;
         $familymakros->status = $request->status;
         $familymakros->family_desc = $request->family_desc;
+
 
         $familymakros->save();
 
@@ -146,13 +197,13 @@ class MakroFamilyController extends Controller
         return redirect()->route('familymakros')->with('success', 'Family Macros deleted Successfully');
     }
 
-    function changeStatus(string $id) {
+    function changeStatus(string $id)
+    {
         $familymakros = FamilyMakro::find($id);
 
         $familymakros->status = "Verified";
         $familymakros->save();
 
         return redirect()->route('familymakros')->with('success', 'Family Macros Status Updated Successfully');
-
     }
 }

@@ -46,7 +46,7 @@
                     <tr>
                         <td class="align-middle">{{$loop->iteration}} </td>
                         <td class="align-middle">
-                            <img src="{{ asset('assets/images/familymakro/'.$mk->family_image) }}" alt="job image" width="100" title="job image">
+                            <img src="{{ asset('assets/images/familymakro/'.$mk->family_id.'/'.$mk->family_image) }}" alt="job image" width="100" title="job image">
                         </td>
                         <td class="align-middle">{{$mk->family_name}} </td>
                         <td class="align-middle">{{$mk->family_desc}} </td>

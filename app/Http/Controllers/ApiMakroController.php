@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Makro;
+use App\Models\MakroFeature;
 use Illuminate\Http\Request;
 
 class ApiMakroController extends Controller
@@ -39,10 +40,22 @@ class ApiMakroController extends Controller
         // Retrieve the food record with the given food_id
         $makro = Makro::where('status', 'Verified')->find($makro_id);
 
+        $makroFeature = MakroFeature::where('makro_id', $makro_id)->get();
+
         // Return a response with the retrieved record
         return response()->json([
             'success' => true,
             'makroDetailsData' => $makro,
+            'makroFeatureData' => $makroFeature,
+        ]);
+    }
+
+    public function showFeatureDetails($makro_id)
+    {
+        $makroFeature = MakroFeature::where('makro_id', $makro_id)->get();
+        return response()->json([
+            'success' => true,
+            'makroDetailsData' => $makroFeature,
         ]);
     }
 

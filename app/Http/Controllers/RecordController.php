@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Record;
+use App\Models\Makro;
+use App\Models\MakroFeature;
+use App\Models\RecordItems;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
@@ -20,21 +23,25 @@ class RecordController extends Controller
 
         $records = Record::orderBy('created_at', 'DESC')->get();
 
-        $record_id = $request->query('record_id');
-        $selectedRecord = [];
-        $makros = [];
-        if (isset($record_id)) {
-            $selectedRecord = Record::findOrFail($record_id);
+        // $makros = [];
+        // $selectedRecord = [];
 
-            $selected_makro = explode('|', $selectedRecord->selected_makro);
+        // $record_id = $request->query('record_id');
+        // if (isset($record_id)) {
+        //     $selectedRecord = Record::findOrFail($record_id);
 
-            foreach ($selected_makro as $data) {
-                $makro = json_decode($data, true);
-                $makros[] = $makro;
-                //dd($makros);
-            }
-        }
-        return view('records.index', compact('records', 'makros', 'selectedRecord'));
+        //     // $selected_makro = explode('|', $selectedRecord->selected_makro);
+
+        //     // foreach ($selected_makro as $data) {
+        //     //     $makro = json_decode($data, true);
+        //     //     $makros[] = $makro;
+        //     //     //dd($makros);
+        //     // }
+
+        //     $recordItem = RecordItems::where('record_id', $record_id)->get();
+        //     //dd($recordItem);
+        // }
+        return view('records.index', compact('records'));
     }
 
 
@@ -58,19 +65,23 @@ class RecordController extends Controller
     public function generateSinglePDF($id)
     {
         # code...
-        $makros = [];
-        $selectedRecord = Record::findOrFail($id);
+        //$recordItem = RecordItems::where('record_id', $id)->get();
 
-        $selected_makro = explode('|', $selectedRecord->selected_makro);
+        $records = Record::where('record_id', $id)->first();
+        //dd($records->recordItems);
+        // $makros = [];
+        // $selectedRecord = Record::findOrFail($id);
 
-        foreach ($selected_makro as $data) {
-            $makro = json_decode($data, true);
-            $makros[] = $makro;
-            //dd($makros);
-        }
+        // $selected_makro = explode('|', $selectedRecord->selected_makro);
+
+        // foreach ($selected_makro as $data) {
+        //     $makro = json_decode($data, true);
+        //     $makros[] = $makro;
+        //     //dd($makros);
+        // }
         $data = [
-            'records' => $selectedRecord,
-            'makros' => $makros,
+            'records' => $records,
+            'makros' => $records->recordItems,
         ];
         //dd($makros);
         $filename = 'my_pdf_' . time() . '.pdf';
@@ -111,6 +122,40 @@ class RecordController extends Controller
     public function show($id)
     {
         //
+        $record = Record::where('record_id', $id)->first();
+        //dd($record);
+
+        if ($record) {
+
+            $water_status = "";
+
+            if ($record->record_average >= 7.6 && $record->record_average <= 10) {
+                $water_status = "Very Clean";
+            } else if ($record->record_average >= 5.1 && $record->record_average <= 7.59) {
+                $water_status = "Almost Clean";
+            } else if ($record->record_average >= 2.6 && $record->record_average <= 5.09) {
+                $water_status = "Almost Dirty";
+            } else if ($record->record_average >= 1.0 && $record->record_average <= 2.59) {
+                $water_status = "Dirty";
+            } else if ($record->record_average >= 0 && $record->record_average <= 0.9) {
+                $water_status = "Very Dirty";
+            } else {
+                $water_status = "Invalid Score";
+            }
+
+            $recordItems = RecordItems::where('record_id', $id)->get();
+
+            // $makros = collect(); // Create an empty collection to store macros
+
+            // dd($recordItems);
+            // foreach ($recordItems as $recordItem) {
+            //     $makros = $makros->merge($recordItem->makro);
+            // }
+
+
+            //dd($makros);
+        }
+        return view('records.show', compact('record', 'recordItems', 'water_status'));
     }
 
     /**

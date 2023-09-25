@@ -36,7 +36,7 @@
 
                 <div class="col mb-3" align="center">
                     <br>
-                    <img src="{{ asset('assets/images/familymakro/'.$familymakros->family_image) }}" alt="job image" width="200" title="job image">
+                    <img src="{{ asset('assets/images/familymakro/'.$familymakros->family_id.'/'.$familymakros->family_image) }}" alt="job image" width="200" title="job image">
                 </div>
 
 
