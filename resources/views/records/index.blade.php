@@ -47,7 +47,7 @@
                             <td>
                                 <div class="btn-group" role="group">
                                     <a href="{{route('records.show', ['id' => $mk->record_id]) }}" type="button" class="btn btn-secondary btn-circle" title="Details"><i class="fas fa-book"></i></a>
-                                    <a href="{{route('pdf.single', ['id' => $mk->record_id]) }}"  type="button" class="btn btn-info btn-circle" title="Update"><i class="fas fa-edit"></i></a>
+                                    <a href="{{route('pdf.single', ['id' => $mk->record_id]) }}"  type="button" class="btn btn-info btn-circle" title="Report"><i class="fas fa-print"></i></a>
                                     {{-- <a href="{{route('pdf.single', ['id' => $mk->record_id]) }}" target="_blank" type="button" class="btn btn-info btn-circle" title="Report"><i class="fas fa-check"></i></a> --}}
                                     <!-- <button type="button" class="btn btn-danger btn-circle p-0 delete-btn" data-product-id="{{ $mk->makro_id }}"><i class="fas fa-trash"></i></button> -->
                                     <form id="deleteForm" action="{{route('records.destroy', ['id' => $mk->record_id])}}" method="POST" type="button" class="btn btn-danger btn-circle p-0" onclick="return confirm('Are you sure?')">

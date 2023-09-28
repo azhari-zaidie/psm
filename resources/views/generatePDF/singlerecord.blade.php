@@ -91,7 +91,7 @@
                 <td>{{$r->makro->makro_mark}}</td>
                 
                 <td style="height: 50; ">
-                    <img src="{{ public_path('/assets/images/makro/' .$r->makro->makro_image) }}" width="50" height="50" class="logo" alt="Logo">
+                    <img src="{{ public_path('/assets/images/makro/' .$r->makro->makro_id .'/'. $r->makro->makro_image) }}" width="50" height="50" class="logo" alt="Logo">
                 </td>
             </tr>
 
