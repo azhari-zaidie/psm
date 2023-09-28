@@ -22,6 +22,6 @@ class FamilyMakro extends Model
 
     public function makros()
     {
-        return $this->hasMany(Makro::class);
+        return $this->hasMany(Makro::class, 'family_id', 'family_id');
     }
 }

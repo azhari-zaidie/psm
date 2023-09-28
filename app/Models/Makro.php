@@ -35,11 +35,11 @@ class Makro extends Model
 
     public function recordItems()
     {
-        return $this->hasMany(RecordItem::class);
+        return $this->hasMany(RecordItems::class, 'makro_id', 'makro_id');
     }
 
     public function makroFeatures()
     {
-        return $this->hasMany(MakroFeature::class);
+        return $this->hasMany(MakroFeature::class,  'makro_id', 'makro_id');
     }
 }

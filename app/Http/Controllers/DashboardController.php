@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Makro;
 use App\Models\Record;
 use App\Models\FamilyMakro;
+use App\Models\RecordItems;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -36,6 +37,21 @@ class DashboardController extends Controller
         $values = $recordsChart->pluck('total_record')->toArray();
 
         $selectedMakroCount = [];
+
+        $count = DB::select("select r.makro_id as makro_id, count(r.makro_id) as total from record_items as r , makros as m where r.makro_id = m.makro_id group by r.makro_id");
+
+        foreach ($count as $a) {
+            $makro_name = Makro::select('makro_name')->where('makro_id', $a->makro_id)->first();
+            $makro_id[] = $makro_name->makro_name;
+            $total[] = $a->total;
+        }
+
+        //cordItems::withCount('makro')->get();
+
+        // foreach ($makros1 as $mk) {
+        //     $count = $mk->makro_count;
+        //     echo "Count of makro_id $mk->makro_id: $count <br>";
+        // }
 
         //$selected_makro = json_decode($records->selected_makro);
         //dd($records->selected_makro);
@@ -73,7 +89,7 @@ class DashboardController extends Controller
         //     echo "Count of makro_id $makroId: $count" . PHP_EOL;
         // }
 
-        return view('dashboard', compact('usersCount', 'recordsCount', 'makroCount', 'familyMakroCount', 'makroCountVerified', 'labels', 'values', 'count'));
+        return view('dashboard', compact('usersCount', 'recordsCount', 'makroCount', 'familyMakroCount', 'makroCountVerified', 'labels', 'values', 'count', 'total', 'makro_id'));
     }
 
     /**

@@ -154,19 +154,22 @@
         }
     });
 
-    const counts = <?php echo json_encode($count); ?>;
-    var label = Object.keys(counts);
-    var value = Object.values(counts);
+     const counts = <?php echo json_encode($makro_id); ?>;
+    // var label = Object.keys(counts);
+    // var value = Object.values(counts);
+
+    var labels =<?php echo json_encode($makro_id); ?>;
+    var values = <?php echo json_encode($total); ?>;
 
     // Create the chart
     const ctxPie = document.getElementById('myChart').getContext('2d');
     const chartPie = new Chart(ctxPie, {
-        type: 'bar',
+        type: 'line',
         data: {
-            labels: label,
+            labels: labels,
             datasets: [{
                 label: 'Total Macro',
-                data: value,
+                data: values,
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1

@@ -118,9 +118,9 @@ class ApiMakroController extends Controller
 
         $makros = Makro::where('status', 'Verified')
             ->where(function ($query) use ($typedKeyWords) {
-                $query->where('makro_name', 'LIKE', '%' . $typedKeyWords . '%')
-                    ->orWhere('makro_desc', 'LIKE', '%' . $typedKeyWords . '%')
-                    ->orWhere('makro_features', 'LIKE', '%' . $typedKeyWords . '%');
+                $query->where('makro_name', 'LIKE', '%' . $typedKeyWords . '%');
+                //->orWhere('makro_desc', 'LIKE', '%' . $typedKeyWords . '%')
+                // ->orWhere('makro_features', 'LIKE', '%' . $typedKeyWords . '%');
             })
             ->get();
         return response()->json([
