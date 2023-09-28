@@ -89,15 +89,11 @@
 
 
 <div class="row">
-    <div class="col">
-
-        <!-- Collapsable Card Example -->
+    <div class="col-lg-6">
         <div class="card shadow mb-4">
-            <!-- Card Header - Accordion -->
             <a href="#collapseCardExample1" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample1">
                 <h6 class="m-0 font-weight-bold text-primary">Total Sample</h6>
             </a>
-            <!-- Card Content - Collapse -->
             <div class="collapse show" id="collapseCardExample1">
                 <div class="card-body">
                     <canvas id="histogramChart"></canvas>
@@ -106,20 +102,12 @@
         </div>
     </div>
 
-
-</div>
-
-<div class="row">
-    <div class="col">
-
-        <!-- Collapsable Card Example -->
+    <div class="col-lg-6">
         <div class="card shadow mb-4">
-            <!-- Card Header - Accordion -->
-            <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+            <a href="#collapseCardExample2" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample2">
                 <h6 class="m-0 font-weight-bold text-primary">Total Macro</h6>
             </a>
-            <!-- Card Content - Collapse -->
-            <div class="collapse show" id="collapseCardExample">
+            <div class="collapse show" id="collapseCardExample2">
                 <div class="card-body">
                     <canvas id="myChart"></canvas>
                 </div>
@@ -127,6 +115,8 @@
         </div>
     </div>
 </div>
+
+
 <script>
     var labels = <?php echo json_encode($labels); ?>;
     var values = <?php echo json_encode($values); ?>;
