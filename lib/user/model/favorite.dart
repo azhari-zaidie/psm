@@ -7,7 +7,7 @@ class Favorite {
   String? makro_image;
   int? family_id;
   int? makro_mark;
-  String? makro_features;
+  String? url;
 
   Favorite({
     this.favorite_id,
@@ -18,7 +18,7 @@ class Favorite {
     this.makro_image,
     this.family_id,
     this.makro_mark,
-    this.makro_features,
+    this.url,
   });
 
   factory Favorite.fromJson(Map<String, dynamic> json) => Favorite(
@@ -30,6 +30,6 @@ class Favorite {
         makro_image: json["makro_image"],
         family_id: json["family_id"],
         makro_mark: json['makro_mark'],
-        makro_features: json['makro_features'],
+        url: json['url'],
       );
 }

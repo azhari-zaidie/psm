@@ -316,8 +316,7 @@ class _LearningFragmentScreenState extends State<LearningFragmentScreen> {
                               const AssetImage("images/profile_icon.png"),
                           //image: AssetImage("images/place_holder.png"),
                           image: NetworkImage(
-                            APILARAVEL.readFamilyMakroImage +
-                                eachFamilyFound.family_image!,
+                            APILARAVEL.hostConnectImage + eachFamilyFound.url!,
                           ),
                           imageErrorBuilder: (context, error, stackTraceError) {
                             return const Center(

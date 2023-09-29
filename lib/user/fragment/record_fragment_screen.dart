@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 //import 'package:psm_v2/api_connection/api_connection.dart';
@@ -25,6 +26,33 @@ class RecordFragmentScreen extends StatefulWidget {
 class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
   CurrentUser currentUser = Get.put(CurrentUser());
 
+  getDeleteRecord(int record_id) async {
+    try {
+      var res = await http.delete(
+        Uri.parse(
+          APILARAVEL.deleteRecord + record_id.toString(),
+        ),
+        headers: {
+          'Content-type': 'application/json',
+        },
+      );
+      if (res.statusCode == 200) {
+        var responseBodyOfDeleteRecord = jsonDecode(res.body);
+        if (responseBodyOfDeleteRecord["success"] == true) {
+          Fluttertoast.showToast(msg: "Record delete successfully");
+          _pullRefresh();
+          displayRecordList(context);
+        } else {
+          print("res");
+        }
+      } else {
+        print("object");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Future<List<Record>> getCurrentRecordUser() async {
     List<Record> currentRecordUser = [];
 
@@ -46,7 +74,7 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
               .forEach((eachCurrentRecordUser) {
             currentRecordUser.add(Record.fromJson(eachCurrentRecordUser));
           });
-          //print(jsonDecode(res.body));
+          print(currentRecordUser);
         }
       } else {
         print(res.statusCode);
@@ -85,7 +113,7 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
                       borderRadius: BorderRadius.circular(20)),
                   title: const Text('Hint'),
                   content: const Text(
-                      'This is record screen that will display all the record that already submitted. Click `+` if want to add new record.'),
+                      'This is record screen that will display all the record that already submitted. Click `+` if want to add new record.\n\nTo delete the record, Hold the selected record and click `Delete`'),
                   actions: [
                     TextButton(
                       onPressed: () {
@@ -226,84 +254,126 @@ class _RecordFragmentScreenState extends State<RecordFragmentScreen> {
                 thickness: 1,
               );
             },
-            itemCount: recordList.length,
-            itemBuilder: (context, index) {
+            itemCount: dataSnapShot.data!.length,
+            itemBuilder: (BuildContext context, index) {
               Record eachRecordData = recordList[index];
 
-              return Card(
-                color: Color.fromARGB(255, 3, 218, 197),
-                child: Padding(
-                  padding: const EdgeInsets.all(18),
-                  child: ListTile(
-                    onTap: () {
-                      //record details screen
-                      Get.to(() => RecordDetailsScreen(
-                            clickedRecordInfo: eachRecordData,
-                          ));
-                    },
-                    title: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Total Average: ${eachRecordData.record_average}",
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
+              return GestureDetector(
+                onLongPress: () async {
+                  // Show a delete confirmation dialog
+                  var responseOfDeleteRecord = await Get.dialog(
+                    AlertDialog(
+                      title: Text("Delete Record"),
+                      content: Text(
+                        "Are you sure you want to delete this record?" +
+                            "\nThis action cannot be undone" +
+                            "\n" +
+                            DateFormat("dd MMMM, yyyy")
+                                .format(eachRecordData.created_at!) +
+                            "-" +
+                            DateFormat("hh:mm a")
+                                .format(eachRecordData.created_at!.toLocal()),
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            Get.back(); // Close the dialog
+                          },
+                          child: Text("Cancel"),
                         ),
-                        Text(
-                          "Location: ${eachRecordData.location}",
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        TextButton(
+                          onPressed: () {
+                            // Delete the record here
+                            // After deleting, you can update the UI or navigate as needed
+                            Get.back(result: "yesContinue"); // Close the dialog
+                          },
+                          child: Text("Delete"),
                         ),
                       ],
                     ),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        //date
-                        //time
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            //date
-                            Text(
-                              DateFormat("dd MMMM, yyyy")
-                                  .format(eachRecordData.created_at!),
-                              style: const TextStyle(
-                                color: Colors.black,
+                  );
+
+                  if (responseOfDeleteRecord == "yesContinue") {
+                    // Delete the record here
+
+                    getDeleteRecord(eachRecordData.record_id!);
+                  }
+                },
+                child: Card(
+                  color: Color.fromARGB(255, 3, 218, 197),
+                  child: Padding(
+                    padding: const EdgeInsets.all(18),
+                    child: ListTile(
+                      onTap: () {
+                        //record details screen
+                        Get.to(() => RecordDetailsScreen(
+                              clickedRecordInfo: eachRecordData,
+                            ));
+                      },
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Total Average: ${eachRecordData.record_average}",
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            "Location: ${eachRecordData.location}",
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          //date
+                          //time
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              //date
+                              Text(
+                                DateFormat("dd MMMM, yyyy")
+                                    .format(eachRecordData.created_at!),
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                ),
                               ),
-                            ),
 
-                            const SizedBox(
-                              height: 4,
-                            ),
-
-                            //time
-                            Text(
-                              DateFormat("hh:mm a")
-                                  .format(eachRecordData.created_at!.toLocal()),
-                              style: const TextStyle(
-                                color: Colors.black,
+                              const SizedBox(
+                                height: 4,
                               ),
-                            ),
-                          ],
-                        ),
 
-                        const SizedBox(
-                          width: 6,
-                        ),
+                              //time
+                              Text(
+                                DateFormat("hh:mm a").format(
+                                    eachRecordData.created_at!.toLocal()),
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
+                          ),
 
-                        const Icon(
-                          Icons.navigate_next,
-                          color: Colors.black,
-                        ),
-                      ],
+                          const SizedBox(
+                            width: 6,
+                          ),
+
+                          const Icon(
+                            Icons.navigate_next,
+                            color: Colors.black,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

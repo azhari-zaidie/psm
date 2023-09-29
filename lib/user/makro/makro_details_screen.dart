@@ -126,8 +126,9 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
     }
   }
 
-  Future<List<Makro>> getMakroDetails() async {
-    List<Makro> detailsMakro = [];
+  Future<List<MakroFeature>> getMakroDetails() async {
+    //List<Makro> detailsMakro = [];
+    List<MakroFeature> detailsFeatureMakro = [];
 
     try {
       var res = await http.get(
@@ -145,10 +146,13 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
       if (res.statusCode == 200) {
         var responseOfDetailsMakro = jsonDecode(res.body);
         if (responseOfDetailsMakro["success"] == true) {
-          (responseOfDetailsMakro["makroDetailsData"] as List)
-              .forEach((eachDetailsMakro) {
-            detailsMakro.add(Makro.fromJson(eachDetailsMakro));
+          (responseOfDetailsMakro["makroFeatureData"] as List)
+              .forEach((eachDetailsFeatyreMakro) {
+            detailsFeatureMakro
+                .add(MakroFeature.fromJson(eachDetailsFeatyreMakro));
           });
+
+          print("object");
         }
       } else {
         print(res.request);
@@ -157,7 +161,7 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
       print("Errors :: $e");
     }
 
-    return detailsMakro;
+    return detailsFeatureMakro;
   }
 
   @override
@@ -357,8 +361,7 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
                     placeholder: const AssetImage("images/profile_icon.png"),
                     //image: AssetImage("images/place_holder.png"),
                     image: NetworkImage(
-                      APILARAVEL.readMakroImage +
-                          widget.makroInfo!.makro_image!,
+                      APILARAVEL.hostConnectImage + widget.makroInfo!.url!,
                     ),
                     imageErrorBuilder: (context, error, stackTraceError) {
                       return const Center(
@@ -500,97 +503,123 @@ class _MakroDetailsScreenState extends State<MakroDetailsScreen> {
   }
 
   Widget featuresList(context) {
-    List<String> featuresMakro = widget.makroInfo!.makro_features!.split("|");
+    //List<String> featuresMakro = widget.makroInfo!.makro_features!.split("|");
 
-    return ListView.builder(
-      itemCount: featuresMakro.length,
-      itemBuilder: (BuildContext context, index) {
-        Map<String?, dynamic> featureDetails = jsonDecode(featuresMakro[index]);
+    return FutureBuilder(
+      future: getMakroDetails(),
+      builder: (context, AsyncSnapshot<List<MakroFeature>> dataSnapShot) {
+        if (dataSnapShot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
 
-        return SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.all(15),
-            decoration: const BoxDecoration(color: Colors.white12),
-            child: Column(
-              children: [
-                //feature name
-                Text(
-                  //API.hostImageMakro + widget.makroInfo!.makro_image!,
-                  "${featureDetails["feature_name"]}",
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  decoration: const BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: Colors.grey,
-                        width: 1.0,
+        if (dataSnapShot.data == null) {
+          return const Center(
+              child: Text(
+            "No features found",
+          ));
+        }
+
+        if (dataSnapShot.data!.length > 0) {
+          return ListView.builder(
+            itemCount: dataSnapShot.data!.length,
+            itemBuilder: (context, index) {
+              MakroFeature eachMakroFeature = dataSnapShot.data![index];
+
+              return SingleChildScrollView(
+                child: Container(
+                  padding: const EdgeInsets.all(15),
+                  decoration: const BoxDecoration(color: Colors.white12),
+                  child: Column(
+                    children: [
+                      //feature name
+                      Text(
+                        //API.hostImageMakro + widget.makroInfo!.makro_image!,
+                        eachMakroFeature.featureName!,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
                       ),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ClipRRect(
-                      child: FadeInImage(
-                        height: 150,
-                        width: 200,
-                        fit: BoxFit.cover,
-                        placeholder:
-                            const AssetImage("images/profile_icon.png"),
-                        //image: AssetImage("images/place_holder.png"),
-                        image: NetworkImage(
-                          APILARAVEL.readMakroImage +
-                              featureDetails["feature_image"],
-                        ),
-                        imageErrorBuilder: (context, error, stackTraceError) {
-                          return const Center(
-                            child: Icon(
-                              Icons.broken_image_outlined,
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: Colors.grey,
+                              width: 1.0,
                             ),
-                          );
-                        },
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ClipRRect(
+                            child: FadeInImage(
+                              height: 150,
+                              width: 200,
+                              fit: BoxFit.cover,
+                              placeholder:
+                                  const AssetImage("images/profile_icon.png"),
+                              //image: AssetImage("images/place_holder.png"),
+                              image: NetworkImage(
+                                APILARAVEL.hostConnectImage +
+                                    eachMakroFeature.url!,
+                              ),
+                              imageErrorBuilder:
+                                  (context, error, stackTraceError) {
+                                return const Center(
+                                  child: Icon(
+                                    Icons.broken_image_outlined,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-                Text(
-                  //API.hostImageMakro + widget.makroInfo!.makro_image!,
-                  "Image by fkaab.student",
-                  textAlign: TextAlign.start,
-                  style: const TextStyle(
-                    fontSize: 10,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
+                      Text(
+                        //API.hostImageMakro + widget.makroInfo!.makro_image!,
+                        "Image by fkaab.student",
+                        textAlign: TextAlign.start,
+                        style: const TextStyle(
+                          fontSize: 10,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
 
-                Text(
-                  featureDetails["feature_desc"],
-                  textAlign: TextAlign.justify,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    color: Colors.black,
+                      Text(
+                        eachMakroFeature.featureDesc!,
+                        textAlign: TextAlign.justify,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          color: Colors.black,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Divider(color: Colors.black),
+                    ],
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Divider(color: Colors.black),
-              ],
-            ),
-          ),
-        );
+              );
+            },
+          );
+        } else {
+          return const Center(
+              child: Text(
+            "No features found",
+          ));
+        }
       },
     );
   }

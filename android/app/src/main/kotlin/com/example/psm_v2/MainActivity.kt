@@ -1,4 +1,4 @@
-package com.example.psm_v2
+package com.uthm.android.ujimakro
 
 import io.flutter.embedding.android.FlutterActivity
 

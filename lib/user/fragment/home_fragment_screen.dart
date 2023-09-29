@@ -2,7 +2,7 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:math';
+//import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 //import 'package:psm_v2/api_connection/api_connection.dart';
@@ -12,7 +12,7 @@ import 'package:psm_v2/user/makro/search_makro_screen.dart';
 import 'package:psm_v2/user/model/makro.dart';
 import 'package:psm_v2/user/model/news.dart';
 import 'package:psm_v2/user/quality/water_details_screen.dart';
-import 'package:psm_v2/user/userPreferences/current_user.dart';
+//import 'package:psm_v2/user/userPreferences/current_user.dart';
 import 'package:http/http.dart' as http;
 
 class HomeFragmentScreen extends StatefulWidget {
@@ -24,7 +24,7 @@ class HomeFragmentScreen extends StatefulWidget {
 
 class _HomeFragmentScreenState extends State<HomeFragmentScreen> {
   TextEditingController searchController = TextEditingController();
-  final CurrentUser _currentUser = Get.put(CurrentUser());
+  //final CurrentUser _currentUser = Get.put(CurrentUser());
   // int _currentPage = 0;
   // Timer? _timer;
   // PageController _pageController = PageController(
@@ -455,7 +455,7 @@ class _HomeFragmentScreenState extends State<HomeFragmentScreen> {
                     showNewsPopup(context, eachNewsRecord);
                   },
                   child: Container(
-                    width: 200,
+                    width: 250,
                     margin: EdgeInsets.fromLTRB(index == 0 ? 16 : 8, 10,
                         index == dataSnapShot.data!.length - 1 ? 16 : 8, 10),
                     decoration: BoxDecoration(
@@ -479,7 +479,7 @@ class _HomeFragmentScreenState extends State<HomeFragmentScreen> {
                           ),
                           child: FadeInImage(
                             height: 100,
-                            width: 200,
+                            width: 250,
                             fit: BoxFit.cover,
                             placeholder:
                                 const AssetImage("images/place_holder.png"),
@@ -657,10 +657,8 @@ class _HomeFragmentScreenState extends State<HomeFragmentScreen> {
                           placeholder:
                               const AssetImage("images/profile_icon.png"),
                           //image: AssetImage("images/place_holder.png"),
-                          image: NetworkImage(
-                            APILARAVEL.readMakroImage +
-                                eachMakroDetails.makro_image!,
-                          ),
+                          image: NetworkImage(APILARAVEL.hostConnectImage +
+                              eachMakroDetails.url!),
                           imageErrorBuilder: (context, error, stackTraceError) {
                             return const Center(
                               child: Icon(

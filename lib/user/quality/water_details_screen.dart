@@ -26,8 +26,8 @@ class _LocationPageState extends State<LocationPage> {
     _controller = YoutubePlayerController(
       initialVideoId: 'Or0ExPBgI2s',
       flags: YoutubePlayerFlags(
-        autoPlay: true,
-        mute: true,
+        autoPlay: false,
+        mute: false,
       ),
     );
   }

@@ -82,12 +82,15 @@ class _WaterQualityScreenState extends State<WaterQualityScreen> {
             "makro_name": element.makro_name,
             "makro_mark": element.makro_mark,
             "makro_image": element.makro_image,
+            "url": element.url,
           };
 
           selectedMakroListInformation.add(makroInformation);
         }
       });
     }
+
+    print(selectedMakroListInformation);
     return selectedMakroListInformation;
   }
 
@@ -176,8 +179,8 @@ class _WaterQualityScreenState extends State<WaterQualityScreen> {
                                         decoration: BoxDecoration(
                                           image: DecorationImage(
                                             image: NetworkImage(
-                                                APILARAVEL.readMakroImage +
-                                                    makroModel.makro_image!),
+                                                APILARAVEL.hostConnectImage +
+                                                    makroModel.url!),
                                             fit: BoxFit.fill,
                                           ),
                                         ),
@@ -223,8 +226,8 @@ class _WaterQualityScreenState extends State<WaterQualityScreen> {
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
                                     image: NetworkImage(
-                                        APILARAVEL.readMakroImage +
-                                            makroModel.makro_image!),
+                                        APILARAVEL.hostConnectImage +
+                                            makroModel.url!),
                                     fit: BoxFit.cover,
                                   ),
                                 ),

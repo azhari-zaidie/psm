@@ -9,6 +9,7 @@ class Makro {
   int? makro_mark;
   String? makro_features;
   String? status;
+  String? url;
 
   Makro({
     this.makro_id,
@@ -19,6 +20,7 @@ class Makro {
     this.makro_mark,
     this.makro_features,
     this.status,
+    this.url,
   });
 
   factory Makro.fromJson(Map<String, dynamic> json) => Makro(
@@ -30,6 +32,34 @@ class Makro {
         makro_mark: json["makro_mark"],
         makro_features: json["makro_features"],
         status: json["status"],
+        url: json["url"],
+      );
+}
+
+class MakroFeature {
+  int? id;
+  int? makroId;
+  String? featureName;
+  String? featureDesc;
+  String? featureImage;
+  String? url;
+
+  MakroFeature({
+    this.id,
+    this.makroId,
+    this.featureName,
+    this.featureDesc,
+    this.featureImage,
+    this.url,
+  });
+
+  factory MakroFeature.fromJson(Map<String, dynamic> json) => MakroFeature(
+        id: json["id"],
+        makroId: json["makro_id"],
+        featureName: json["feature_name"],
+        featureDesc: json["feature_desc"],
+        featureImage: json["feature_image"],
+        url: json["url"],
       );
 }
 
@@ -40,6 +70,7 @@ class FamilyMakro {
   String? family_image;
   String? status;
   String? family_scientific_name;
+  String? url;
 
   FamilyMakro({
     this.family_id,
@@ -48,6 +79,7 @@ class FamilyMakro {
     this.family_image,
     this.status,
     this.family_scientific_name,
+    this.url,
   });
 
   factory FamilyMakro.fromJson(Map<String, dynamic> json) => FamilyMakro(
@@ -57,5 +89,6 @@ class FamilyMakro {
         family_image: json["family_image"],
         status: json["status"],
         family_scientific_name: json["family_scientific_name"],
+        url: json["url"],
       );
 }

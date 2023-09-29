@@ -83,17 +83,21 @@ class RecordNowScreen extends StatelessWidget {
         var responseBodyOfAddNewRecord = jsonDecode(res.body);
 
         if (responseBodyOfAddNewRecord["success"] == true) {
-          Fluttertoast.showToast(msg: "Success");
+          Fluttertoast.showToast(
+              msg:
+                  "New Record Succesfully Added. Go to Records Module to see it");
           print(
             descController.text,
           );
+          print(responseBodyOfAddNewRecord["makro"]);
           Get.to(DasboardFragmentScreen());
         } else {
           print("Error ::");
         }
       } else {
-        print(jsonEncode(selectedMakroString));
-        //print(json.encode(data));
+        //print(jsonEncode(selectedMakroString));
+        //print(json.encode(data));4
+        print(res.statusCode);
       }
     } catch (e) {
       print("Error :: $e");
@@ -182,8 +186,7 @@ class RecordNowScreen extends StatelessWidget {
                   child: ListTile(
                     leading: CircleAvatar(
                       backgroundImage: NetworkImage(
-                        APILARAVEL.readMakroImage +
-                            eachSelectedMakro["makro_image"],
+                        APILARAVEL.hostConnectImage + eachSelectedMakro["url"],
                       ),
                     ),
                     title: Text(

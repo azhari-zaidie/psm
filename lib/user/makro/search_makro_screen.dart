@@ -244,8 +244,7 @@ class _SearchItemsState extends State<SearchItems> {
                           placeholder:
                               const AssetImage("images/place_holder.png"),
                           image: NetworkImage(
-                            APILARAVEL.readMakroImage +
-                                eachMakroDetails.makro_image!,
+                            APILARAVEL.hostConnectImage + eachMakroDetails.url!,
                           ),
                           imageErrorBuilder: (context, error, stackTraceError) {
                             return const Center(

@@ -1,5 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:psm_v2/user/model/makro.dart';
+
 class Record {
   int? record_id;
   String? selected_makro;
@@ -43,5 +45,32 @@ class Record {
         "latitude": latitude!.toString(),
         "longitude": longitude!.toString(),
         "record_desc": record_desc,
+      };
+}
+
+class RecordItems {
+  int? recordId;
+  int? makroId;
+  int? id;
+  Makro? makro;
+
+  RecordItems({
+    this.recordId,
+    this.makroId,
+    this.id,
+    this.makro,
+  });
+
+  factory RecordItems.fromJson(Map<String, dynamic> json) => RecordItems(
+        recordId: json["record_id"],
+        makroId: json["makro_id"],
+        id: json["id"],
+        makro: Makro.fromJson(json['makro']),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "record_id": recordId,
+        "makro_id": makroId,
+        "id": id,
       };
 }

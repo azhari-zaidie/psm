@@ -33,7 +33,7 @@ class AboutUsScreen extends StatelessWidget {
             ),
             SizedBox(height: 8.0),
             Text(
-              'UjiMakro is an application developed by Azhari for the final year project at UTHM. The app aims to provide a user-friendly and efficient solution for macroinvertebrate testing and analysis.',
+              'UjiMakro is an application developed by Final Year Student at UTHM. The app aims to provide a user-friendly and efficient solution for macroinvertebrate testing and analysis.',
               style: TextStyle(fontSize: 16.0),
             ),
             SizedBox(height: 16.0),
@@ -48,12 +48,12 @@ class AboutUsScreen extends StatelessWidget {
             ),
             SizedBox(height: 16.0),
             Text(
-              'Supervisor:',
+              'Contribution:',
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 8.0),
             Text(
-              'The project was supervised by Puan Hanayanti, who provided valuable guidance and support throughout the development process.',
+              'FKAAB UTHM, Final Year Student FSKTM, Student FKAAB.',
               style: TextStyle(fontSize: 16.0),
             ),
             SizedBox(height: 16.0),

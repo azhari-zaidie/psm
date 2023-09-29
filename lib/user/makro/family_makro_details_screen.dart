@@ -229,8 +229,7 @@ class _FamilyMakroDetailsScreenState extends State<FamilyMakroDetailsScreen> {
                     placeholder: const AssetImage("images/profile_icon.png"),
                     //image: AssetImage("images/place_holder.png"),
                     image: NetworkImage(
-                      APILARAVEL.readFamilyMakroImage +
-                          widget.familyInfo!.family_image!,
+                      APILARAVEL.hostConnectImage + widget.familyInfo!.url!,
                     ),
                     imageErrorBuilder: (context, error, stackTraceError) {
                       return const Center(
@@ -398,8 +397,8 @@ class _FamilyMakroDetailsScreenState extends State<FamilyMakroDetailsScreen> {
                                     const AssetImage("images/place_holder.png"),
                                 //image: AssetImage("images/place_holder.png"),
                                 image: NetworkImage(
-                                  APILARAVEL.readMakroImage +
-                                      eachFamilyFound.makro_image!,
+                                  APILARAVEL.hostConnectImage +
+                                      eachFamilyFound.url!,
                                 ),
                                 imageErrorBuilder:
                                     (context, error, stackTraceError) {

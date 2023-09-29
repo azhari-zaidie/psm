@@ -44,6 +44,7 @@ class _FavoriteFragmentScreenState extends State<FavoriteFragmentScreen> {
             currentUserFavorite
                 .add(Favorite.fromJson(eachCurrentUserFavoriteItem));
           });
+          print(APILARAVEL.readFavorite + _currentUser.user.user_id.toString());
         } else {
           print("sini");
         }
@@ -142,7 +143,7 @@ class _FavoriteFragmentScreenState extends State<FavoriteFragmentScreen> {
                 makro_image: eachFavoriteFound.makro_image,
                 family_id: eachFavoriteFound.family_id,
                 makro_mark: eachFavoriteFound.makro_mark,
-                makro_features: eachFavoriteFound.makro_features,
+                url: eachFavoriteFound.url,
               );
               return Container(
                 margin: EdgeInsets.fromLTRB(
@@ -234,8 +235,8 @@ class _FavoriteFragmentScreenState extends State<FavoriteFragmentScreen> {
                                   const AssetImage("images/profile_icon.png"),
                               //image: AssetImage("images/place_holder.png"),
                               image: NetworkImage(
-                                APILARAVEL.readMakroImage +
-                                    eachFavoriteFound.makro_image!,
+                                APILARAVEL.hostConnectImage +
+                                    eachMakroDetails.url!,
                               ),
                               imageErrorBuilder:
                                   (context, error, stackTraceError) {
