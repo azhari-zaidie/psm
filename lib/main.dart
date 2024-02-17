@@ -32,9 +32,7 @@ class MyApp extends StatefulWidget {
   @override
   State<MyApp> createState() => _MyAppState();
 }
-// arb-dir: lib/l10n
-// template-arb-file: app_en.arb
-// output-localization-file: app_localizations.dart
+
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
@@ -77,7 +75,7 @@ class _MyAppState extends State<MyApp> {
                   child: widget!
                 );
               },
-              home: HomeScreen(),
+              home: HomePage(),
             ),
           );
         },
