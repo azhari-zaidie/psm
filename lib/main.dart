@@ -12,22 +12,29 @@ import 'package:psm_v2/ui/home.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart'; 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  GetPref getPref = GetPref();
+
+  String? storedLocale = await getPref.readSecureData('language_code');
+  Locale initialLocale = storedLocale != null ? Locale(storedLocale) : Locale('en');
+
   if (!kIsWeb) {
-    WidgetsFlutterBinding.ensureInitialized();
 
     ByteData data = await PlatformAssetBundle().load('assets/ca/lets-encrypt-r3.pem');
     SecurityContext.defaultContext.setTrustedCertificatesBytes(data.buffer.asUint8List());
-
     // AppLanguage
 
     //IOS
     // Platform.isIOS || Platform.isAndroid ? await FlutterDownloader.initialize(debug: true, ignoreSsl: true) : null; 
   }
-  runApp(const MyApp());
+  runApp(MyApp(initialLocale: initialLocale));
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  final Locale initialLocale;
+
+  const MyApp({Key? key, required this.initialLocale}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -38,7 +45,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     //wrap with bloc provider for main
     return BlocProvider(
-      create: (context) => LanguageBloc(GetPref()), //passing get pref as arg
+      create: (context) => LanguageBloc(widget.initialLocale, GetPref()), //passing get pref as arg
       child: BlocBuilder<LanguageBloc, LanguageState>(
         builder: (context, state){
           return ScreenUtilInit(
